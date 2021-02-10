@@ -1,0 +1,18 @@
+.c-button{
+    height: 22px;
+    width: fit-content;
+    background-color: c('upper-blue');
+    padding: 15px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    margin: 0 20px;
+    border-radius: 7px;
+    color: c('white');
+    transition-duration: 0.3s;
+    text-align: center;
+}
+
+.c-button:hover{
+    background-color: c('dark-blue');
+}

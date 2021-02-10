@@ -1,0 +1,36 @@
+{
+    "language": "Idioma",
+    "back": "Tornar",
+    "submit": "Enviar",
+    "message": "Escriu el teu missatge",
+    "home": {
+        "login": "Entra amb Google"
+    },
+    "header": {
+        "history": "Historia",
+        "instructions": "Instruccions",
+        "contact": "Contacte",
+        "login": "Iniciar sessió",
+        "logout": "Tancar la sessió"
+    },
+    "languages": {
+        "cat": "CAT",
+        "es": "ES",
+        "en": "EN"
+    },
+    "modal": {
+        "title": "Un exemple de modal",
+        "p1": "Continua programant ;)"
+    },
+    "room": {
+        "title": "Sala",
+        "start": "Començar la partida",
+        "ready": "Llest",
+        "noReady": "No llest",
+        "imReady": "Estic llest",
+        "notReady": "No estic llest"
+    },
+    "warnings": {
+        "roomNotReady": "Espera fins que tots els participants estiguin llestos"
+    }
+}

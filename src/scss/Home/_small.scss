@@ -1,0 +1,120 @@
+.c-home{
+    height: 100vh;
+    background-color: c('white');
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    &--logo{
+        width: 30%;
+    }
+    &--runes{
+        position: absolute;
+        width: 40%;
+    }
+    img{
+        -webkit-animation-duration: 1s;
+        animation-duration: 1s;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+        margin-top: 50px;
+        z-index: 1;
+    }
+    .fadeOut {
+        -webkit-animation-name: fadeOut;
+        animation-name: fadeOut;
+    }
+    .fadeIn {
+        -webkit-animation-name: fadeIn;
+        animation-name: fadeIn;
+        animation-fill-mode: both;
+    }
+    .rotate {
+        -webkit-animation-name: rotate;
+        animation-name: rotate;
+        -webkit-animation: rotate 12s linear infinite;
+        animation: rotate 12s linear infinite;
+
+    }
+    &--presentation {
+        position: absolute;
+        color: white;
+        text-align: center;
+        -webkit-animation-duration: 2s;
+        animation-duration: 2s;
+        -webkit-animation-fill-mode: forwards;
+        animation-fill-mode: forwards;
+        -webkit-animation-delay: 1s;
+        animation-delay: 1s;
+        opacity: 0;
+        margin-top: 45vh;
+        z-index: 2;
+        span{
+            font-family: 'Pieces of Eight';
+            font-size: 20px;
+        }
+    }
+    &--background-container{
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100vh; 
+        overflow: hidden;
+    }
+}
+.background-video{
+    position: absolute;
+    width: auto;
+    height: auto;
+    min-width: 100%; 
+    min-height: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.overflowHidden{
+    overflow: hidden;
+}
+
+.notDisplay {
+    display: none;
+}
+
+@-webkit-keyframes fadeOut {
+    0% {opacity: 1;}
+    100% {opacity: 0;} 
+}
+@keyframes fadeOut {
+    0% {opacity: 1;}
+    100% {opacity: 0;} 
+}
+
+@-webkit-keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;} 
+}
+@keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;} 
+}
+
+@-webkit-keyframes rotate {
+    0% {transform: rotate(0deg);}
+    100% {transform: rotate(360deg);} 
+}
+
+@keyframes rotate {
+    0% {transform: rotate(0deg);}
+    100% {transform: rotate(360deg);} 
+}
+
+@include medium {
+    @import'medium';
+}
+@include large {
+    @import'large';
+}

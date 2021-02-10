@@ -1,0 +1,27 @@
+//Breakpoints sizes
+$small: 320px;
+$medium: 768px;
+$large: 1024px;
+
+//Breakpoints
+$small-up: "only screen and (min-width:#{$small})";
+$medium-up: "only screen and (min-width:#{$medium})";
+$large-up: "only screen and (min-width:#{$large})";
+
+//Mixins MediaQueries
+@mixin small {
+    @media #{$small-up}{
+       @content;
+   }
+}
+@mixin medium {
+	 @media #{$medium-up}{
+		@content;
+	}
+}
+@mixin large {
+	 @media #{$large-up}{
+		@content;
+	}
+}
+

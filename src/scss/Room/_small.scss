@@ -1,0 +1,102 @@
+.c-room{
+    height: 100vh;
+    background-color: c('bright-blue');
+    display: flex;
+    flex-direction: column;
+    padding: 0 40px;
+    overflow: hidden;
+    position: relative;
+    font-family: 'Pieces of Eight';
+    &--title{
+        margin-top: 70px;
+        text-align: center;
+        font-size: 32px;
+        text-decoration: underline;
+    }
+    &--top{
+        display: flex;
+        justify-content: space-around;
+        height: 100%;
+        width: 100%;
+        margin-top: 15px;
+    }
+    &--game{
+        height: 70%;
+        width: 43%;
+    }
+    &--players{
+        background-color: c('medium-blue');
+        width: calc(100%-30px);
+        height: 75%;
+        padding: 15px;
+        margin-bottom: 25px;
+        border-radius: 5px;
+    }
+    &--chat-box{
+        background-color: c('medium-blue');
+        height: 70%;
+        width: 45%;
+        padding: 15px;
+        border-radius: 5px;
+    }
+    &--chat{
+        background-color: c('more-bright-blue');
+        width: calc(100% - 30px);
+        border-radius: 10px;
+        height: 75%;
+        padding: 15px;
+        overflow: auto;
+        p{
+            font-size: 20px;
+        }
+    }
+    &--buttons{
+        display: flex;
+        justify-content: center;
+    }
+}
+
+.send-button{
+    height: 50px;
+    width: fit-content;
+    background-color: c('upper-blue');
+    padding: 15px;
+    font-size: 16px;
+    font-family: 'Pieces of Eight';
+    display: flex;
+    align-items: center;
+    margin: 0 10px 0 15px;
+    border-radius: 7px;
+    color: c('white');
+    border: none;
+    transition-duration: 0.3s;
+}
+
+.send-button:hover{
+    background-color: c('dark-blue');
+}
+
+.c-form{
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    input{
+        background: c('light-gray');
+        height: 38px;
+        padding: 0 10px;
+        border: none;
+        border-radius: 5px;
+        width: 100%;
+    }
+}
+
+.Toastify__toast-container{
+    width: 420px !important;
+}
+
+.Toastify__toast{
+    font-family: 'Pieces of Eight' !important;
+    font-size: 24px;
+    text-align: center;
+    line-height: 22px
+}

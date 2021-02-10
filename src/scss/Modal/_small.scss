@@ -1,0 +1,136 @@
+.c-modal-background {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+    position: fixed;
+    top: 0px;
+    z-index: 8;
+}
+.c-modal {
+    background-color: c('white');
+    width: 70vw;
+    height: 70vh;
+    position: fixed;
+    left: calc(15vw - 20px);
+    top: 15vh;
+    z-index: 9;
+    padding: 20px;
+    &--content{
+        padding-right: 10px;
+        overflow: auto;
+        height: calc(70vh - 80px );
+    }
+    &--cross{
+        width: 30px;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+    }
+}
+
+.c-cmodal {
+    background-color: c('light-gray');
+    width: 70vw;
+    height: 80vh;
+    position: fixed;
+    left: calc(15vw - 20px);
+    top: 80px;
+    z-index: 9;
+    padding: 20px;
+    &--special{
+        background-color: c('light-gray');
+        width: 60vw;
+        position: fixed;
+        left: calc(20vw - 20px);
+        top: 90px;
+        z-index: 9;
+        padding: 20px;
+    }
+    &--content{
+        padding-right: 10px;
+        overflow: auto;
+        height: calc(70vh - 80px );
+    }
+    &--video{
+        margin-top: 35px;
+        width: 100%;
+    }
+    &--cross{
+        width: 30px;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        z-index: 10;
+        background-color: rgba(255,255,255,0.5);
+        border-radius: 50%;
+    }
+    &--cross:hover{
+        background-color: rgba(255,255,255,0.8);
+    }
+    &-background {
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.4);
+        position: fixed;
+        top: 0px;
+        z-index: 8;
+    }
+    &--gallery{
+        width: 100%;
+        .image-gallery-image{
+            height: 70vh;
+            object-fit: cover !important;
+        }
+        .image-gallery{
+            height: 80vh;
+        }
+        .image-gallery-thumbnail-image{
+            height: 10vh;
+            object-fit: cover;
+        }
+    }
+    .owl-item{
+        background-color: c('rustop');
+        height: 80%;
+        .item{
+            height: calc(90vh - 125px);
+            img{
+            object-fit: cover;
+            height: 100%;
+            }
+        }
+    }
+    .owl-theme{
+        margin-top: 30px;
+    }
+    .owl-nav{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        position: absolute;
+        margin-top: 3px !important;
+        button{
+            width: 34px;
+            height: 34px;
+            span{
+                font-size: 28px;
+            }
+        }
+    }
+    .owl-dots{
+        position: absolute;
+        margin-top: 15px;
+        width: 50%;
+        left: 25%;
+        height: 10%;
+    }
+}
+
+
+  
+  @include medium {
+      @import'medium';
+  }
+  @include large {
+      @import'large';
+  }

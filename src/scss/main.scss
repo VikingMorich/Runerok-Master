@@ -1,0 +1,13 @@
+//Config
+@import "config/mixins";
+@import "config/breakpoints";
+@import "config/variables";
+
+//Modules
+@import "Header/small";
+@import "Home/small";
+@import "Dice/small";
+@import "Modal/small";
+@import "Room/small";
+@import "Button/small";
+@import "RoomPlayer/small";
