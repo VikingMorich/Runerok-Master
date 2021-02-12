@@ -22,8 +22,10 @@ const GoogleBtn = (props)  => {
 
   const logout=()=>{
     setLogined(false)
-    removePlayerDB(cookies.get('key'))
     cookies.remove('login', { path: '/' });
+    cookies.remove('userName', { path: '/' });
+    cookies.remove('img', { path: '/' });
+    removePlayerDB(cookies.get('key'))
     cookies.remove('key', { path: '/' });
     window.location.href = '/'
   }
