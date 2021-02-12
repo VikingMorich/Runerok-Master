@@ -10,7 +10,7 @@ const GoogleBtn = (props)  => {
   const [isLogined, setLogined] = useState(cookies.get('login') || false)
   const [t] = useTranslation("global")
 
-  const responseGoogle=(response) =>{
+  function responseGoogle(response) {
     console.log(response)
     cookies.set('login', true, { path: '/' });
     setLogined(true)
@@ -20,7 +20,7 @@ const GoogleBtn = (props)  => {
     addPlayerDB(response.profileObj.name, response.profileObj.imageUrl)
   }
 
-  const logout=()=>{
+  function logout() {
     setLogined(false)
     cookies.remove('login', { path: '/' });
     cookies.remove('userName', { path: '/' });
