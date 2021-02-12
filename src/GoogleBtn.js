@@ -4,13 +4,13 @@ import { useTranslation } from "react-i18next"
 import Cookies from 'universal-cookie';
 import fire from './fire'
 
-const GoogleBtn = (props)  => {
+export default function GoogleBtn (props) {
   let cookies = new Cookies();
   const CLIENT_ID = '479271330060-9gkueoldtkd68lpd5hkgl42buj3mgj0h.apps.googleusercontent.com';
   const [isLogined, setLogined] = useState(cookies.get('login') || false)
   const [t] = useTranslation("global")
 
-  function responseGoogle(response) {
+  const responseGoogle = (response) => {
     console.log(response)
     cookies.set('login', true, { path: '/' });
     setLogined(true)
@@ -20,7 +20,7 @@ const GoogleBtn = (props)  => {
     addPlayerDB(response.profileObj.name, response.profileObj.imageUrl)
   }
 
-  function logout() {
+  const logout = () => {
     setLogined(false)
     cookies.remove('login', { path: '/' });
     cookies.remove('userName', { path: '/' });
@@ -58,7 +58,7 @@ const GoogleBtn = (props)  => {
             clientId={CLIENT_ID}
             onLogoutSuccess={logout}
             render={renderProps => (
-              <div className="c-header-mobile--option" onClick={renderProps.onClick} disabled={renderProps.disabled}>{t("header.logout")}</div>
+              <div className="c-header-mobile--option" onClick={logout} disabled={renderProps.disabled}>{t("header.logout")}</div>
             )}
             id="logoutButton"
           ></GoogleLogout> :
@@ -91,5 +91,3 @@ const GoogleBtn = (props)  => {
     </div>
     )
 }
-
-export default GoogleBtn;
