@@ -1096,7 +1096,7 @@ a:active {
   margin-right: 10px;
 }
 
-.c-contact__presentation span {
+.c-contact__presentation p {
   font-size: 24px;
 }
 
@@ -1149,7 +1149,7 @@ a:active {
 
 @media only screen and (min-width: 1024px) {
   .c-contact__presentation {
-    width: 45%;
+    width: 50%;
   }
   .c-contact__presentation--img {
     height: 300px;
@@ -1180,6 +1180,9 @@ a:active {
       -ms-flex-align: center;
           align-items: center;
   margin-bottom: 10px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .c-form--checkbox label {
@@ -1218,7 +1221,6 @@ textarea {
   margin: 10px 0px;
   padding: 10px;
   border-radius: 5px;
-  width: 100%;
 }
 
 input {

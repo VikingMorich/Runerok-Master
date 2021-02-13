@@ -8,6 +8,7 @@
         display: flex;
         align-items: center;
         margin-bottom: 10px;
+        justify-content: center;
         label{
             margin-left: 15px;
             margin-top: 4px;
@@ -43,7 +44,6 @@ textarea{
     margin: 10px 0px;
     padding: 10px;
     border-radius: 5px;
-    width: 100%;
 }
 input{
     background-color: c('light-gray');

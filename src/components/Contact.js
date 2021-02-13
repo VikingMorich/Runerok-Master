@@ -11,7 +11,10 @@ export default function Contact() {
             <div className="c-contact--container">
                 <div className="c-contact__presentation">
                     <img src="/viking-img.png" alt="warrior" className="c-contact__presentation--img"/>
-                    <span>{t("contact-op.presentation")}</span>
+                    <div>
+                        <p>{t("contact-op.presentation")}</p>
+                        <p>{t("contact-op.presentation-end")}</p>
+                    </div>
                 </div>
                 <Form />
             </div>
