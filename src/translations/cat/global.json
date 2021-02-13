@@ -61,7 +61,8 @@
         "submit": "Enviar",
         "presentation": "Sóc VikingMorich, el desenvolupador d’aquest videojoc. Escriu-me per reportar qualsevol error, explicar-me la teva experiencia o proposar millores per futures actualitzacions. Gràcies per jugar a aquest joc, desitjo que gaudeixis de l’experiencia.",
         "code200": "El vostre email s'ha enviat correctament. Gràcies",
-        "error": "Es necesari omplir correctament tots els camps per contactar amb el desenvolupador."
+        "error": "Es necesari omplir correctament tots els camps per contactar amb el desenvolupador.",
+        "footer": "© 2021 Runerok. Tots els drets reservats. Disseny i programació web per Enric Moriche"
     },
     "privacy": {
         "title": "POLÍTICA DE PRIVACITAT",

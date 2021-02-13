@@ -19,6 +19,9 @@ export default function Contact() {
                 </div>
                 <Form />
             </div>
+            <div className="c-contact__footer">
+                <span>{t("contact-op.footer")}</span>
+            </div>
         </div>
     );
 }

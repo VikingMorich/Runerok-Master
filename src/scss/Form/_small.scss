@@ -3,6 +3,7 @@
     flex-direction: column;
     width: 500px;
     max-width: 100%;
+    margin-bottom: 60px;
     &--checkbox{
         display: flex;
         align-items: center;
@@ -51,4 +52,8 @@ input{
     margin: 10px 0px;
     height: 12px;
     padding: 10px 10px;
+}
+
+@include large {
+    @import'large';
 }
