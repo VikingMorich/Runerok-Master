@@ -4,10 +4,6 @@ import Form from "./Form"
 
 export default function Contact() {
     const [t, i18n] = useTranslation("global")
-    useEffect(() => {
-        document.title = 'H2O Coatings - ' + t("contact")
-        window.scrollTo(0, 0)
-    }, [t]);
 
     return (
         <div className="c-contact">

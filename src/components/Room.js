@@ -69,8 +69,8 @@ export default function Room() {
                     <div id="chat" className="c-room--chat">
                     </div>
                     <React.Fragment>
-                        <form method="POST" onSubmit={handleSubmit} className="c-form">
-                            <input placeholder={t("message")} value={message} onChange={changeMessage} className="c-form--input" id="addMessage"/>
+                        <form method="POST" onSubmit={handleSubmit} className="c-chat">
+                            <input placeholder={t("message")} value={message} onChange={changeMessage} className="c-chat--input" id="addMessage"/>
                             <button className="send-button">{t("submit").toUpperCase()}</button>
                         </form>
                     </React.Fragment>

@@ -862,7 +862,7 @@ a:active {
   background-color: #0e0938;
 }
 
-.c-form {
+.c-chat {
   margin-top: 10px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -872,7 +872,7 @@ a:active {
           align-items: center;
 }
 
-.c-form input {
+.c-chat input {
   background: #e6e7e8;
   height: 38px;
   padding: 0 10px;
