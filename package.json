@@ -3,10 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@n8tb1t/use-scroll-position": "^2.0.3",
+    "emailjs-com": "^2.6.4",
     "firebase": "^8.2.6",
     "i18next": "^19.8.3",
     "node-sass": "4.14.1",
     "react": "^17.0.1",
+    "react-awesome-slider": "^4.1.0",
     "react-dom": "^17.0.1",
     "react-google-login": "^5.2.2",
     "react-i18next": "^11.7.3",

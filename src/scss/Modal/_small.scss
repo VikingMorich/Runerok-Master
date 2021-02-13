@@ -7,24 +7,57 @@
     z-index: 8;
 }
 .c-modal {
-    background-color: c('white');
+    background-color: gray;
     width: 70vw;
-    height: 70vh;
+    height: 75vh;
     position: fixed;
     left: calc(15vw - 20px);
-    top: 15vh;
+    top: 12.5vh;
     z-index: 9;
     padding: 20px;
-    &--content{
-        padding-right: 10px;
-        overflow: auto;
-        height: calc(70vh - 80px );
+    display: flex;
+    justify-content: center;
+    &__history{
+        &--content{
+            padding: 20px 30px 0 10px;
+            overflow: auto;
+            z-index: 4;
+            margin-top: 280px;
+            height: 38%;
+            position: relative;
+            font-family: 'Pieces of Eight';
+            color: white;
+            text-align: center;
+            background-color: rgba(0,0,0,0.3);
+            span{
+                font-size: 25px;
+            }
+        }
+    }
+    &--logo{
+        position: absolute;
+        z-index: 4;
+        height: 50%;
+        object-fit: cover;
     }
     &--cross{
         width: 30px;
         position: absolute;
         right: 10px;
         top: 10px;
+        z-index: 5;
+        background-color: rgba(255,255,255,0.5);
+        border-radius: 50%;
+    }
+    &--content{
+        overflow: auto;
+        height: 100%;
+        p{
+            font-size: 18px;
+        }
+        h3{
+            font-size: 22px;
+        }
     }
 }
 
@@ -50,6 +83,7 @@
         padding-right: 10px;
         overflow: auto;
         height: calc(70vh - 80px );
+        z-index: 4;
     }
     &--video{
         margin-top: 35px;
@@ -124,6 +158,35 @@
         left: 25%;
         height: 10%;
     }
+}
+
+.modal-background-video{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: -20px 0 0 -20px;
+    z-index: 3;
+    object-fit: cover;
+}
+
+.c-slider{
+    height: 93%;
+    min-width: 100%;
+    min-height: 93%;
+    &__text{
+        color: white;
+        display: block;
+        font-family: 'Pieces of Eight';
+        font-size: 24px;
+        padding: 0 70px 0 70px;
+        text-align: center;
+        width: 100%;
+    }
+}
+
+.awssld__container{
+    height: 100% !important;
+    padding-bottom: 0px !important;
 }
 
 

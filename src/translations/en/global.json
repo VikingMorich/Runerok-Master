@@ -1,5 +1,36 @@
 {
+    "language": "Language",
+    "back": "Back",
+    "submit": "Send",
+    "message": "Write your message",
     "home": {
         "login": "Log in with Google"
+    },
+    "header": {
+        "history": "History",
+        "instructions": "Instructions",
+        "contact": "Contact",
+        "login": "Log in",
+        "logout": "Log out"
+    },
+    "languages": {
+        "cat": "CAT",
+        "es": "ES",
+        "en": "EN"
+    },
+    "modal": {
+        "title": "Runerök",
+        "p1": "Despres de la mort de la majoria dels deus en el Ragnarök els pocs supervivents es juguen el dret a sostindre el martell de Thor Mjölnir i nomenar-se aixi succesor de Odín i principal lider al castell d’Asgard. Per guanyar aquest dret s’hauran de conseguir totes les runes i obtindre el secret que aguardan per dominar el poder absolut, pero nomes el primer en conseguir-ho sera el nou anfitrió en el Valhalla aixi que la resta de rivals no ens ho posaran facil. Viu l’experiencia de Runerök i juga la millor estrategia per sabotejar als teus rivals i guanyar la gloria de tot heroi."
+    },
+    "room": {
+        "title": "Room",
+        "start": "Start the game",
+        "ready": "Ready",
+        "noReady": "Not ready",
+        "imReady": "I'm ready",
+        "notReady": "I'm not ready"
+    },
+    "warnings": {
+        "roomNotReady": "Wait until all members are ready"
     }
 }

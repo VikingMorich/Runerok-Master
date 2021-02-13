@@ -4,7 +4,6 @@ import App from './App'
 import './index.css'
 import { I18nextProvider } from "react-i18next"
 import i18next from "i18next"
-import { initFirebase } from './firestorefunc'
 
 import global_es from "./translations/es/global.json"
 import global_en from "./translations/en/global.json"
@@ -14,7 +13,7 @@ import Cookies from 'universal-cookie';
 let cookies = new Cookies();
 i18next.init({
   interpolation: { escapeValue: false },
-  lng: cookies.get('lang') ? cookies.get('lang') : "es",
+  lng: cookies.get('lang') ? cookies.get('lang') : "cat",
   resources: {
     es: {
       global: global_es
@@ -27,8 +26,6 @@ i18next.init({
     }
   }
 })
-initFirebase()
-
 
 render(
       <div>

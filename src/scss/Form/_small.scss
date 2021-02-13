@@ -1,0 +1,54 @@
+.c-form{
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    max-width: 100%;
+    &--checkbox{
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        label{
+            margin-left: 15px;
+            margin-top: 4px;
+            font-size: 22px;
+        }
+        input{
+            background-color: c('light-gray');
+            border-radius: 5px;
+            border: none;
+            margin: 10px 0px;
+            height: 17px;
+            padding: 10px 10px;
+            width: 17px;
+        }
+    }
+    &--error{
+        border: 2px solid c('error') !important;
+    }
+    &--privacy{
+        cursor: pointer;
+    }
+    &--privacy:hover{
+        cursor: pointer;
+        text-decoration: underline;
+        color: c('rustop');
+    }
+}
+
+textarea{
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: c('light-gray');
+    border: none;
+    margin: 10px 0px;
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%;
+}
+input{
+    background-color: c('light-gray');
+    border-radius: 5px;
+    border: none;
+    margin: 10px 0px;
+    height: 12px;
+    padding: 10px 10px;
+}

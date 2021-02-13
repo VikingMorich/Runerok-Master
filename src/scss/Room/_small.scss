@@ -15,27 +15,32 @@
     }
     &--top{
         display: flex;
-        justify-content: space-around;
+        justify-content: right;
+        flex-direction: column;
         height: 100%;
         width: 100%;
-        margin-top: 15px;
     }
     &--game{
-        height: 70%;
-        width: 43%;
+        width: 100%;
     }
     &--players{
         background-color: c('medium-blue');
         width: calc(100%-30px);
-        height: 75%;
+        height: 59%;
         padding: 15px;
         margin-bottom: 25px;
         border-radius: 5px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        overflow: auto;
+        flex-wrap: wrap;
+        position: relative;
     }
     &--chat-box{
         background-color: c('medium-blue');
-        height: 70%;
-        width: 45%;
+        height: 30%;
+        width: calc(100%-30px);
         padding: 15px;
         border-radius: 5px;
     }
@@ -43,7 +48,7 @@
         background-color: c('more-bright-blue');
         width: calc(100% - 30px);
         border-radius: 10px;
-        height: 75%;
+        height: 50%;
         padding: 15px;
         overflow: auto;
         p{
@@ -53,6 +58,7 @@
     &--buttons{
         display: flex;
         justify-content: center;
+        margin-bottom: 30px;
     }
 }
 
@@ -99,4 +105,11 @@
     font-size: 24px;
     text-align: center;
     line-height: 22px
+}
+
+@include medium {
+    @import'medium';
+}
+@include large {
+    @import'large';
 }

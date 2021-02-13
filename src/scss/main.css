@@ -319,6 +319,28 @@ a:active {
   overflow: hidden;
 }
 
+.c-gbutton__home {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 4px;
+  padding: 5px;
+  padding-right: 15px;
+  font-family: 'Pieces of Eight';
+  font-size: 24px;
+  background: radial-gradient(black, rgba(0, 0, 0, 0));
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.c-gbutton__home:hover {
+  background-color: black;
+}
+
 .background-video {
   position: absolute;
   width: auto;
@@ -499,20 +521,45 @@ a:active {
 }
 
 .c-modal {
-  background-color: white;
+  background-color: gray;
   width: 70vw;
-  height: 70vh;
+  height: 75vh;
   position: fixed;
   left: calc(15vw - 20px);
-  top: 15vh;
+  top: 12.5vh;
   z-index: 9;
   padding: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
-.c-modal--content {
-  padding-right: 10px;
+.c-modal__history--content {
+  padding: 20px 30px 0 10px;
   overflow: auto;
-  height: calc(70vh - 80px);
+  z-index: 4;
+  margin-top: 280px;
+  height: 38%;
+  position: relative;
+  font-family: 'Pieces of Eight';
+  color: white;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.c-modal__history--content span {
+  font-size: 25px;
+}
+
+.c-modal--logo {
+  position: absolute;
+  z-index: 4;
+  height: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .c-modal--cross {
@@ -520,6 +567,22 @@ a:active {
   position: absolute;
   right: 10px;
   top: 10px;
+  z-index: 5;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+}
+
+.c-modal--content {
+  overflow: auto;
+  height: 100%;
+}
+
+.c-modal--content p {
+  font-size: 18px;
+}
+
+.c-modal--content h3 {
+  font-size: 22px;
 }
 
 .c-cmodal {
@@ -547,6 +610,7 @@ a:active {
   padding-right: 10px;
   overflow: auto;
   height: calc(70vh - 80px);
+  z-index: 4;
 }
 
 .c-cmodal--video {
@@ -644,6 +708,37 @@ a:active {
   height: 10%;
 }
 
+.modal-background-video {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  margin: -20px 0 0 -20px;
+  z-index: 3;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.c-slider {
+  height: 93%;
+  min-width: 100%;
+  min-height: 93%;
+}
+
+.c-slider__text {
+  color: white;
+  display: block;
+  font-family: 'Pieces of Eight';
+  font-size: 24px;
+  padding: 0 70px 0 70px;
+  text-align: center;
+  width: 100%;
+}
+
+.awssld__container {
+  height: 100% !important;
+  padding-bottom: 0px !important;
+}
+
 .c-room {
   height: 100vh;
   background-color: #8598aa;
@@ -671,69 +766,48 @@ a:active {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  -webkit-box-pack: right;
+      -ms-flex-pack: right;
+          justify-content: right;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   height: 100%;
   width: 100%;
-  margin-top: 15px;
 }
 
 .c-room--game {
-  height: 70%;
-  width: 43%;
+  width: 100%;
 }
 
 .c-room--players {
   background-color: #485d78;
   width: calc(100%-30px);
-  height: 75%;
+  height: 59%;
   padding: 15px;
   margin-bottom: 25px;
   border-radius: 5px;
-}
-
-.c-room--player {
-  background-color: #a1b1c0;
-  width: 100%;
-  height: 80px;
-  border-radius: 10px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.c-room--player__img {
-  margin: 0 20px;
-  height: 60px;
-  border-radius: 50%;
-}
-
-.c-room--player__name {
-  font-size: 28px;
-}
-
-.c-room--player__ready {
-  font-size: 14px;
-  margin-left: 25px;
-}
-
-.c-room--player__info {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
+  -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  overflow: auto;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  position: relative;
 }
 
 .c-room--chat-box {
   background-color: #485d78;
-  height: 70%;
-  width: 45%;
+  height: 30%;
+  width: calc(100%-30px);
   padding: 15px;
   border-radius: 5px;
 }
@@ -742,7 +816,7 @@ a:active {
   background-color: #a1b1c0;
   width: calc(100% - 30px);
   border-radius: 10px;
-  height: 75%;
+  height: 50%;
   padding: 15px;
   overflow: auto;
 }
@@ -758,6 +832,7 @@ a:active {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  margin-bottom: 30px;
 }
 
 .send-button {
@@ -817,6 +892,39 @@ a:active {
   line-height: 22px;
 }
 
+@media only screen and (min-width: 768px) {
+  .c-room--game {
+    height: 55%;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .c-room--game {
+    width: 43%;
+    height: auto;
+  }
+  .c-room--chat-box {
+    width: 45%;
+    height: 75%;
+  }
+  .c-room--top {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    margin-top: 15px;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+  }
+  .c-room--players {
+    height: 60%;
+    display: block;
+  }
+  .c-room--chat {
+    height: 75%;
+  }
+}
+
 .c-button {
   height: 22px;
   width: -webkit-fit-content;
@@ -841,5 +949,262 @@ a:active {
 
 .c-button:hover {
   background-color: #0e0938;
+}
+
+.c-roomPlayer {
+  background-color: #a1b1c0;
+  width: 100%;
+  height: 80px;
+  border-radius: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 10px;
+}
+
+.c-roomPlayer__img {
+  margin: 0 20px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+.c-roomPlayer__name {
+  font-size: 28px;
+}
+
+.c-roomPlayer__ready {
+  font-size: 14px;
+  margin-left: 25px;
+}
+
+.c-roomPlayer__info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.c-roomPlayer__container {
+  width: 100%;
+}
+
+@media only screen and (min-width: 768px) {
+  .c-roomPlayer__container {
+    width: 49%;
+  }
+}
+
+@media only screen and (min-width: 1024px) {
+  .c-roomPlayer__container {
+    width: 100%;
+  }
+}
+
+.c-arrow {
+  background-color: #0e0938;
+  border: 1px solid;
+  border-radius: 15%;
+  position: fixed;
+  bottom: 35px;
+  right: 40px;
+  width: 30px;
+  height: 30px;
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.c-contact {
+  background-color: #8598aa;
+  height: 100%;
+  min-height: calc(100vh - 20px);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 0 40px 20px;
+  position: relative;
+  font-family: 'Pieces of Eight';
+}
+
+.c-contact--title {
+  margin-top: 70px;
+  text-align: center;
+  font-size: 32px;
+  text-decoration: underline;
+}
+
+.c-contact__presentation {
+  margin-bottom: 20px;
+  margin-right: 0px;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  height: 100%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.c-contact__presentation--img {
+  height: 230px;
+  margin-right: 10px;
+}
+
+.c-contact__presentation span {
+  font-size: 24px;
+}
+
+.c-contact--container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 7px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.c-contact button {
+  height: 30px;
+  width: 100px;
+  margin: auto;
+  margin-top: 0px;
+}
+
+.c-social-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 40px;
+}
+
+.c-social-container img {
+  width: 200px;
+}
+
+.c-social-container span {
+  color: #0e0938;
+  width: 100px;
+}
+
+.c-social-container:hover span {
+  font-family: 'Avenir LT Std 85 Heavy';
+}
+
+@media only screen and (min-width: 1024px) {
+  .c-contact__presentation {
+    margin-right: 70px;
+    width: 45%;
+  }
+  .c-contact__presentation--img {
+    height: 300px;
+  }
+  .c-contact__presentation span {
+    font-size: 24px;
+  }
+}
+
+.c-form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 500px;
+  max-width: 100%;
+}
+
+.c-form--checkbox {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 10px;
+}
+
+.c-form--checkbox label {
+  margin-left: 15px;
+  margin-top: 4px;
+  font-size: 22px;
+}
+
+.c-form--checkbox input {
+  background-color: #e6e7e8;
+  border-radius: 5px;
+  border: none;
+  margin: 10px 0px;
+  height: 17px;
+  padding: 10px 10px;
+  width: 17px;
+}
+
+.c-form--error {
+  border: 2px solid #b50000 !important;
+}
+
+.c-form--privacy {
+  cursor: pointer;
+}
+
+.c-form--privacy:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+textarea {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #e6e7e8;
+  border: none;
+  margin: 10px 0px;
+  padding: 10px;
+  border-radius: 5px;
+  width: 100%;
+}
+
+input {
+  background-color: #e6e7e8;
+  border-radius: 5px;
+  border: none;
+  margin: 10px 0px;
+  height: 12px;
+  padding: 10px 10px;
 }
 /*# sourceMappingURL=main.css.map */

@@ -19,8 +19,8 @@
         "en": "EN"
     },
     "modal": {
-        "title": "Un exemple de modal",
-        "p1": "Continua programant ;)"
+        "title": "Runerök",
+        "p1": "Despres de la mort de la majoria dels deus en el Ragnarök els pocs supervivents es juguen el dret a sostindre el martell de Thor Mjölnir i nomenar-se aixi succesor de Odín i principal lider al castell d’Asgard. Per guanyar aquest dret s’hauran de conseguir totes les runes i obtindre el secret que aguardan per dominar el poder absolut, pero nomes el primer en conseguir-ho sera el nou anfitrió en el Valhalla aixi que la resta de rivals no ens ho posaran facil. Viu l’experiencia de Runerök i juga la millor estrategia per sabotejar als teus rivals i guanyar la gloria de tot heroi."
     },
     "room": {
         "title": "Sala",
@@ -32,5 +32,47 @@
     },
     "warnings": {
         "roomNotReady": "Espera fins que tots els participants estiguin llestos"
+    },
+    "instructions": {
+        "p1": "Objectiu: Aconseguir mes runes que la resta de jugadors",
+        "p2": "Cada torn comencem amb 3 vides",
+        "p3": "Objectiu de cada torn es conseguir el maxim de punts sense morir",
+        "p4": "Quan mors perds totes les runes acumulades aquell torn, si et plantes acumules les runes pel final del joc",
+        "p5": "Durant els torns escollirem els daus de 3 en 3",
+        "p6": "El color dels daus ens indica la dificultad de superar l’expedició",
+        "p7": "Haurem de decidir entre plantar-nos o seguir jugant abans d’escollir els daus",
+        "p8": "Despres de cada tirada, si seguim vius podrem continuar decidint",
+        "p9": "La partida acaba quan algu consegueix 13 runes o mes",
+        "p10": "La resta de jugadors tenen una ultima oportunitat per impresionar als deus superant al rival",
+        "p11": "Finalitzada la ultima ronda guanya qui te mes punts",
+        "p12": "En cas d’empat guanya el primer en conseguir-los",
+        "p13": "Punts valknut serveixen per utilitzar accions especials a canvi de punts",
+        "p14": "Surten de les tirades dels daus i es poden jugar fora del teu torn",
+        "p15": "Clica sobre el menu d’accions quan tinguis prous punts per executar una acció"
+    },
+    "contact-op": {
+        "name": "Nom",
+        "surname": "Cognom",
+        "email": "Email",
+        "location": "Localització",
+        "message": "Escriure el missatge aquí",
+        "accept": "Accepto els termes de la ",
+        "privacy": "política de privacitat",
+        "submit": "Enviar",
+        "presentation": "Sóc VikingMorich, el desenvolupador d’aquest videojoc. Escriu-me per reportar qualsevol error, explicar-me la teva experiencia o proposar millores per futures actualitzacions. Gràcies per jugar a aquest joc, desitjo que gaudeixis de l’experiencia.",
+        "code200": "El vostre email s'ha enviat correctament. Gràcies",
+        "error": "Es necesari omplir correctament tots els camps per contactar amb el desenvolupador."
+    },
+    "privacy": {
+        "title": "POLÍTICA DE PRIVACITAT",
+        "p1": "El present Política de Privacitat estableix els termes en què fa servir i protegeix la informació que és proporcionada pels seus usuaris a l'hora d'utilitzar el seu lloc web. Runerök està compromesa amb la seguretat de les dades dels seus usuaris. Quan li demanem omplir els camps d'informació personal amb la qual vostè pugui ser identificat, ho fem assegurant que només es farà servir d'acord amb els termes d'aquest document. No obstant això aquesta política de privacitat pot canviar amb el temps o ser actualitzada pel que li recomanem i emfatitzem revisar contínuament aquesta pàgina per assegurar-se que està d'acord amb aquests canvis",
+        "h1": "Enllaços a Tercers",
+        "p2": "Aquest lloc web pogués contenir en llaços a altres llocs que puguin ser del seu interès. Una vegada que vostè de clic en aquests enllaços i abandoni la nostra pàgina, ja no tenim control sobre a el lloc a què és redirigit i per tant no som responsables dels termes o privacitat ni de la protecció de les seves dades en aquests altres llocs tercers. Aquests llocs estan subjectes a les seves pròpies polítiques de privacitat per la qual cosa és recomanable que els consulti per confirmar que vostè està d'acord amb aquestes.",
+        "h2": "Ús de la vostra informació personal",
+        "p3": "En qualsevol moment vostè pot restringir la recopilació o l'ús de la informació personal que ens és proporcionada. Tot i això aquesta companyia no vendrà, cedirà o distribuirà la informació personal que és recopilada sense el seu consentiment.",
+        "h3": "Acceptació i consentiment",
+        "p4": "Com Usuari de el lloc web declares haver estat informat de les condicions sobre protecció de dades de caràcter personal, acceptes i consenteixes el tractament dels mateixos per part del titular en la forma i per a les finalitats indicades en aquesta Política de Privacitat.",
+        "h4": "Canvis en la Política de Privacitat",
+        "p5": "Runerök es reserva el dret a modificar la present Política de Privacitat per adaptar-la a novetats legislatives o jurisprudencials, així com a pràctiques de la indústria."
     }
 }

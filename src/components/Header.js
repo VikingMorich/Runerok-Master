@@ -68,9 +68,12 @@ export default function Header() {
                     </div>
                     <div className="c-header-mobile--option" onClick={() => {
                         toggleModal()
-                        setType('privacy')
+                        setType('history')
                     }}>{t("header.history")}</div>
-                    <a className="c-header-mobile--option" href="/instructions">{t("header.instructions")}</a>
+                    <div className="c-header-mobile--option" onClick={() => {
+                        toggleModal()
+                        setType('instructions')
+                    }}>{t("header.instructions")}</div>
                     <a className="c-header-mobile--option" href="/contact">{t("header.contact")}</a>
                     <GoogleBtn type = "header"/>
                 </React.Fragment> 
@@ -99,7 +102,7 @@ export default function Header() {
                     <img src="/runerok-simple-white2.png" alt="Runerok" />
                 </a>
             </div>
-            <img className="c-header--icon" alt="menu-icon" src={menu} onClick={() => setMobileMenu(true)}/>
+            <img className="c-header--icon" alt="menu-icon" src={menu} onClick={() => {setMobileMenu(true); setOpen(false)}}/>
         </div>
         <Modal open={open} toggleModal={() => closeModal()} type={type}/>
         </React.Fragment>

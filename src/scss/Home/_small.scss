@@ -65,6 +65,23 @@
         overflow: hidden;
     }
 }
+
+.c-gbutton__home{
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    padding: 5px;
+    padding-right: 15px;
+    font-family: 'Pieces of Eight';
+    font-size: 24px;
+    background: radial-gradient(rgba(0,0,0,1), rgba(0,0,0,0));
+    transition: 0.3s;
+    cursor: pointer;
+}
+.c-gbutton__home:hover{
+    background-color: black;
+}
+
 .background-video{
     position: absolute;
     width: auto;

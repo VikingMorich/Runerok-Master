@@ -1,0 +1,22 @@
+.c-room{
+    &--game{
+        width: 43%;
+        height: auto;
+    }
+    &--chat-box{
+        width: 45%;
+        height: 75%;
+    }
+    &--top{
+        flex-direction: row;
+        margin-top: 15px;
+        justify-content: space-around;
+    }
+    &--players{
+        height: 60%;
+        display: block;
+    }
+    &--chat{
+        height: 75%;
+    }
+}

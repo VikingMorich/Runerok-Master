@@ -1,0 +1,12 @@
+.c-contact{
+    &__presentation{
+        margin-right: 70px;
+        width: 45%;
+        &--img{
+            height: 300px;
+        }
+        span{
+            font-size: 24px;
+        }
+    }
+}

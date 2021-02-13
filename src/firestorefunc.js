@@ -4,18 +4,23 @@ import ReactDOM from 'react-dom'
 
 let db
 
-export function initFirebase() {
+export function initFirebase(i18n) {
     db = firebase.firestore();
     let dbRefPlayers = firebase.database().ref().child('Room').child('Players')
     let dbRefChat = firebase.database().ref().child('Room').child('Chat')
 
     // db functions working
     dbRefPlayers.on('child_added', snap => {
-        if (window.location.pathname !== '/'){
+        if (window.location.pathname === '/room'){
+            let pChanged = document.getElementById(snap.key)
+            if (pChanged) {
+                pChanged.remove()
+            }
             let objPlayers = document.getElementById('players')
             const user = document.createElement('div')
             user.id=snap.key
-            ReactDOM.render(<RoomPlayer userName={snap.val().username} ready={snap.val().ready} imageUrl={snap.val().imageUrl}/>, user)
+            user.className="c-roomPlayer__container"
+            ReactDOM.render(<RoomPlayer userName={snap.val().username} ready={snap.val().ready} i18n={i18n} imageUrl={snap.val().imageUrl}/>, user)
             objPlayers.appendChild(user);
         }
     })
@@ -30,12 +35,12 @@ export function initFirebase() {
         let objPlayers = document.getElementById('players')
         const user = document.createElement('div')
         user.id = snap.key
-        ReactDOM.render(<RoomPlayer userName={snap.val().username} ready={snap.val().ready} imageUrl={snap.val().imageUrl}/>, user)
+        ReactDOM.render(<RoomPlayer userName={snap.val().username} ready={snap.val().ready} i18n={i18n} imageUrl={snap.val().imageUrl}/>, user)
         objPlayers.appendChild(user)
     })
 
     dbRefChat.on('child_added', snap => {
-        if (window.location.pathname !== '/'){
+        if (window.location.pathname === '/room'){
         const user = document.createElement('p')
         user.innerText = snap.val().username + ': '
         user.id = snap.key
