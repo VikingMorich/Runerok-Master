@@ -7,7 +7,7 @@ export default function Contact() {
 
     return (
         <div className="c-contact">
-            <h1 className="c-contact--title">{t("contact").toUpperCase()}</h1>
+            <h1 className="c-contact--title">{t("header.contact").toUpperCase()}</h1>
             <div className="c-contact--container">
                 <div className="c-contact__presentation">
                     <img src="/viking-img.png" alt="warrior" className="c-contact__presentation--img"/>

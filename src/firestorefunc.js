@@ -35,6 +35,7 @@ export function initFirebase(i18n) {
         let objPlayers = document.getElementById('players')
         const user = document.createElement('div')
         user.id = snap.key
+        user.className="c-roomPlayer__container"
         ReactDOM.render(<RoomPlayer userName={snap.val().username} ready={snap.val().ready} i18n={i18n} imageUrl={snap.val().imageUrl}/>, user)
         objPlayers.appendChild(user)
     })
