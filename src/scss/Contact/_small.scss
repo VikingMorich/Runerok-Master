@@ -16,7 +16,7 @@
     &__footer{
         background-color: black;
         width: 100%;
-        height: 40px;
+        min-height: 40px;
         position: absolute;
         bottom: 0;
         left: 0;
@@ -24,6 +24,8 @@
         align-items: center;
         justify-content: center;
         span{
+            padding: 7px;
+            text-align: center;
             color: white;
             font-size: 18px;
         }
@@ -37,11 +39,11 @@
         height: 100%;
         align-items: center;
         &--img{
-            height: 230px;
+            height: 160px;
             margin-right: 10px;
         }
         p{
-            font-size: 24px;
+            font-size: 18px;
         }
     }
     &--container{
@@ -74,6 +76,10 @@
 }
 .c-social-container:hover span{
     font-family: 'Avenir LT Std 85 Heavy';
+}
+
+@include medium {
+    @import'medium';
 }
 
 @include large {
