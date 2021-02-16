@@ -37,22 +37,35 @@
         flex-wrap: wrap;
         position: relative;
     }
-    &--chat-box{
+    &__chat-box{
         background-color: c('medium-blue');
-        height: 30%;
-        width: calc(100%-30px);
+        height: 75%;
+        width: 46%;
         padding: 15px;
         border-radius: 5px;
+        &--in-game{
+            background-color: c('medium-blue');
+            height: 16%;
+            width: 90%;
+            padding: 15px;
+            border-radius: 5px;
+            padding-bottom: 75px;
+            .c-room--chat{
+                height: 92%;
+            }
+        }
     }
     &--chat{
         background-color: c('more-bright-blue');
         width: calc(100% - 30px);
         border-radius: 10px;
-        height: 50%;
-        padding: 15px;
+        height: 82%;
+        padding: 5px 15px;
         overflow: auto;
         p{
             font-size: 20px;
+            margin-block-start: 0.5em;
+            margin-block-end: 0.5em;
         }
     }
     &--buttons{

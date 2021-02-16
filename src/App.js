@@ -7,6 +7,7 @@ import { initFirebase } from './firestorefunc'
 import Header from './components/Header'
 import Home from './components/Home'
 import Room from './components/Room'
+import Game from './components/Game'
 import Contact from './components/Contact'
 import Arrow from './components/Arrow'
 import { useTranslation } from "react-i18next"
@@ -31,6 +32,7 @@ return (
       <Route path="/" exact component={Home} />
       <Route path="/contact" component={Contact}/>
       <Route path="/room" component={Room}/>
+      <Route path="/game" component={Game}/>
       <Route render={() => <h1>404: page not found</h1>} />
     </Switch>
     <ToastContainer />

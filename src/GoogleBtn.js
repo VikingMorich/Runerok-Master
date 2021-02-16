@@ -43,7 +43,11 @@ export default function GoogleBtn (props) {
     updates[key] = {
       username: name,
       imageUrl: imageUrl,
-      ready: false
+      ready: false,
+      runes: 0,
+      lives: 3,
+      valknut: 0,
+      userTurn: false
     }
     ref.update(updates)
   }

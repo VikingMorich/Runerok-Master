@@ -1,10 +1,11 @@
 .flip-card {
     background-color: transparent;
-    width: 100px;
-    height: 100px;
+    width: 55px;
+    height: 55px;
     perspective: 1000px;
-    margin-top: 1.5em;
-    margin-right: 20px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
   }
   
   .flip-card-inner {
@@ -40,6 +41,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+  
+  .icon{
+    width: 40px;
   }
   
   .flip-card-back {

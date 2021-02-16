@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import '../../scss/main.scss';
-import { Viking } from '../icon/icon';
+import { Viking, Ship } from '../icon/icon';
 
 export class Dice extends React.Component {
     flipCard(e) {
@@ -18,12 +18,20 @@ export class Dice extends React.Component {
                 <div className="flip-card" onClick={(e) => this.flipCard(e)}>
                     <div className="flip-card-inner">
                         <div className="flip-card-front">
-                            <Viking/>
+                            <div className="icon">
+                                <Viking/>
+                            </div>
                         </div>
                         <div className={"flip-card-back flip-card-back--" + this.props.color}>
                             <div className="flipped-card-content">
                                 <div className="card-information">
-                                    <span>{this.props.color.toUpperCase()}</span>
+                                {this.props.symbol ?
+                                <div className="icon">
+                                    <Ship/>
+                                </div>
+                                :
+                                <span>{this.props.color.toUpperCase()}</span>
+                                }  
                                 </div>
                             </div>
                         </div>

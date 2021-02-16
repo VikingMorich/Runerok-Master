@@ -76,5 +76,19 @@
         "p4": "Com Usuari de el lloc web declares haver estat informat de les condicions sobre protecció de dades de caràcter personal, acceptes i consenteixes el tractament dels mateixos per part del titular en la forma i per a les finalitats indicades en aquesta Política de Privacitat.",
         "h4": "Canvis en la Política de Privacitat",
         "p5": "Runerök es reserva el dret a modificar la present Política de Privacitat per adaptar-la a novetats legislatives o jurisprudencials, així com a pràctiques de la indústria."
+    },
+    "game": {
+        "title": "Torn de",
+        "players": "Jugadors",
+        "actions": "Accions",
+        "exit": "Sortir del joc",
+        "selectedDices": "Daus seleccionats",
+        "roll": "Llançar daus",
+        "giveUp": "Plantar-se",
+        "continue": "Continuar"
+    },
+    "gameAction": {
+        "extraPoints": "Afegeix una runa al total de runes segures",
+        "damage": "Fes un punt de mal instantani al teu rival"
     }
 }

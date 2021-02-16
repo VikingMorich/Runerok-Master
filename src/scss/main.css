@@ -432,12 +432,12 @@ a:active {
 
 .flip-card {
   background-color: transparent;
-  width: 100px;
-  height: 100px;
+  width: 55px;
+  height: 55px;
   -webkit-perspective: 1000px;
           perspective: 1000px;
-  margin-top: 1.5em;
-  margin-right: 20px;
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
 
 .flip-card-inner {
@@ -485,6 +485,10 @@ a:active {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+}
+
+.icon {
+  width: 40px;
 }
 
 .flip-card-back {
@@ -815,7 +819,7 @@ a:active {
   position: relative;
 }
 
-.c-room--chat-box {
+.c-room__chat-box {
   background-color: #485d78;
   height: 30%;
   width: calc(100%-30px);
@@ -823,17 +827,30 @@ a:active {
   border-radius: 5px;
 }
 
+.c-room__chat-box--in-game {
+  background-color: #485d78;
+  height: 16%;
+  width: 90%;
+  padding: 15px;
+  border-radius: 5px;
+  padding-bottom: 75px;
+}
+
 .c-room--chat {
   background-color: #a1b1c0;
   width: calc(100% - 30px);
   border-radius: 10px;
   height: 50%;
-  padding: 15px;
+  padding: 5px 15px;
   overflow: auto;
 }
 
 .c-room--chat p {
   font-size: 20px;
+  -webkit-margin-before: 0.5em;
+          margin-block-start: 0.5em;
+  -webkit-margin-after: 0.5em;
+          margin-block-end: 0.5em;
 }
 
 .c-room--buttons {
@@ -932,7 +949,7 @@ a:active {
     display: block;
   }
   .c-room--chat {
-    height: 75%;
+    height: 92%;
   }
 }
 
@@ -1003,6 +1020,12 @@ a:active {
 
 .c-roomPlayer__container {
   width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 @media only screen and (min-width: 768px) {
@@ -1258,5 +1281,327 @@ input {
   .c-form {
     margin-bottom: 0px;
   }
+}
+
+.c-game {
+  height: 100vh;
+  background-color: #8598aa;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  overflow: auto;
+  position: relative;
+  font-family: 'Pieces of Eight';
+}
+
+.c-game--title {
+  margin-top: 65px;
+  text-align: center;
+  font-size: 32px;
+  text-decoration: underline;
+  text-shadow: 0 0 0.2em #FFF;
+  -webkit-margin-after: 0.5em;
+          margin-block-end: 0.5em;
+}
+
+.c-game__players {
+  background-color: #485d78;
+  width: 400px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.c-game__players--players {
+  margin-top: 10px;
+  width: 90%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.c-game__game {
+  background-color: #8598aa;
+  width: 50%;
+  padding: 0 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.c-game__exit {
+  position: absolute;
+  bottom: 10px;
+}
+
+.c-game__actions {
+  background-color: #485d78;
+  width: 400px;
+  position: relative;
+}
+
+.c-game__actions--container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 30px;
+}
+
+.c-game__actions--value {
+  background-color: #1c193d;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: absolute;
+  bottom: 0;
+  width: 40%;
+  right: 30%;
+  height: 65px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+  border: 2px solid #a1b1c0;
+  border-bottom: none;
+}
+
+.c-game__actions--value span {
+  font-size: 36px;
+  margin-left: 20px;
+  color: white;
+}
+
+.c-game__actions--valknut {
+  width: 40px;
+}
+
+.c-game__dices {
+  background-color: #485d78;
+  width: 90%;
+  padding: 10px 20px 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.c-game__selectedDices {
+  width: 250px;
+  height: 100px;
+  border-radius: 5px;
+  padding: 5px;
+  background-color: #485d78;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.c-game__selectedDices span {
+  color: white;
+  margin: 5px;
+  -webkit-margin-before: 10px;
+          margin-block-start: 10px;
+}
+
+.c-game__selected-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  width: 85%;
+}
+
+.c-game__interface {
+  width: 90%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 15px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.c-action {
+  width: 85%;
+  background-color: #8598aa;
+  border-radius: 5px;
+  position: relative;
+  margin-bottom: 35px;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  cursor: pointer;
+}
+
+.c-action__info {
+  text-align: center;
+  padding: 10px 15px;
+}
+
+.c-action__info span {
+  color: black;
+}
+
+.c-action__cost {
+  background-color: #263e5e;
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid #a1b1c0;
+  width: 40px;
+  height: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  right: -19px;
+  top: -19px;
+  color: white;
+}
+
+.c-action:hover {
+  background-color: #1a3150;
+}
+
+.c-action:hover .c-action__info span {
+  color: white;
+}
+
+.c-action:active {
+  background-color: #1c193d;
+}
+
+.c-action:active .c-action__info span {
+  color: #9198e5;
+}
+
+.c-action:active .c-action__cost {
+  background-color: #1c193d;
+  border: 2px solid #8598aa;
+  color: #9198e5;
+}
+
+.c-gamePlayer {
+  background-color: #a1b1c0;
+  width: 100%;
+  border-radius: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 20px;
+  padding: 15px 0;
+}
+
+.c-gamePlayer--notTurn {
+  width: 90%;
+  padding: 12px 0;
+}
+
+.c-gamePlayer__img {
+  margin: 0 20px;
+  height: 60px;
+  border-radius: 50%;
+  border: 1px solid black;
+}
+
+.c-gamePlayer__name {
+  font-size: 28px;
+}
+
+.c-gamePlayer__info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.c-gamePlayer__stats {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.c-gamePlayer__icon {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  min-width: 60px;
+}
+
+.c-gamePlayer__icon--img {
+  width: 25px;
+  margin-right: 10px;
+}
+
+.c-gamePlayer__icon span {
+  font-size: 24px;
 }
 /*# sourceMappingURL=main.css.map */
