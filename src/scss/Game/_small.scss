@@ -61,7 +61,7 @@
             justify-content: center;
             border-top-left-radius: 7px;
             border-top-right-radius: 7px;
-            border: 2px solid c('more-bright-blue');
+            border: 1px solid c('bright-blue');
             border-bottom: none;
             span{
                 font-size: 36px;
@@ -98,6 +98,24 @@
             margin-block-start: 10px;
         }
     }
+    &__partialRunes{
+        width: 100px;
+        height: 80px;
+        border-radius: 5px;
+        padding: 5px;
+        background-color: c('medium-blue');
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        span{
+            z-index: 9;
+            color: white;
+            text-shadow: 0 0 0.2em #000;
+            margin: 5px;
+            margin-block-start: 10px;
+        }
+    }
     &__selected-wrapper{
         display: flex;
         flex-direction: row;
@@ -111,4 +129,35 @@
         margin-bottom: 15px;
         justify-content: center;
     }
+    &__skull{
+        width: 125px;
+        &--text{
+            font-size: 25px;
+            text-align: center;
+            font-weight: 900;
+            color: c('blood');
+        }
+    }
+    &__rune--watermark{
+        background: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 90%);;
+        padding: 35px 30px 5px;
+        width: 40px;
+        opacity: 0.5;
+        position: absolute;
+        z-index: 3;
+    }
+}
+
+#partial-runes{
+    font-size: 24px;
+    margin-block-start: 0;
+    text-shadow: 0 0 0.2em #000;
+    font-weight: 900;
+}
+
+.Toastify__toast--dark{
+    white-space: pre-wrap;
+}
+.Toastify__toast-body{
+    width: 100%;
 }

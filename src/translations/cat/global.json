@@ -78,14 +78,17 @@
         "p5": "Runerök es reserva el dret a modificar la present Política de Privacitat per adaptar-la a novetats legislatives o jurisprudencials, així com a pràctiques de la indústria."
     },
     "game": {
-        "title": "Torn de",
+        "title": "Torn de ",
         "players": "Jugadors",
         "actions": "Accions",
         "exit": "Sortir del joc",
         "selectedDices": "Daus seleccionats",
         "roll": "Llançar daus",
         "giveUp": "Plantar-se",
-        "continue": "Continuar"
+        "changeTurn": "Canviar de torn",
+        "continue": "Continuar",
+        "dead": "Has mort i perdut les runes acumulades",
+        "partialRunes": "Runes parcials"
     },
     "gameAction": {
         "extraPoints": "Afegeix una runa al total de runes segures",

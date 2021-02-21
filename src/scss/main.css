@@ -438,6 +438,7 @@ a:active {
           perspective: 1000px;
   margin-right: 10px;
   margin-bottom: 10px;
+  cursor: pointer;
 }
 
 .flip-card-inner {
@@ -498,6 +499,7 @@ a:active {
   -moz-transform: rotateY(180deg);
   -o-transform: rotateY(180deg);
   -ms-transform: rotateY(180deg);
+  font-size: 13px;
   z-index: 1;
 }
 
@@ -821,8 +823,8 @@ a:active {
 
 .c-room__chat-box {
   background-color: #485d78;
-  height: 30%;
-  width: calc(100%-30px);
+  height: 75%;
+  width: 46%;
   padding: 15px;
   border-radius: 5px;
 }
@@ -836,11 +838,15 @@ a:active {
   padding-bottom: 75px;
 }
 
+.c-room__chat-box--in-game .c-room--chat {
+  height: 92%;
+}
+
 .c-room--chat {
   background-color: #a1b1c0;
   width: calc(100% - 30px);
   border-radius: 10px;
-  height: 50%;
+  height: 82%;
   padding: 5px 15px;
   overflow: auto;
 }
@@ -949,7 +955,7 @@ a:active {
     display: block;
   }
   .c-room--chat {
-    height: 92%;
+    height: 82%;
   }
 }
 
@@ -997,6 +1003,7 @@ a:active {
   margin: 0 20px;
   height: 60px;
   border-radius: 50%;
+  border: 1px solid black;
 }
 
 .c-roomPlayer__name {
@@ -1394,7 +1401,7 @@ input {
           justify-content: center;
   border-top-left-radius: 7px;
   border-top-right-radius: 7px;
-  border: 2px solid #a1b1c0;
+  border: 1px solid #8598aa;
   border-bottom: none;
 }
 
@@ -1411,12 +1418,13 @@ input {
 .c-game__dices {
   background-color: #485d78;
   width: 90%;
-  padding: 10px 20px 5px;
+  padding: 10px 5px 5px 10px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   margin-bottom: 15px;
   border-radius: 5px;
   -ms-flex-wrap: wrap;
@@ -1443,6 +1451,34 @@ input {
 
 .c-game__selectedDices span {
   color: white;
+  margin: 5px;
+  -webkit-margin-before: 10px;
+          margin-block-start: 10px;
+}
+
+.c-game__partialRunes {
+  width: 100px;
+  height: 80px;
+  border-radius: 5px;
+  padding: 5px;
+  background-color: #485d78;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+}
+
+.c-game__partialRunes span {
+  z-index: 9;
+  color: white;
+  text-shadow: 0 0 0.2em #000;
   margin: 5px;
   -webkit-margin-before: 10px;
           margin-block-start: 10px;
@@ -1475,6 +1511,42 @@ input {
           justify-content: center;
 }
 
+.c-game__skull {
+  width: 125px;
+}
+
+.c-game__skull--text {
+  font-size: 25px;
+  text-align: center;
+  font-weight: 900;
+  color: #580404;
+}
+
+.c-game__rune--watermark {
+  background: radial-gradient(circle, black 0%, rgba(0, 0, 0, 0) 90%);
+  padding: 35px 30px 5px;
+  width: 40px;
+  opacity: 0.5;
+  position: absolute;
+  z-index: 3;
+}
+
+#partial-runes {
+  font-size: 24px;
+  -webkit-margin-before: 0;
+          margin-block-start: 0;
+  text-shadow: 0 0 0.2em #000;
+  font-weight: 900;
+}
+
+.Toastify__toast--dark {
+  white-space: pre-wrap;
+}
+
+.Toastify__toast-body {
+  width: 100%;
+}
+
 .c-action {
   width: 85%;
   background-color: #8598aa;
@@ -1484,6 +1556,21 @@ input {
   -webkit-transition: 0.2s;
   transition: 0.2s;
   cursor: pointer;
+}
+
+.c-action--disabled {
+  width: 85%;
+  background-color: gray;
+  border-radius: 5px;
+  position: relative;
+  margin-bottom: 35px;
+  cursor: not-allowed;
+}
+
+.c-action--disabled .c-action__cost {
+  background-color: gray;
+  color: black;
+  border: 2px solid darkgray;
 }
 
 .c-action__info {

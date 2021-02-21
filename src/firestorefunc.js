@@ -3,8 +3,11 @@ import React from 'react';
 import RoomPlayer from './components/RoomPlayer';
 import GamePlayer from './components/GamePlayer';
 import GameAction from './components/GameAction';
+import { Dice } from './components/dice/dice';
 import ReactDOM from 'react-dom'
 import Cookies from 'universal-cookie';
+import { toast } from 'react-toastify';
+import Button from './components/Button';
 
 let db
 
@@ -13,52 +16,202 @@ export function initFirebase(i18n) {
     let cookies = new Cookies();
     let dbRefPlayers = firebase.database().ref().child('Room').child('Players')
     let dbRefChat = firebase.database().ref().child('Room').child('Chat')
+    let dbRefGameActions = firebase.database().ref().child('Room').child('Game').child('Actions')
+    let dbRefGameDices = firebase.database().ref().child('Room').child('Game').child('Dices')
+    let dbRefGameStats = firebase.database().ref().child('Room').child('Game').child('Stats')
 
     // db functions working
-    dbRefPlayers.on('child_added', snap => {
-        if (window.location.pathname === '/room' || window.location.pathname === '/game'){
-            let pChanged = document.getElementById(snap.key)
-            if (pChanged) {
-                pChanged.remove()
+
+    dbRefGameStats.on('child_added', snap => {
+        if(window.location.pathname === '/game') {
+            if (snap.key === 'orderPlayers') {
+                let objPlayers = document.getElementById('players')
+                let arrayPlayers = snap.val()
+                Object.keys(arrayPlayers).forEach(element => {
+                    let playerChanged = document.getElementById(arrayPlayers[element])
+                    const user = document.createElement('div')
+                    user.id=arrayPlayers[element]
+                    user.className="c-roomPlayer__container"
+                    objPlayers.appendChild(user)
+                    let currentPlayerStats = firebase.database().ref("Room/Players/"+arrayPlayers[element] )
+                    currentPlayerStats.once("value", function(snapshot) {
+                        ReactDOM.render(<GamePlayer userName={snapshot.val().username} userTurn={arrayPlayers[0] === snapshot.key} imageUrl={snapshot.val().imageUrl} runes={snapshot.val().runes} lives={snapshot.val().lives} valknut={snapshot.val().valknut}/>, user) 
+                        if (playerChanged){
+                            objPlayers.replaceChild(user, playerChanged)
+                        }
+                    })
+                })
+                
             }
+            // let buttonContainer = document.getElementById('in-game-buttons')
+            // const button = document.createElement('div')
+            // if (snap.val() && snap.key === 'giveup') {         
+            //     ReactDOM.render(<Button text={'game.giveUp'} func={() => {}}/>, button)
+                
+            // } else if (!snap.val() && snap.key === 'giveup') {
+            //     ReactDOM.render(<Button text={'game.roll'} func={() => {}}/>, button)
+            // } else 
+            if (snap.key === 'partialRunes') {
+                document.getElementById('partial-runes').innerText = snap.val()
+            }
+            if (snap.key === 'turn') {
+                let currentPlayerTurn = firebase.database().ref("Room/Players/"+snap.val() )
+                currentPlayerTurn.once("value", function(snapshot) {
+                    document.getElementById('turn-title').innerText = snapshot.val().username
+                })
+            }
+            // buttonContainer.appendChild(button);
+        }
+    })
+    dbRefGameStats.on('child_changed', snap => {
+        if(window.location.pathname === '/game') {
+            if (snap.key === 'orderPlayers') {
+                let objPlayers = document.getElementById('players')
+                let arrayPlayers = snap.val()
+                Object.keys(arrayPlayers).forEach(element => {
+                    let playerChanged = document.getElementById(arrayPlayers[element])
+                    const user = document.createElement('div')
+                    user.id=arrayPlayers[element]
+                    user.className="c-roomPlayer__container"
+                    let currentPlayerStats = firebase.database().ref("Room/Players/"+arrayPlayers[element] )
+                    currentPlayerStats.once("value", function(snapshot) {
+                        ReactDOM.render(<GamePlayer userName={snapshot.val().username} userTurn={arrayPlayers[0] === snapshot.key} imageUrl={snapshot.val().imageUrl} runes={snapshot.val().runes} lives={snapshot.val().lives} valknut={snapshot.val().valknut}/>, user) 
+                    if (playerChanged){
+                        playerChanged.remove()
+                    }
+                    objPlayers.appendChild(user)
+                    })
+                    
+                });
+                
+            }
+            // let buttonContainer = document.getElementById('in-game-buttons')
+            // if (buttonContainer.hasChildNodes) {
+            //     buttonContainer.innerHTML = ''
+            // }
+            // const button = document.createElement('div')
+            // if (snap.val() && snap.key === 'giveup') {         
+            //     ReactDOM.render(<Button text={'game.giveUp'} func={() => {}}/>, button)
+                
+            // } else if (!snap.val() && snap.key === 'giveup') {
+            //     ReactDOM.render(<Button text={'game.roll'} func={() => {}}/>, button)
+            // } else 
+            if (snap.key === 'partialRunes') {
+                document.getElementById('partial-runes').innerText = snap.val()
+            }
+            // buttonContainer.appendChild(button);
+            if (snap.key === 'turn') {
+                let currentPlayerTurn = firebase.database().ref("Room/Players/"+snap.val() )
+                currentPlayerTurn.once("value", function(snapshot) {
+                    document.getElementById('turn-title').innerText = snapshot.val().username
+                })
+            }
+        }
+    })
+
+    dbRefGameDices.on('child_added', snap => {
+        if(window.location.pathname === '/game') {
+            let objDices = document.getElementById('game-dices')
+            const dice = document.createElement('div')
+            dice.id=snap.key
+            ReactDOM.render(<Dice color={snap.val().color} selected={snap.val().selected} value={snap.val().value}/>, dice)
+            objDices.appendChild(dice);
+            if (snap.val().selected && !snap.val().used){
+                let objSelectedDices = document.getElementById('selected-dices')
+                const diceSelected = document.createElement('div')
+                ReactDOM.render(<Dice color={snap.val().color} selected={snap.val().selected} value={snap.val().value}/>, diceSelected)
+                diceSelected.id=snap.key+"-selected"
+                diceSelected.className = snap.val().color
+                objSelectedDices.appendChild(diceSelected);
+            }
+        }
+    })
+
+    dbRefGameDices.on('child_changed', snap => {
+        if(window.location.pathname === '/game') {
+            let wrapperChanged = document.getElementById(snap.key)
+            let objDices = document.getElementById('game-dices')
+            const dice = document.createElement('div')
+            dice.id=snap.key
+            ReactDOM.render(<Dice color={snap.val().color} selected={snap.val().selected} value={snap.val().value}/>, dice)
+            objDices.replaceChild(dice, wrapperChanged);
+            let diceChanged = document.getElementById(snap.key + "-selected")
+            if (diceChanged) {
+                diceChanged.remove()
+            }
+            if (snap.val().selected && !snap.val().used){
+                let objSelectedDices = document.getElementById('selected-dices')
+                const diceSelected = document.createElement('div')
+                ReactDOM.render(<Dice color={snap.val().color} selected={snap.val().selected} value={snap.val().value}/>, diceSelected)
+                diceSelected.id=snap.key+"-selected"
+                diceSelected.className = snap.val().color
+                objSelectedDices.appendChild(diceSelected);
+            }
+        }
+    })
+
+    dbRefGameActions.on('child_added', snap => {
+        if(window.location.pathname === '/game') {
+            let actionText = "⚠️ ACCIÓ JUGADA ⚠️\n\n🧙🏻‍♂️ Player: " + snap.val().user + "\n🔮 Action: " + snap.val().message +' ✨'
+            toast.dark(actionText)
+        }
+    })
+
+    //******* */
+    dbRefPlayers.on('child_added', snap => {
+        if (window.location.pathname === '/room'){
+            let playerChanged = document.getElementById(snap.key)
             let objPlayers = document.getElementById('players')
             const user = document.createElement('div')
             user.id=snap.key
             user.className="c-roomPlayer__container"
-            if (window.location.pathname === '/room'){
-                ReactDOM.render(<RoomPlayer userName={snap.val().username} ready={snap.val().ready} i18n={i18n} imageUrl={snap.val().imageUrl}/>, user)
+            ReactDOM.render(<RoomPlayer userName={snap.val().username} ready={snap.val().ready} i18n={i18n} imageUrl={snap.val().imageUrl}/>, user)
+            if (playerChanged){
+                objPlayers.replaceChild(user, playerChanged)
+            } else {
+                objPlayers.appendChild(user)
             }
-            if (window.location.pathname === '/game'){
-                ReactDOM.render(<GamePlayer userName={snap.val().username} userTurn={snap.val().userTurn} imageUrl={snap.val().imageUrl} runes={snap.val().runes} lives={snap.val().lives} valknut={snap.val().valknut}/>, user)  
-                if (snap.key === cookies.get('key')){
-                    let pChanged = document.getElementById(snap.key + 'valknut')
-                    if (pChanged) {
-                        pChanged.remove()
-                    }
-                    let objValknut = document.getElementById('valknut-points')
-                    const valknutP = document.createElement('span')
-                    valknutP.id = snap.key + 'valknut'
-                    valknutP.innerText = snap.val().valknut
-                    objValknut.appendChild(valknutP)
-
-                    let actionsChanged = document.getElementById('action-buttons')
-                    if (actionsChanged) {
-                        actionsChanged.remove()
-                    }
-                    let objActions = document.getElementById('actions-container')
-                    const actionButtons = document.createElement('div')
-                    actionButtons.id = 'action-buttons'
-                    actionButtons.className = "c-game__actions--container"
-                    ReactDOM.render(<React.Fragment>
-                        <GameAction type="extra-points" valknut={snap.val().valknut} runes={snap.val().runes} i18n={i18n}/>
-                        <GameAction type="damage" valknut={snap.val().valknut} runes={snap.val().runes} i18n={i18n}/>
-                        </React.Fragment>, actionButtons)
-                    objActions.appendChild(actionButtons)
-
-                }
-            }
-            objPlayers.appendChild(user);
         }
+        if (window.location.pathname === '/game'){
+            if (snap.key === cookies.get('key')){
+                let pChanged = document.getElementById(snap.key + 'valknut')
+                if (pChanged) {
+                    pChanged.remove()
+                }
+                let objValknut = document.getElementById('valknut-points')
+                const valknutP = document.createElement('span')
+                valknutP.id = snap.key + 'valknut'
+                valknutP.innerText = snap.val().valknut
+                objValknut.appendChild(valknutP)
+
+                let actionsChanged = document.getElementById('action-buttons')
+                if (actionsChanged) {
+                    actionsChanged.remove()
+                }
+                let objActions = document.getElementById('actions-container')
+                const actionButtons = document.createElement('div')
+                actionButtons.id = 'action-buttons'
+                actionButtons.className = "c-game__actions--container"
+                ReactDOM.render(<React.Fragment>
+                    <GameAction type="extra-points" valknut={snap.val().valknut} runes={snap.val().runes} i18n={i18n}/>
+                    <GameAction type="damage" valknut={snap.val().valknut} runes={snap.val().runes} i18n={i18n}/>
+                    </React.Fragment>, actionButtons)
+                objActions.appendChild(actionButtons)
+            }
+            //----------------
+            let objPlayers = document.getElementById('players')
+            let playerChanged = document.getElementById(snap.key)
+            const user = document.createElement('div')
+            user.id=snap.key
+            user.className="c-roomPlayer__container"
+            let currentGameTurn = firebase.database().ref("Room/Game/Stats/turn")
+            currentGameTurn.once("value", function(snapshot) {
+                ReactDOM.render(<GamePlayer userName={snap.val().username} userTurn={snapshot.val() === snap.key} imageUrl={snap.val().imageUrl} runes={snap.val().runes} lives={snap.val().lives} valknut={snap.val().valknut}/>, user) 
+                if (playerChanged){
+                    objPlayers.replaceChild(user, playerChanged)
+                }
+            })
+        }            
     })
     dbRefPlayers.on('child_removed', snap => {
         const pRemoved = document.getElementById(snap.key)
@@ -66,45 +219,62 @@ export function initFirebase(i18n) {
     })
 
     dbRefPlayers.on('child_changed', snap => {
-        if (window.location.pathname === '/room' || window.location.pathname === '/game'){
-            let pChanged = document.getElementById(snap.key)
-                pChanged.remove()
-                let objPlayers = document.getElementById('players')
-                const user = document.createElement('div')
-                user.id = snap.key
-                user.className="c-roomPlayer__container"
-            if (window.location.pathname === '/room'){
-                ReactDOM.render(<RoomPlayer userName={snap.val().username} ready={snap.val().ready} i18n={i18n} imageUrl={snap.val().imageUrl}/>, user)
+        if (window.location.pathname === '/room'){
+            let playerChanged = document.getElementById(snap.key)
+            let objPlayers = document.getElementById('players')
+            const user = document.createElement('div')
+            user.id = snap.key
+            user.className="c-roomPlayer__container"
+            ReactDOM.render(<RoomPlayer userName={snap.val().username} ready={snap.val().ready} i18n={i18n} imageUrl={snap.val().imageUrl}/>, user)
+            if (playerChanged){
+                objPlayers.replaceChild(user, playerChanged)
+            } else {
+                objPlayers.appendChild(user)
             }
-            if (window.location.pathname === '/game'){
-                ReactDOM.render(<GamePlayer userName={snap.val().username} userTurn={snap.val().userTurn} imageUrl={snap.val().imageUrl} runes={snap.val().runes} lives={snap.val().lives} valknut={snap.val().valknut}/>, user)  
-                if (snap.key === cookies.get('key')){
-                    let pChanged = document.getElementById(snap.key + 'valknut')
-                    if (pChanged) {
-                        pChanged.remove()
-                    }
-                    let objValknut = document.getElementById('valknut-points')
-                    const valknutP = document.createElement('span')
-                    valknutP.id = snap.key + 'valknut'
-                    valknutP.innerText = snap.val().valknut
-                    objValknut.appendChild(valknutP)
-
-                    let actionsChanged = document.getElementById('action-buttons')
-                    if (actionsChanged) {
-                        actionsChanged.remove()
-                    }
-                    let objActions = document.getElementById('actions-container')
-                    const actionButtons = document.createElement('div')
-                    actionButtons.id = 'action-buttons'
-                    actionButtons.className = "c-game__actions--container"
-                    ReactDOM.render(<React.Fragment>
-                        <GameAction type="extra-points" valknut={snap.val().valknut} runes={snap.val().runes} i18n={i18n}/>
-                        <GameAction type="damage" valknut={snap.val().valknut} runes={snap.val().runes} i18n={i18n}/>
-                        </React.Fragment>, actionButtons)
-                    objActions.appendChild(actionButtons)
+        }
+        if (window.location.pathname === '/game'){
+            if (snap.key === cookies.get('key')){
+                let pChanged = document.getElementById(snap.key + 'valknut')
+                if (pChanged) {
+                    pChanged.remove()
                 }
+                let objValknut = document.getElementById('valknut-points')
+                const valknutP = document.createElement('span')
+                valknutP.id = snap.key + 'valknut'
+                valknutP.innerText = snap.val().valknut
+                objValknut.appendChild(valknutP)
+
+                if( snap.val().lives <= 0 || snap.val().lives !== '*'){
+                    //pintar MORT AQUI
+                }
+
+                let actionsChanged = document.getElementById('action-buttons')
+                if (actionsChanged) {
+                    actionsChanged.remove()
+                }
+                let objActions = document.getElementById('actions-container')
+                const actionButtons = document.createElement('div')
+                actionButtons.id = 'action-buttons'
+                actionButtons.className = "c-game__actions--container"
+                ReactDOM.render(<React.Fragment>
+                    <GameAction type="extra-points" valknut={snap.val().valknut} runes={snap.val().runes} i18n={i18n}/>
+                    <GameAction type="damage" valknut={snap.val().valknut} runes={snap.val().runes} i18n={i18n}/>
+                    </React.Fragment>, actionButtons)
+                objActions.appendChild(actionButtons)
             }
-            objPlayers.appendChild(user);
+            //----------------
+            let objPlayers = document.getElementById('players')
+            let playerChanged = document.getElementById(snap.key)
+            const user = document.createElement('div')
+            user.id=snap.key
+            user.className="c-roomPlayer__container"
+            let currentGameTurn = firebase.database().ref("Room/Game/Stats/turn")
+            currentGameTurn.once("value", function(snapshot) {
+                ReactDOM.render(<GamePlayer userName={snap.val().username} userTurn={snapshot.val() === snap.key} imageUrl={snap.val().imageUrl} runes={snap.val().runes} lives={snap.val().lives} valknut={snap.val().valknut}/>, user) 
+                if (playerChanged){
+                    objPlayers.replaceChild(user, playerChanged)
+                }
+            })
         }
     })
 
