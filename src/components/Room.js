@@ -5,6 +5,7 @@ import Button from './Button';
 import fire from '../fire'
 import Chat from './Chat'
 import Cookies from 'universal-cookie';
+import { createNewGame } from './GameFunctions'
 
 export default function Room() {
     let cookies = new Cookies();
@@ -14,102 +15,7 @@ export default function Room() {
     const startGame = () => {
         if (ready) {
             toast.success("Comença el joc")
-            let ref = fire.database().ref().child('Room').child('Game').child('Dices')
-            let refStats = fire.database().ref("Room/Game/Stats")
-            let refPlayers = fire.database().ref("Room/Players")
-            let updates = {
-                "1": {
-                    "color": "green"
-                },
-                "2": {
-                    "color": "yellow"
-                },
-                "3": {
-                    "color": "red",
-                },
-                "4": {
-                    "color": "red",
-                },
-                "5": {
-                    "color": "red",
-                },
-                "6": {
-                    "color": "red",
-                },
-                "7": {
-                    "color": "red",
-                },
-                "8": {
-                    "color": "red",
-                },
-                "9": {
-                    "color": "red",
-                },
-                "10": {
-                    "color": "red",
-                },
-                "11": {
-                    "color": "red",
-                },
-                "12": {
-                    "color": "red",
-                },
-                "13": {
-                    "color": "red",
-                },
-                "14": {
-                    "color": "red",
-                },
-                "15": {
-                    "color": "red",
-                },
-                "16": {
-                    "color": "red",
-                },
-                "17": {
-                    "color": "red",
-                },
-                "18": {
-                    "color": "red",
-                },
-                "19": {
-                    "color": "red",
-                },
-                "20": {
-                    "color": "red",
-                },
-                "21": {
-                    "color": "red",
-                },
-                "22": {
-                    "color": "red",
-                },
-                "23": {
-                    "color": "red",
-                },
-                "24": {
-                    "color": "red",
-                },
-                "25": {
-                    "color": "red",
-                },
-                "26": {
-                    "color": "red",
-                },
-                "27": {
-                    "color": "red",
-                }
-            }
-            let updateStats = {}
-            refPlayers.once("value", function(playersSnap) {
-                let arrayPlayers = Object.keys(playersSnap.val())
-                arrayPlayers = arrayPlayers.sort(function() {return Math.random() - 0.5})
-                updateStats['turn'] = arrayPlayers[0]
-                updateStats['orderPlayers'] = arrayPlayers
-                refStats.update(updateStats)
-                ref.update(updates)
-            })
-            window.location.href = '/game'
+            createNewGame()
         } else {
             toast.warn(t('warnings.roomNotReady'));
         }

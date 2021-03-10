@@ -3,6 +3,7 @@ import React from 'react';
 import RoomPlayer from './components/RoomPlayer';
 import GamePlayer from './components/GamePlayer';
 import GameAction from './components/GameAction';
+import PlayerDeadView from './components/PlayerDeadView';
 import { Dice } from './components/dice/dice';
 import ReactDOM from 'react-dom'
 import Cookies from 'universal-cookie';
@@ -60,7 +61,37 @@ export function initFirebase(i18n) {
                     document.getElementById('turn-title').innerText = snapshot.val().username
                 })
             }
-            // buttonContainer.appendChild(button);
+            if (snap.key === 'dead') {
+                if (snap.val()) {
+                    let currentPlayerTurn = firebase.database().ref("Room/Game/Stats/turn")
+                    currentPlayerTurn.once("value", function(snapshot) {
+                        if (snapshot.val() === cookies.get('key')) {
+                            let commonView = document.getElementById('common-view')
+                            commonView.className = 'hidden'
+                            let userView = document.getElementById('user-view')
+                            const deadView = document.createElement('div')
+                            deadView.id = "dead-player"
+                            deadView.className = "flex-div"
+                            ReactDOM.render(<PlayerDeadView i18n={i18n}/>, deadView) 
+                            userView.appendChild(deadView)
+                        } else {
+                            let deadPlayer = document.getElementById('dead-player')
+                            if (deadPlayer) {
+                                deadPlayer.remove()
+                            }
+                            let commonView = document.getElementById('common-view')
+                            commonView.className = ''
+                        }
+                    })                    
+                } else {
+                    let deadPlayer = document.getElementById('dead-player')
+                    if (deadPlayer) {
+                        deadPlayer.remove()
+                    }
+                    let commonView = document.getElementById('common-view')
+                    commonView.className = ''
+                }
+            }
         }
     })
     dbRefGameStats.on('child_changed', snap => {
@@ -105,6 +136,37 @@ export function initFirebase(i18n) {
                 currentPlayerTurn.once("value", function(snapshot) {
                     document.getElementById('turn-title').innerText = snapshot.val().username
                 })
+            }
+            if (snap.key === 'dead') {
+                if (snap.val()) {
+                    let currentPlayerTurn = firebase.database().ref("Room/Game/Stats/turn")
+                    currentPlayerTurn.once("value", function(snapshot) {
+                        if (snapshot.val() === cookies.get('key')) {
+                            let commonView = document.getElementById('common-view')
+                            commonView.className = 'hidden'
+                            let userView = document.getElementById('user-view')
+                            const deadView = document.createElement('div')
+                            deadView.id = "dead-player"
+                            deadView.className = "flex-div"
+                            ReactDOM.render(<PlayerDeadView i18n={i18n}/>, deadView) 
+                            userView.appendChild(deadView)
+                        } else {
+                            let deadPlayer = document.getElementById('dead-player')
+                            if (deadPlayer) {
+                                deadPlayer.remove()
+                            }
+                            let commonView = document.getElementById('common-view')
+                            commonView.className = ''
+                        }
+                    })
+                } else {
+                    let deadPlayer = document.getElementById('dead-player')
+                    if (deadPlayer) {
+                        deadPlayer.remove()
+                    }
+                    let commonView = document.getElementById('common-view')
+                    commonView.className = ''
+                }
             }
         }
     })

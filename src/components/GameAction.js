@@ -2,6 +2,8 @@ import React from 'react';
 import { useTranslation } from "react-i18next";
 import fire from '../fire'
 import Cookies from 'universal-cookie';
+import { toast } from 'react-toastify';
+
 
 export default function GameAction(props) {
     let cookies = new Cookies();
@@ -15,7 +17,22 @@ export default function GameAction(props) {
         let actionCost = props.type === 'extra-points' ? extraPointsCost : props.type === 'damage' ? damageCost : 0
         updates['valknut'] = props.valknut - actionCost
         if (props.type === 'extra-points'){
-            updates['runes'] = props.runes + 1 
+            let totalRunes = props.runes + 1
+            updates['runes'] = totalRunes
+            let currentGameState = fire.database().ref("Room/Game/Stats")
+            currentGameState.once("value", function(gameStateSnap) {
+                if (totalRunes >= 13 && !gameStateSnap.val().winModeStartPlayer){
+                    ref.once("value", function(snap) {
+                        let currentPlayerName = snap.val().username
+                        let actionText = "🎊 RONDA FINAL 🎊\n\n🏅" + currentPlayerName + " ha conseguit " + totalRunes + " runes🏅"
+                        toast.dark(actionText)
+                        let updateGameState = {}
+                        updateGameState['winModeStartPlayer'] = cookies.get('key')
+                        currentGameState.update(updateGameState)
+                    })
+                }
+            })
+            
         }
         if (props.type === 'damage'){
             let livesVal
@@ -28,8 +45,15 @@ export default function GameAction(props) {
                     livesVal = snap.val();
                     console.log(snap.val());
                     let updatesAction = {}
-                    updatesAction['lives'] = livesVal - 1
+                    let presentLives = livesVal - 1
+                    updatesAction['lives'] = presentLives
                     userVal.update(updatesAction)
+                    if (presentLives <= 0) {
+                        let isDeadPlayer = fire.database().ref("Room/Game/Stats")
+                        let updateDeadPlayer = {}
+                        updateDeadPlayer['dead'] = true
+                        isDeadPlayer.update(updateDeadPlayer)
+                    } 
                 })
             })
         }

@@ -158,6 +158,22 @@
 .Toastify__toast--dark{
     white-space: pre-wrap;
 }
+.Toastify__toast{
+    white-space: pre-wrap;
+}
 .Toastify__toast-body{
     width: 100%;
+}
+
+.hidden{
+    display: none !important;
+}
+
+.flex-div{
+    display: flex;
+    align-items: center;
+}
+
+#common-view{
+    display: flex;
 }
