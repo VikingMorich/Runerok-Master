@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import fire from '../fire'
 import { toast } from 'react-toastify';
+import Cookies from 'universal-cookie';
 
-//const [alive,setAlive] = useState(true);
+let cookies = new Cookies();
 
 const diceTypes = {
     "green": ["rune", "rune", "rune", "ship", "valknut", "damage"],
@@ -12,9 +13,9 @@ const diceTypes = {
     // "black": ['horn', 'ham', 'beer', 'damage', 'damage', 'damage'],
 }
 const diceNumber = {
-    "green": 10,
-    "yellow": 7,
-    "red": 5
+    "green": 11,
+    "yellow": 9,
+    "red": 7
     //"blue": 2
     //"black": 3 
 }
@@ -34,12 +35,21 @@ const getRandomDicePosition = () => {
     return arrayDices
 }
 
+export const exitGame = () => {
+    let refStats = fire.database().ref("Room/Game/Stats/")
+    let updateStats = {}
+    updateStats['playing'] = false
+    refStats.update(updateStats)
+}
+
 export const rollDices = () => {
     let dices = document.getElementById('selected-dices').childNodes
+    let shipCount = 0
     const numberDices = dices.length
     let instanceDices =  { ...dices }
     let arrayValues = []
     let currentGameState = fire.database().ref("Room/Game/Stats")
+    let giveUpState = {}
     for (let i = 0; i < numberDices; i++) {
         let str = instanceDices[i].id
         let res = str.replace("-selected", "");
@@ -51,11 +61,17 @@ export const rollDices = () => {
         let value = diceTypes[color][randVal]
         if (value !== 'ship') {
             updates['used'] = true
+        } else {
+            shipCount += 1
         }
         updates['value'] = value
         arrayValues.push(value)
         ref.update(updates)
     }
+    giveUpState['giveup'] = true
+    giveUpState['selectedDices'] = shipCount
+    currentGameState.update(giveUpState)
+
     currentGameState.once("value", function(gameStateSnap) {
         let playerTurn = gameStateSnap.val().turn
         let currentPlayerState = fire.database().ref("Room/Players/"+playerTurn)
@@ -110,8 +126,14 @@ const recursiveWinSearch = (index, arrayPlayers, winnerPoints, winnerName) => {
             recursiveWinSearch(index+1, arrayPlayers, partialWinnerPoints, partialWinnerName)
         }
         else {
-            let winText = '🎴 GAME OVER 🎴\n\n🏆 The winner is '+partialWinnerName+' with '+partialWinnerPoints+' runes 🔥'
-            toast(winText)
+            let refStats = fire.database().ref("Room/Game/Stats/")
+            let winnerStats = {
+                "winner": {
+                    "username": partialWinnerName,
+                    "runes": partialWinnerPoints
+                }
+            }
+            refStats.update(winnerStats)
         }
     })
 }
@@ -134,7 +156,6 @@ export const giveUp = () => {
             let updateGameState = {}
             let currentPlayerRunes = snap.val().runes
             let currentPlayerLives = snap.val().lives
-            let currentPlayerName = snap.val().username
             let updatePlayerState = {
                 "lives": 3,
             }
@@ -144,12 +165,11 @@ export const giveUp = () => {
                     updatePlayerState['runes'] = totalRunes
                     if (totalRunes >= 13 && !snapshot.val().winModeStartPlayer) {
                         updateGameState['winModeStartPlayer'] = playerTurn
-                        let actionText = "🎊 RONDA FINAL 🎊\n\n🏅" + currentPlayerName + " ha conseguit " + totalRunes + " runes🏅"
-                        toast(actionText)
                     }
                 }
                 updateGameState['partialRunes'] = 0
                 updateGameState['dead'] = false
+                
                 currentGameState.update(updateGameState)
                 currentPlayerState.update(updatePlayerState)
             })
@@ -158,6 +178,7 @@ export const giveUp = () => {
     let refTurn = fire.database().ref("Room/Game/Stats/")
     let updatesTurn = {}
     updatesTurn['giveup'] = true
+    updatesTurn['selectedDices'] = 0
     refTurn.once("value", function(gameStateSnap) {
         let arrayPlayers = gameStateSnap.val().orderPlayers
         let currentPlayer = arrayPlayers[0]
@@ -169,7 +190,7 @@ export const giveUp = () => {
             //GAME OVER
             recursiveWinSearch(0, newArrayPlayers, -1, "")
             setTimeout(function(){ 
-                window.location.href = '/room'
+                exitGame()
             }, 7000)
         }
         updatesTurn['orderPlayers'] = newArrayPlayers
@@ -206,7 +227,50 @@ export const createNewGame = () => {
         updateStats['turn'] = arrayPlayers[0]
         updateStats['orderPlayers'] = arrayPlayers
         updateStats['winModeStartPlayer'] = false
+        updateStats['playing'] = true
+        updateStats['winner'] = {}
+        updateStats['giveup'] = true
+        updateStats['selectedDices'] = 0
         refStats.update(updateStats)
-        window.location.href = '/game'
     })
 }
+
+export const flipCard = (e)  => {
+    //comprovar si es el teu torn
+    let refStats = fire.database().ref("Room/Game/Stats")
+    refStats.once("value", function(gameStats) {
+        if (gameStats.val().turn === cookies.get('key')) {
+            //comprovar si estas viu
+            if (!gameStats.val().dead) {
+                //if not flipped -> flip
+                if (e.currentTarget.className === 'flip-card') {
+                    if (document.getElementById('selected-dices').childElementCount === 3){
+                        alert("Ja tens 3 daus seleccionats")
+                    } else{
+                        //+++++++++++++++++
+                        let updateStats = {}
+                        updateStats['giveup'] = false
+                        updateStats['selectedDices'] = gameStats.val().selectedDices + 1
+                        refStats.update(updateStats)
+                        //+++++++++++++++
+                        e.currentTarget.className += ' flip-card-flipped'
+                        let ref = fire.database().ref("Room/Game/Dices/"+e.currentTarget.parentElement.id)
+                        setTimeout(function(){ 
+                            let updates = {}
+                            updates['selected'] = true
+                            ref.update(updates) },
+                        300);
+                    }
+                    
+                }
+            }
+            else {
+                alert("No pots seleccionar més daus un cop has mort")
+            }
+        }
+        else {
+            alert("No es el teu torn")
+        }
+    })
+}
+

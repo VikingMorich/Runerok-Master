@@ -9,11 +9,9 @@ import ReactDOM from 'react-dom'
 import Cookies from 'universal-cookie';
 import { toast } from 'react-toastify';
 import Button from './components/Button';
-
-let db
+import { rollDices, giveUp } from './components/GameFunctions'
 
 export function initFirebase(i18n) {
-    db = firebase.firestore();
     let cookies = new Cookies();
     let dbRefPlayers = firebase.database().ref().child('Room').child('Players')
     let dbRefChat = firebase.database().ref().child('Room').child('Chat')
@@ -61,6 +59,24 @@ export function initFirebase(i18n) {
                     document.getElementById('turn-title').innerText = snapshot.val().username
                 })
             }
+            if (snap.key === 'selectedDices') {
+                let buttonContainer = document.getElementById('in-game-buttons')
+                buttonContainer.innerHTML=''
+                let gameStatsRef = firebase.database().ref("Room/Game/Stats")
+                gameStatsRef.once("value", function(snapshot) {
+                    if(snapshot.val().turn === cookies.get('key')) {
+                        const button = document.createElement('div')
+                        if (snapshot.val().giveup) {
+                            ReactDOM.render(<Button text={i18n('game.giveUp').toUpperCase()} func={giveUp}/>, button)
+                        }
+                        else {
+                            let rollState = snap.val() < 3
+                            ReactDOM.render(<Button text={i18n('game.roll').toUpperCase()} func={rollDices} disabled={rollState}/>, button)
+                        }
+                        buttonContainer.appendChild(button)
+                    }
+                })
+            }
             if (snap.key === 'dead') {
                 if (snap.val()) {
                     let currentPlayerTurn = firebase.database().ref("Room/Game/Stats/turn")
@@ -92,6 +108,27 @@ export function initFirebase(i18n) {
                     commonView.className = ''
                 }
             }
+            if (snap.key === 'winModeStartPlayer') {
+                if (snap.val()) {
+                    let currentPlayer = firebase.database().ref("Room/Players/"+snap.val() )
+                    currentPlayer.once("value", function(snapshot) {
+                        let playerName = snapshot.val().username
+                        let actionText = "🎊 RONDA FINAL 🎊\n\n🏅" + playerName + " ha conseguit impresionar als deus🏅"
+                        toast(actionText)
+                    })
+                }
+            }
+            if (snap.key === 'winner') {
+                let winText = '🎴 GAME OVER 🎴\n\n🏆 The winner is '+snap.val().username+' with '+snap.val().runes+' runes 🔥\n\nValhalleluja'
+                toast(winText)
+            }
+        }
+        if (snap.key === 'playing') {
+            if (window.location.pathname === '/room' && snap.val()) {
+                window.location.href = '/game'
+            } else if (window.location.pathname === '/game' && !snap.val()) {
+                window.location.href = '/room'
+            }
         }
     })
     dbRefGameStats.on('child_changed', snap => {
@@ -112,29 +149,41 @@ export function initFirebase(i18n) {
                     }
                     objPlayers.appendChild(user)
                     })
-                    
                 });
-                
             }
-            // let buttonContainer = document.getElementById('in-game-buttons')
-            // if (buttonContainer.hasChildNodes) {
-            //     buttonContainer.innerHTML = ''
-            // }
-            // const button = document.createElement('div')
-            // if (snap.val() && snap.key === 'giveup') {         
-            //     ReactDOM.render(<Button text={'game.giveUp'} func={() => {}}/>, button)
-                
-            // } else if (!snap.val() && snap.key === 'giveup') {
-            //     ReactDOM.render(<Button text={'game.roll'} func={() => {}}/>, button)
-            // } else 
             if (snap.key === 'partialRunes') {
                 document.getElementById('partial-runes').innerText = snap.val()
             }
-            // buttonContainer.appendChild(button);
             if (snap.key === 'turn') {
                 let currentPlayerTurn = firebase.database().ref("Room/Players/"+snap.val() )
                 currentPlayerTurn.once("value", function(snapshot) {
                     document.getElementById('turn-title').innerText = snapshot.val().username
+                })
+                let buttonContainer = document.getElementById('in-game-buttons')
+                if (snap.val() !== cookies.get('key')) {
+                    buttonContainer.innerHTML=''
+                } else {
+                    const button = document.createElement('div')
+                    ReactDOM.render(<Button text={i18n('game.giveUp').toUpperCase()} func={giveUp}/>, button)
+                    buttonContainer.appendChild(button)
+                }
+            }
+            if (snap.key === 'selectedDices') {
+                let buttonContainer = document.getElementById('in-game-buttons')
+                buttonContainer.innerHTML=''
+                let gameStatsRef = firebase.database().ref("Room/Game/Stats")
+                gameStatsRef.once("value", function(snapshot) {
+                    if(snapshot.val().turn === cookies.get('key')) {
+                        const button = document.createElement('div')
+                        if (snapshot.val().giveup) {
+                            ReactDOM.render(<Button text={i18n('game.giveUp').toUpperCase()} func={giveUp}/>, button)
+                        }
+                        else {
+                            let rollState = snap.val() < 3
+                            ReactDOM.render(<Button text={i18n('game.roll').toUpperCase()} func={rollDices} disabled={rollState}/>, button)
+                        }
+                        buttonContainer.appendChild(button)
+                    }
                 })
             }
             if (snap.key === 'dead') {
@@ -167,6 +216,27 @@ export function initFirebase(i18n) {
                     let commonView = document.getElementById('common-view')
                     commonView.className = ''
                 }
+            }
+            if (snap.key === 'winModeStartPlayer') {
+                if (snap.val()) {
+                    let currentPlayer = firebase.database().ref("Room/Players/"+snap.val() )
+                    currentPlayer.once("value", function(snapshot) {
+                        let playerName = snapshot.val().username
+                        let actionText = "🎊 RONDA FINAL 🎊\n\n🏅" + playerName + " ha conseguit impresionar als deus🏅"
+                        toast(actionText)
+                    })
+                }
+            }
+            if (snap.key === 'winner') {
+                let winText = '🎴 GAME OVER 🎴\n\n🏆 The winner is '+snap.val().username+' with '+snap.val().runes+' runes 🔥\n\nValhalleluja'
+                toast(winText)
+            }
+        }
+        if (snap.key === 'playing') {
+            if (window.location.pathname === '/room' && snap.val()) {
+                window.location.href = '/game'
+            } else if (window.location.pathname === '/game' && !snap.val()) {
+                window.location.href = '/room'
             }
         }
     })
@@ -219,7 +289,6 @@ export function initFirebase(i18n) {
         }
     })
 
-    //******* */
     dbRefPlayers.on('child_added', snap => {
         if (window.location.pathname === '/room'){
             let playerChanged = document.getElementById(snap.key)
@@ -260,7 +329,6 @@ export function initFirebase(i18n) {
                     </React.Fragment>, actionButtons)
                 objActions.appendChild(actionButtons)
             }
-            //----------------
             let objPlayers = document.getElementById('players')
             let playerChanged = document.getElementById(snap.key)
             const user = document.createElement('div')
@@ -305,11 +373,6 @@ export function initFirebase(i18n) {
                 valknutP.id = snap.key + 'valknut'
                 valknutP.innerText = snap.val().valknut
                 objValknut.appendChild(valknutP)
-
-                if( snap.val().lives <= 0 || snap.val().lives !== '*'){
-                    //pintar MORT AQUI
-                }
-
                 let actionsChanged = document.getElementById('action-buttons')
                 if (actionsChanged) {
                     actionsChanged.remove()
@@ -324,7 +387,6 @@ export function initFirebase(i18n) {
                     </React.Fragment>, actionButtons)
                 objActions.appendChild(actionButtons)
             }
-            //----------------
             let objPlayers = document.getElementById('players')
             let playerChanged = document.getElementById(snap.key)
             const user = document.createElement('div')

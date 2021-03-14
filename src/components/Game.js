@@ -3,14 +3,10 @@ import { useTranslation } from "react-i18next";
 import Chat from './Chat'
 import { Valknut, Rune } from './icon/icon'
 import Button from './Button'
-import { rollDices, giveUp } from './GameFunctions'
+import { rollDices, giveUp, exitGame } from './GameFunctions'
 
 export default function Game() {
     const [t] = useTranslation("global")
-
-    const ExitGame = () => {
-        window.location.href = '/room'
-    }
 
     return (
         <div className="c-game">
@@ -20,7 +16,7 @@ export default function Game() {
                     
                 </div>
                 <div className="c-game__exit">
-                    <Button text={t('game.exit').toUpperCase()} func={ExitGame}/>
+                    <Button text={t('game.exit').toUpperCase()} func={exitGame}/>
                 </div>
             </div>
             <div className="c-game__game">
@@ -36,10 +32,10 @@ export default function Game() {
 
                             </div>
                         </div>
-                        <div>
+                        {/* <div>
                             <Button text={t('game.roll').toUpperCase()} func={rollDices}/>
                             <Button text={t('game.giveUp').toUpperCase()} func={giveUp}/>
-                        </div>
+                        </div> */}
                         <div id="in-game-buttons">
                             
                         </div>

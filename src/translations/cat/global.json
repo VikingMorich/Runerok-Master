@@ -20,7 +20,7 @@
     },
     "modal": {
         "title": "Runerök",
-        "p1": "Despres de la mort de la majoria dels deus en el Ragnarök els pocs supervivents es juguen el dret a sostindre el martell de Thor Mjölnir i nomenar-se aixi succesor de Odín i principal lider al castell d’Asgard. Per guanyar aquest dret s’hauran de conseguir totes les runes i obtindre el secret que aguardan per dominar el poder absolut, pero nomes el primer en conseguir-ho sera el nou anfitrió en el Valhalla aixi que la resta de rivals no ens ho posaran facil. Viu l’experiencia de Runerök i juga la millor estrategia per sabotejar als teus rivals i guanyar la gloria de tot heroi."
+        "p1": "Despres de la mort de la majoria dels deus en el Ragnarök els pocs supervivents es juguen el dret a sostindre el martell de Thor Mjölnir i nomenar-se aixi succesor de Odín i principal lider al castell d'Asgard. Per guanyar aquest dret s'hauran de conseguir totes les runes i obtindre el secret que aguardan per dominar el poder absolut, pero nomes el primer en conseguir-ho sera el nou anfitrió en el Valhalla aixi que la resta de rivals no ens ho posaran facil. Viu l'experiencia de Runerök i juga la millor estrategia per sabotejar als teus rivals i guanyar la gloria de tot heroi."
     },
     "room": {
         "title": "Sala",
@@ -39,16 +39,16 @@
         "p3": "Objectiu de cada torn es conseguir el maxim de punts sense morir",
         "p4": "Quan mors perds totes les runes acumulades aquell torn, si et plantes acumules les runes pel final del joc",
         "p5": "Durant els torns escollirem els daus de 3 en 3",
-        "p6": "El color dels daus ens indica la dificultad de superar l’expedició",
-        "p7": "Haurem de decidir entre plantar-nos o seguir jugant abans d’escollir els daus",
+        "p6": "El color dels daus ens indica la dificultad de superar l'expedició",
+        "p7": "Haurem de decidir entre plantar-nos o seguir jugant abans d'escollir els daus",
         "p8": "Despres de cada tirada, si seguim vius podrem continuar decidint",
         "p9": "La partida acaba quan algu consegueix 13 runes o mes",
         "p10": "La resta de jugadors tenen una ultima oportunitat per impresionar als deus superant al rival",
         "p11": "Finalitzada la ultima ronda guanya qui te mes punts",
-        "p12": "En cas d’empat guanya el primer en conseguir-los",
+        "p12": "En cas d'empat guanya el primer en conseguir-los",
         "p13": "Punts valknut serveixen per utilitzar accions especials a canvi de punts",
         "p14": "Surten de les tirades dels daus i es poden jugar fora del teu torn",
-        "p15": "Clica sobre el menu d’accions quan tinguis prous punts per executar una acció"
+        "p15": "Clica sobre el menu d'accions quan tinguis prous punts per executar una acció"
     },
     "contact-op": {
         "name": "Nom",
@@ -59,7 +59,7 @@
         "accept": "Accepto els termes de la ",
         "privacy": "política de privacitat",
         "submit": "Enviar",
-        "presentation": "Sóc VikingMorich, el desenvolupador d’aquest videojoc. Escriu-me per reportar qualsevol error, explicar-me la teva experiencia o proposar millores per futures actualitzacions. Gràcies per jugar a aquest joc, desitjo que gaudeixis de l’experiencia.",
+        "presentation": "Sóc VikingMorich, el desenvolupador d'aquest videojoc. Escriu-me per reportar qualsevol error, explicar-me la teva experiencia o proposar millores per futures actualitzacions. Gràcies per jugar a aquest joc, desitjo que gaudeixis de l'experiencia.",
         "presentation-end": "Ens veiem al Valhalla.",
         "code200": "El vostre email s'ha enviat correctament. Gràcies",
         "error": "Es necesari omplir correctament tots els camps per contactar amb el desenvolupador.",
