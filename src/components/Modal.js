@@ -4,6 +4,8 @@ import { useTranslation } from "react-i18next"
 import AwesomeSlider from 'react-awesome-slider';
 import 'react-awesome-slider/dist/styles.css';
 import 'react-awesome-slider/dist/custom-animations/cube-animation.css';
+import { Ship, Valknut, Rune, Heart, Damage} from './icon/icon'
+
 
 export default function Modal(props) {
     const [t] = useTranslation("global")
@@ -32,13 +34,32 @@ export default function Modal(props) {
                             <AwesomeSlider animation="cubeAnimation" className="c-slider">
                                 <div className="c-slider__text">
                                     <p>{t('instructions.p1')}</p>
-                                    <p>{t('instructions.p2')}</p>
-                                    <p>{t('instructions.p3')}</p>
+                                    <p>
+                                        {t('instructions.p2')}
+                                        <div className="c-modal__instructions--icon">
+                                            <Heart></Heart>
+                                        </div>
+                                    </p>
+                                    <p>
+                                        {t('instructions.p3')}
+                                        <div className="c-modal__instructions--icon">
+                                            <Rune></Rune>
+                                        </div>
+                                        {t('instructions.p3-2')}
+                                    </p>
                                     <p>{t('instructions.p4')}</p>
                                 </div>
                                 <div className="c-slider__text">
                                     <p>{t('instructions.p5')}</p>
                                     <p>{t('instructions.p6')}</p>
+                                    <div className="c-modal__dices">
+                                        <div className="c-modal__dice c-modal__dice--green"></div>
+                                        <span>{t('instructions.easy')}</span>
+                                        <div className="c-modal__dice c-modal__dice--yellow"></div>
+                                        <span>{t('instructions.medium')}</span>
+                                        <div className="c-modal__dice c-modal__dice--red"></div>
+                                        <span>{t('instructions.hard')}</span>
+                                    </div>
                                     <p>{t('instructions.p7')}</p>
                                     <p>{t('instructions.p8')}</p>
                                 </div>
@@ -49,9 +70,27 @@ export default function Modal(props) {
                                     <p>{t('instructions.p12')}</p>
                                 </div>
                                 <div className="c-slider__text">
-                                    <p>{t('instructions.p13')}</p>
+                                    <p>
+                                        {t('instructions.p13')}
+                                        <div className="c-modal__instructions--icon">
+                                            <Valknut></Valknut>
+                                        </div>
+                                        {t('instructions.p13-2')}
+                                    </p>
                                     <p>{t('instructions.p14')}</p>
                                     <p>{t('instructions.p15')}</p>
+                                    <p>
+                                        <div className="c-modal__instructions--icon">
+                                            <Ship></Ship>
+                                        </div>
+                                        {t('instructions.p16')}
+                                    </p>
+                                    <p>
+                                        <div className="c-modal__instructions--icon">
+                                            <Damage></Damage>
+                                        </div>
+                                        {t('instructions.p17')}
+                                    </p>
                                 </div>
                             </AwesomeSlider>
                         </React.Fragment>

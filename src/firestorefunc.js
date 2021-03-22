@@ -1,15 +1,18 @@
 import firebase from 'firebase'
-import React from 'react';
-import RoomPlayer from './components/RoomPlayer';
-import GamePlayer from './components/GamePlayer';
-import GameAction from './components/GameAction';
-import PlayerDeadView from './components/PlayerDeadView';
-import { Dice } from './components/dice/dice';
+import React from 'react'
+import RoomPlayer from './components/RoomPlayer'
+import GamePlayer from './components/GamePlayer'
+import GameAction from './components/GameAction'
+import PlayerDeadView from './components/PlayerDeadView'
+import Dice from './components/dice/dice'
 import ReactDOM from 'react-dom'
-import Cookies from 'universal-cookie';
-import { toast } from 'react-toastify';
-import Button from './components/Button';
-import { rollDices, giveUp } from './components/GameFunctions'
+import Cookies from 'universal-cookie'
+import { toast } from 'react-toastify'
+import Button from './components/Button'
+import RollingDice from './components/RollingDice'
+import { rollDices, giveUp, toggleReady } from './components/GameFunctions'
+import { Ship } from './components/icon/icon';
+
 
 export function initFirebase(i18n) {
     let cookies = new Cookies();
@@ -18,6 +21,7 @@ export function initFirebase(i18n) {
     let dbRefGameActions = firebase.database().ref().child('Room').child('Game').child('Actions')
     let dbRefGameDices = firebase.database().ref().child('Room').child('Game').child('Dices')
     let dbRefGameStats = firebase.database().ref().child('Room').child('Game').child('Stats')
+    let even = false
 
     // db functions working
 
@@ -34,30 +38,60 @@ export function initFirebase(i18n) {
                     objPlayers.appendChild(user)
                     let currentPlayerStats = firebase.database().ref("Room/Players/"+arrayPlayers[element] )
                     currentPlayerStats.once("value", function(snapshot) {
-                        ReactDOM.render(<GamePlayer userName={snapshot.val().username} userTurn={arrayPlayers[0] === snapshot.key} imageUrl={snapshot.val().imageUrl} runes={snapshot.val().runes} lives={snapshot.val().lives} valknut={snapshot.val().valknut}/>, user) 
-                        if (playerChanged){
-                            objPlayers.replaceChild(user, playerChanged)
+                        if(snapshot.val()){
+                            ReactDOM.render(<GamePlayer userName={snapshot.val().username} userTurn={arrayPlayers[0] === snapshot.key} imageUrl={snapshot.val().imageUrl} runes={snapshot.val().runes} lives={snapshot.val().lives} valknut={snapshot.val().valknut}/>, user) 
+                            if (playerChanged){
+                                objPlayers.replaceChild(user, playerChanged)
+                            }
                         }
                     })
                 })
-                
             }
-            // let buttonContainer = document.getElementById('in-game-buttons')
-            // const button = document.createElement('div')
-            // if (snap.val() && snap.key === 'giveup') {         
-            //     ReactDOM.render(<Button text={'game.giveUp'} func={() => {}}/>, button)
-                
-            // } else if (!snap.val() && snap.key === 'giveup') {
-            //     ReactDOM.render(<Button text={'game.roll'} func={() => {}}/>, button)
-            // } else 
             if (snap.key === 'partialRunes') {
                 document.getElementById('partial-runes').innerText = snap.val()
             }
             if (snap.key === 'turn') {
                 let currentPlayerTurn = firebase.database().ref("Room/Players/"+snap.val() )
                 currentPlayerTurn.once("value", function(snapshot) {
+                    if (snapshot.val()){
                     document.getElementById('turn-title').innerText = snapshot.val().username
+                        let currentGStats = firebase.database().ref("Room/Game/Stats" )
+                        currentGStats.once("value", function(gameSnap) {
+                            let objPlayers = document.getElementById('players')
+                            let arrayPlayers = gameSnap.val().orderPlayers
+                            Object.keys(arrayPlayers).forEach(element => {
+                                let playerChanged = document.getElementById(arrayPlayers[element])
+                                const user = document.createElement('div')
+                                user.id=arrayPlayers[element]
+                                user.className="c-roomPlayer__container"
+                                objPlayers.appendChild(user)
+                                let currentPlayerStats = firebase.database().ref("Room/Players/"+arrayPlayers[element] )
+                                currentPlayerStats.once("value", function(snapshot) {
+                                    if (snapshot.val()) {
+                                        ReactDOM.render(<GamePlayer userName={snapshot.val().username} userTurn={snap.val() === snapshot.key} imageUrl={snapshot.val().imageUrl} runes={snapshot.val().runes} lives={snapshot.val().lives} valknut={snapshot.val().valknut}/>, user) 
+                                        if (playerChanged){
+                                            objPlayers.replaceChild(user, playerChanged)
+                                        }
+                                    }
+                                })
+                            })
+                        })
+                    }
                 })
+                let objActions = document.getElementById('actions-container')
+                objActions.innerHTML = ''
+                const actionButtons = document.createElement('div')
+                actionButtons.id = 'action-buttons'
+                actionButtons.className = "c-game__actions--container"
+                let currentPlayerStats = firebase.database().ref("Room/Players/"+cookies.get('key'))
+                currentPlayerStats.once("value", function(snapshot) {
+                    ReactDOM.render(<React.Fragment>
+                        <GameAction type="extra-points" valknut={snapshot.val().valknut} runes={snapshot.val().runes} i18n={i18n}/>
+                        <GameAction type="damage" valknut={snapshot.val().valknut} i18n={i18n}/>
+                        <GameAction type="extra-turn" valknut={snapshot.val().valknut} turn={snap.val() === cookies.get('key')} i18n={i18n}/>
+                    </React.Fragment>, actionButtons)
+                    objActions.appendChild(actionButtons)
+                }) 
             }
             if (snap.key === 'selectedDices') {
                 let buttonContainer = document.getElementById('in-game-buttons')
@@ -113,13 +147,13 @@ export function initFirebase(i18n) {
                     let currentPlayer = firebase.database().ref("Room/Players/"+snap.val() )
                     currentPlayer.once("value", function(snapshot) {
                         let playerName = snapshot.val().username
-                        let actionText = "🎊 RONDA FINAL 🎊\n\n🏅" + playerName + " ha conseguit impresionar als deus🏅"
-                        toast(actionText)
+                        let finalText = i18n('toast.final1') + playerName + i18n('toast.final2')
+                        toast(finalText)
                     })
                 }
             }
             if (snap.key === 'winner') {
-                let winText = '🎴 GAME OVER 🎴\n\n🏆 The winner is '+snap.val().username+' with '+snap.val().runes+' runes 🔥\n\nValhalleluja'
+                let winText = i18n('toast.win1')+snap.val().username+ i18n('toast.win2') +snap.val().runes+ i18n('toast.win3')
                 toast(winText)
             }
         }
@@ -155,9 +189,32 @@ export function initFirebase(i18n) {
                 document.getElementById('partial-runes').innerText = snap.val()
             }
             if (snap.key === 'turn') {
+                let currentGStats = firebase.database().ref("Room/Game/Stats" )
+                currentGStats.once("value", function(gameSnap) {
+                    let objPlayers = document.getElementById('players')
+                    let arrayPlayers = gameSnap.val().orderPlayers
+                    Object.keys(arrayPlayers).forEach(element => {
+                        let playerChanged = document.getElementById(arrayPlayers[element])
+                        const user = document.createElement('div')
+                        user.id=arrayPlayers[element]
+                        user.className="c-roomPlayer__container"
+                        objPlayers.appendChild(user)
+                        let currentPlayerStats = firebase.database().ref("Room/Players/"+arrayPlayers[element] )
+                        currentPlayerStats.once("value", function(snapshot) {
+                            if (snapshot.val()) {
+                                ReactDOM.render(<GamePlayer userName={snapshot.val().username} userTurn={snap.val() === snapshot.key} imageUrl={snapshot.val().imageUrl} runes={snapshot.val().runes} lives={snapshot.val().lives} valknut={snapshot.val().valknut}/>, user) 
+                                if (playerChanged){
+                                    objPlayers.replaceChild(user, playerChanged)
+                                }
+                            }
+                        })
+                    })
+                })
                 let currentPlayerTurn = firebase.database().ref("Room/Players/"+snap.val() )
                 currentPlayerTurn.once("value", function(snapshot) {
-                    document.getElementById('turn-title').innerText = snapshot.val().username
+                    if(snapshot.val()){
+                        document.getElementById('turn-title').innerText = snapshot.val().username
+                    }
                 })
                 let buttonContainer = document.getElementById('in-game-buttons')
                 if (snap.val() !== cookies.get('key')) {
@@ -167,6 +224,20 @@ export function initFirebase(i18n) {
                     ReactDOM.render(<Button text={i18n('game.giveUp').toUpperCase()} func={giveUp}/>, button)
                     buttonContainer.appendChild(button)
                 }
+                let objActions = document.getElementById('actions-container')
+                objActions.innerHTML = ''
+                const actionButtons = document.createElement('div')
+                actionButtons.id = 'action-buttons'
+                actionButtons.className = "c-game__actions--container"
+                let currentPlayerStats = firebase.database().ref("Room/Players/"+cookies.get('key'))
+                currentPlayerStats.once("value", function(snapshot) {
+                    ReactDOM.render(<React.Fragment>
+                        <GameAction type="extra-points" valknut={snapshot.val().valknut} runes={snapshot.val().runes} i18n={i18n}/>
+                        <GameAction type="damage" valknut={snapshot.val().valknut} i18n={i18n}/>
+                        <GameAction type="extra-turn" valknut={snapshot.val().valknut} turn={snap.val() === cookies.get('key')} i18n={i18n}/>
+                    </React.Fragment>, actionButtons)
+                    objActions.appendChild(actionButtons)
+                })
             }
             if (snap.key === 'selectedDices') {
                 let buttonContainer = document.getElementById('in-game-buttons')
@@ -222,13 +293,13 @@ export function initFirebase(i18n) {
                     let currentPlayer = firebase.database().ref("Room/Players/"+snap.val() )
                     currentPlayer.once("value", function(snapshot) {
                         let playerName = snapshot.val().username
-                        let actionText = "🎊 RONDA FINAL 🎊\n\n🏅" + playerName + " ha conseguit impresionar als deus🏅"
-                        toast(actionText)
+                        let finalText = i18n('toast.final1') + playerName + i18n('toast.final2')
+                        toast(finalText)
                     })
                 }
             }
             if (snap.key === 'winner') {
-                let winText = '🎴 GAME OVER 🎴\n\n🏆 The winner is '+snap.val().username+' with '+snap.val().runes+' runes 🔥\n\nValhalleluja'
+                let winText = i18n('toast.win1')+snap.val().username+i18n('toast.win2')+snap.val().runes+i18n('toast.win3')
                 toast(winText)
             }
         }
@@ -246,15 +317,22 @@ export function initFirebase(i18n) {
             let objDices = document.getElementById('game-dices')
             const dice = document.createElement('div')
             dice.id=snap.key
-            ReactDOM.render(<Dice color={snap.val().color} selected={snap.val().selected} value={snap.val().value}/>, dice)
+            ReactDOM.render(<Dice color={snap.val().color} selected={snap.val().selected} value={snap.val().value} i18n={i18n}/>, dice)
             objDices.appendChild(dice);
             if (snap.val().selected && !snap.val().used){
                 let objSelectedDices = document.getElementById('selected-dices')
                 const diceSelected = document.createElement('div')
-                ReactDOM.render(<Dice color={snap.val().color} selected={snap.val().selected} value={snap.val().value}/>, diceSelected)
-                diceSelected.id=snap.key+"-selected"
                 diceSelected.className = snap.val().color
+                diceSelected.id=snap.key+"-selected"
+                even = !even
+                ReactDOM.render(<RollingDice color={snap.val().color} even={even}/>, diceSelected)
                 objSelectedDices.appendChild(diceSelected);
+                if(snap.val().value === 'ship') {
+                    let frontDiceFace = document.getElementById(snap.key+"-selected").getElementsByClassName('data-side-1')
+                    let diceValue = document.createElement('div')
+                    ReactDOM.render(<Ship/>, diceValue)
+                    frontDiceFace[0].appendChild(diceValue);
+                }
             }
         }
     })
@@ -265,7 +343,7 @@ export function initFirebase(i18n) {
             let objDices = document.getElementById('game-dices')
             const dice = document.createElement('div')
             dice.id=snap.key
-            ReactDOM.render(<Dice color={snap.val().color} selected={snap.val().selected} value={snap.val().value}/>, dice)
+            ReactDOM.render(<Dice color={snap.val().color} selected={snap.val().selected} value={snap.val().value} i18n={i18n}/>, dice)
             objDices.replaceChild(dice, wrapperChanged);
             let diceChanged = document.getElementById(snap.key + "-selected")
             if (diceChanged) {
@@ -274,9 +352,10 @@ export function initFirebase(i18n) {
             if (snap.val().selected && !snap.val().used){
                 let objSelectedDices = document.getElementById('selected-dices')
                 const diceSelected = document.createElement('div')
-                ReactDOM.render(<Dice color={snap.val().color} selected={snap.val().selected} value={snap.val().value}/>, diceSelected)
-                diceSelected.id=snap.key+"-selected"
                 diceSelected.className = snap.val().color
+                diceSelected.id=snap.key+"-selected"
+                even = !even
+                ReactDOM.render(<RollingDice color={snap.val().color} even={even}/>, diceSelected)
                 objSelectedDices.appendChild(diceSelected);
             }
         }
@@ -284,7 +363,7 @@ export function initFirebase(i18n) {
 
     dbRefGameActions.on('child_added', snap => {
         if(window.location.pathname === '/game') {
-            let actionText = "⚠️ ACCIÓ JUGADA ⚠️\n\n🧙🏻‍♂️ Player: " + snap.val().user + "\n🔮 Action: " + snap.val().message +' ✨'
+            let actionText = i18n('toast.act1') + snap.val().user + i18n('toast.act2') + snap.val().message + i18n('toast.act3')
             toast.dark(actionText)
         }
     })
@@ -301,6 +380,13 @@ export function initFirebase(i18n) {
                 objPlayers.replaceChild(user, playerChanged)
             } else {
                 objPlayers.appendChild(user)
+            }
+            if (snap.key===cookies.get('key')) {
+                let buttonReady = document.getElementById('room-ready-btn')
+                buttonReady.innerHTML =''
+                const buttonContainer = document.createElement('div')
+                ReactDOM.render(<Button text={snap.val().ready ? i18n('room.notReady').toUpperCase() : i18n('room.imReady').toUpperCase()} func={toggleReady}/>, buttonContainer)
+                buttonReady.appendChild(buttonContainer)
             }
         }
         if (window.location.pathname === '/game'){
@@ -323,11 +409,15 @@ export function initFirebase(i18n) {
                 const actionButtons = document.createElement('div')
                 actionButtons.id = 'action-buttons'
                 actionButtons.className = "c-game__actions--container"
-                ReactDOM.render(<React.Fragment>
-                    <GameAction type="extra-points" valknut={snap.val().valknut} runes={snap.val().runes} i18n={i18n}/>
-                    <GameAction type="damage" valknut={snap.val().valknut} runes={snap.val().runes} i18n={i18n}/>
+                let currentPlayerTurn = firebase.database().ref("Room/Game/Stats/turn")
+                currentPlayerTurn.once("value", function(snapshot) {
+                    ReactDOM.render(<React.Fragment>
+                        <GameAction type="extra-points" valknut={snap.val().valknut} runes={snap.val().runes} i18n={i18n}/>
+                        <GameAction type="damage" valknut={snap.val().valknut} i18n={i18n}/>
+                        <GameAction type="extra-turn" valknut={snap.val().valknut} turn={snapshot.val() === cookies.get('key')} i18n={i18n}/>
                     </React.Fragment>, actionButtons)
-                objActions.appendChild(actionButtons)
+                    objActions.appendChild(actionButtons)
+                }) 
             }
             let objPlayers = document.getElementById('players')
             let playerChanged = document.getElementById(snap.key)
@@ -361,6 +451,13 @@ export function initFirebase(i18n) {
             } else {
                 objPlayers.appendChild(user)
             }
+            if (snap.key===cookies.get('key')) {
+                let buttonReady = document.getElementById('room-ready-btn')
+                buttonReady.innerHTML =''
+                const buttonContainer = document.createElement('div')
+                ReactDOM.render(<Button text={snap.val().ready ? i18n('room.notReady').toUpperCase() : i18n('room.imReady').toUpperCase()} func={toggleReady}/>, buttonContainer)
+                buttonReady.appendChild(buttonContainer)
+            }
         }
         if (window.location.pathname === '/game'){
             if (snap.key === cookies.get('key')){
@@ -381,11 +478,15 @@ export function initFirebase(i18n) {
                 const actionButtons = document.createElement('div')
                 actionButtons.id = 'action-buttons'
                 actionButtons.className = "c-game__actions--container"
-                ReactDOM.render(<React.Fragment>
-                    <GameAction type="extra-points" valknut={snap.val().valknut} runes={snap.val().runes} i18n={i18n}/>
-                    <GameAction type="damage" valknut={snap.val().valknut} runes={snap.val().runes} i18n={i18n}/>
+                let currentPlayerTurn = firebase.database().ref("Room/Game/Stats/turn")
+                currentPlayerTurn.once("value", function(snapshot) {
+                    ReactDOM.render(<React.Fragment>
+                        <GameAction type="extra-points" valknut={snap.val().valknut} runes={snap.val().runes} i18n={i18n}/>
+                        <GameAction type="damage" valknut={snap.val().valknut} i18n={i18n}/>
+                        <GameAction type="extra-turn" valknut={snap.val().valknut} turn={snapshot.val() === cookies.get('key')} i18n={i18n}/>
                     </React.Fragment>, actionButtons)
-                objActions.appendChild(actionButtons)
+                    objActions.appendChild(actionButtons)
+                })
             }
             let objPlayers = document.getElementById('players')
             let playerChanged = document.getElementById(snap.key)

@@ -30,25 +30,41 @@
         "imReady": "Estic llest",
         "notReady": "No estic llest"
     },
-    "warnings": {
-        "roomNotReady": "Espera fins que tots els participants estiguin llestos"
+    "toast": {
+        "allPlayersReady": "Comença el joc",
+        "roomNotReady": "Espera fins que tots els participants estiguin llestos",
+        "act1": "⚠️ ACCIÓ JUGADA ⚠️\n\n🧙🏻‍♂️ Jugador: ",
+        "act2": "\n🔮 Acció: ",
+        "act3": " ✨",
+        "win1": "🎴 JOC ACABAT 🎴\n\n🏆 El guanyador es ",
+        "win2": " amb ",
+        "win3": " runes 🔥\n\nValhalleluja",
+        "final1": "🎊 RONDA FINAL 🎊\n\n🏅",
+        "final2": " ha conseguit impresionar als deus🏅"
     },
     "instructions": {
         "p1": "Objectiu: Aconseguir mes runes que la resta de jugadors",
         "p2": "Cada torn comencem amb 3 vides",
-        "p3": "Objectiu de cada torn es conseguir el maxim de punts sense morir",
+        "p3": "Objectiu de cada torn es conseguir el maxim de runes",
+        "p3-2": " sense morir",
         "p4": "Quan mors perds totes les runes acumulades aquell torn, si et plantes acumules les runes pel final del joc",
         "p5": "Durant els torns escollirem els daus de 3 en 3",
-        "p6": "El color dels daus ens indica la dificultad de superar l'expedició",
+        "p6": "El color dels daus ens indica la dificultad de superar l'expedició:",
         "p7": "Haurem de decidir entre plantar-nos o seguir jugant abans d'escollir els daus",
         "p8": "Despres de cada tirada, si seguim vius podrem continuar decidint",
         "p9": "La partida acaba quan algu consegueix 13 runes o mes",
         "p10": "La resta de jugadors tenen una ultima oportunitat per impresionar als deus superant al rival",
         "p11": "Finalitzada la ultima ronda guanya qui te mes punts",
         "p12": "En cas d'empat guanya el primer en conseguir-los",
-        "p13": "Punts valknut serveixen per utilitzar accions especials a canvi de punts",
+        "p13": "Punts valknut",
+        "p13-2": "serveixen per utilitzar accions especials a canvi de punts",
         "p14": "Surten de les tirades dels daus i es poden jugar fora del teu torn",
-        "p15": "Clica sobre el menu d'accions quan tinguis prous punts per executar una acció"
+        "p15": "Clica sobre el menu d'accions quan tinguis prous punts per executar una acció",
+        "p16": "Ens mantenen el dau seleccionat fent que haguem de tornar a tirar-lo si volem seguir jugant",
+        "p17": "Ens resten 1 vida a les totals",
+        "easy": "Fàcil",
+        "medium": "Intermitja",
+        "hard": "Difícil"
     },
     "contact-op": {
         "name": "Nom",
@@ -88,10 +104,19 @@
         "changeTurn": "Canviar de torn",
         "continue": "Continuar",
         "dead": "Has mort i perdut les runes acumulades",
-        "partialRunes": "Runes parcials"
+        "partialRunes": "Runes parcials",
+        "exitConfirmation": "Segur que vols sortir del joc?",
+        "diceAlert3": "Ja tens 3 daus seleccionats",
+        "diceAlertDead": "No pots seleccionar més daus un cop has mort",
+        "diceAlertTurn": "No es el teu torn"
     },
     "gameAction": {
         "extraPoints": "Afegeix una runa al total de runes segures",
-        "damage": "Fes un punt de mal instantani al teu rival"
+        "damage": "Fes un punt de mal instantani al teu rival",
+        "extraTurn": "Guanya un torn extra (nomes disponible en el teu torn)"
+    },
+    "error404": {
+        "title": "404: PAGINA NO TROBADA",
+        "subtitle": "Visita la nostra adreça principal"
     }
 }

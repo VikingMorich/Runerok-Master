@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import Chat from './Chat'
 import { Valknut, Rune } from './icon/icon'
 import Button from './Button'
-import { rollDices, giveUp, exitGame } from './GameFunctions'
+import { rollDices, giveUp, confirmExitGame } from './GameFunctions'
 
 export default function Game() {
     const [t] = useTranslation("global")
@@ -16,7 +16,12 @@ export default function Game() {
                     
                 </div>
                 <div className="c-game__exit">
-                    <Button text={t('game.exit').toUpperCase()} func={exitGame}/>
+                    {/* <div>
+                        <Button text={'* '+t('game.roll').toUpperCase()+' *'} func={rollDices}/>
+                        <Button text={'* '+t('game.giveUp').toUpperCase()+' *'} func={giveUp}/>
+                    </div> */}
+                    <br/>
+                    <Button text={t('game.exit').toUpperCase()} func={() => confirmExitGame(t('game.exitConfirmation'))}/>
                 </div>
             </div>
             <div className="c-game__game">
@@ -26,25 +31,21 @@ export default function Game() {
                 </div>
                 <div className="c-game__interface" id="user-view">
                     <div id="common-view">
-                        <div className="c-game__selectedDices">
-                            <span>{t('game.selectedDices').toUpperCase()}</span>
-                            <div className="c-game__selected-wrapper" id="selected-dices">
-
-                            </div>
-                        </div>
-                        {/* <div>
-                            <Button text={t('game.roll').toUpperCase()} func={rollDices}/>
-                            <Button text={t('game.giveUp').toUpperCase()} func={giveUp}/>
-                        </div> */}
-                        <div id="in-game-buttons">
-                            
-                        </div>
                         <div className="c-game__partialRunes">
                             <span>{t('game.partialRunes').toUpperCase()}</span>
                             <span id="partial-runes"></span>
                             <div className="c-game__rune--watermark">
                                 <Rune />
                             </div>
+                        </div>
+                        <div className="c-game__selectedDices">
+                            <span>{t('game.selectedDices').toUpperCase()}</span>
+                            <div className="c-game__selected-wrapper dice" id="selected-dices">
+
+                            </div>
+                        </div>
+                        <div id="in-game-buttons">
+                            
                         </div>
                     </div>
                 </div>

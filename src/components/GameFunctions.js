@@ -1,10 +1,12 @@
-import React, {useState} from 'react';
 import fire from '../fire'
 import { toast } from 'react-toastify';
 import Cookies from 'universal-cookie';
+import { Ship, Damage, Rune, Valknut } from './icon/icon';
+import ReactDOM from 'react-dom'
+
 
 let cookies = new Cookies();
-
+  
 const diceTypes = {
     "green": ["rune", "rune", "rune", "ship", "valknut", "damage"],
     "yellow": ["rune", "rune", "ship", "valknut", "damage", "damage"],
@@ -35,7 +37,14 @@ const getRandomDicePosition = () => {
     return arrayDices
 }
 
-export const exitGame = () => {
+export const confirmExitGame = (text) => {
+    let confirmation = window.confirm(text)
+    if (confirmation) {
+        exitGame()
+    }
+}
+
+const exitGame = () => {
     let refStats = fire.database().ref("Room/Game/Stats/")
     let updateStats = {}
     updateStats['playing'] = false
@@ -43,6 +52,16 @@ export const exitGame = () => {
 }
 
 export const rollDices = () => {
+    //**************** ROll DICES ANIMATION
+
+    const dice = [...document.querySelectorAll(".die-list")];
+    dice.forEach((die) => {
+        die.children[0].innerHTML = ''
+        die.classList.toggle("odd-roll");
+        die.classList.toggle("even-roll");
+    });
+
+    //*****************
     let dices = document.getElementById('selected-dices').childNodes
     let shipCount = 0
     const numberDices = dices.length
@@ -50,67 +69,95 @@ export const rollDices = () => {
     let arrayValues = []
     let currentGameState = fire.database().ref("Room/Game/Stats")
     let giveUpState = {}
-    for (let i = 0; i < numberDices; i++) {
-        let str = instanceDices[i].id
-        let res = str.replace("-selected", "");
-        let ref = fire.database().ref("Room/Game/Dices/" + res)
-        let updates = {}
-        
-        let randVal = getRandomInt(6)
-        let color = instanceDices[i].className
-        let value = diceTypes[color][randVal]
-        if (value !== 'ship') {
-            updates['used'] = true
-        } else {
-            shipCount += 1
+    setTimeout(function(){ 
+        for (let i = 0; i < numberDices; i++) {
+            let str = instanceDices[i].id
+            let res = str.replace("-selected", "");
+            let ref = fire.database().ref("Room/Game/Dices/" + res)
+            let updates = {}
+            
+            let randVal = getRandomInt(6)
+            let color = instanceDices[i].className
+            let value = diceTypes[color][randVal]
+            if (value === 'ship') {
+                shipCount += 1
+            }
+            updates['value'] = value
+            arrayValues.push(value)
+            ref.update(updates)
+            let frontDiceFace = document.getElementById(instanceDices[i].id).getElementsByClassName('data-side-1')
+            let diceValue = document.createElement('div')
+            if(value === 'damage') {
+                ReactDOM.render(<Damage/>, diceValue)
+            }
+            else if(value === 'ship') {
+                ReactDOM.render(<Ship/>, diceValue)
+            }
+            else if(value === 'rune') {
+                ReactDOM.render(<Rune/>, diceValue)
+            }
+            else if(value === 'valknut') {
+                ReactDOM.render(<Valknut/>, diceValue)
+            }
+            frontDiceFace[0].appendChild(diceValue);
         }
-        updates['value'] = value
-        arrayValues.push(value)
-        ref.update(updates)
-    }
-    giveUpState['giveup'] = true
-    giveUpState['selectedDices'] = shipCount
-    currentGameState.update(giveUpState)
-
-    currentGameState.once("value", function(gameStateSnap) {
-        let playerTurn = gameStateSnap.val().turn
-        let currentPlayerState = fire.database().ref("Room/Players/"+playerTurn)
-        currentPlayerState.once("value", function(snap) {
-            let updatePlayerState = {}
-            let countDamage = 0
-            let countValknut = 0
-            arrayValues.forEach(element => {
-                if (element === 'damage') {
-                    countDamage += 1
-                    updatePlayerState['lives'] = snap.val().lives - countDamage
-                    if (snap.val().lives - countDamage <= 0){
+        giveUpState['giveup'] = true
+        giveUpState['selectedDices'] = shipCount
+        currentGameState.update(giveUpState)
+        currentGameState.once("value", function(gameStateSnap) {
+            let playerTurn = gameStateSnap.val().turn
+            let currentPlayerState = fire.database().ref("Room/Players/"+playerTurn)
+            currentPlayerState.once("value", function(snap) {
+                let updatePlayerState = {}
+                let countDamage = 0
+                let countValknut = 0
+                arrayValues.forEach(element => {
+                    if (element === 'damage') {
+                        countDamage += 1
+                        updatePlayerState['lives'] = snap.val().lives - countDamage
+                        if (snap.val().lives - countDamage <= 0){
+                            let updateGameState = {}
+                            updateGameState['dead'] = true
+                            currentGameState.update(updateGameState)
+                        }
+                    }
+                    if (element === 'valknut') {
+                        countValknut += 1
+                        updatePlayerState['valknut'] = snap.val().valknut + countValknut
+                    }
+                    if (element === 'rune') {
+                        let countRunes = 0
                         let updateGameState = {}
-                        updateGameState['dead'] = true
-                        currentGameState.update(updateGameState)
+                        if(snap.val().lives >= 0) {
+                            currentGameState.once("value", function(snap) {
+                                countRunes += 1
+                                updateGameState['partialRunes'] = snap.val().partialRunes + countRunes
+                            })
+                            currentGameState.update(updateGameState)
+                        }
                     }
-                }
-                if (element === 'valknut') {
-                    countValknut += 1
-                    updatePlayerState['valknut'] = snap.val().valknut + countValknut
-                }
-                if (element === 'rune') {
-                    let countRunes = 0
-                    let updateGameState = {}
-                    if(snap.val().lives >= 0) {
-                        currentGameState.once("value", function(snap) {
-                            countRunes += 1
-                            updateGameState['partialRunes'] = snap.val().partialRunes + countRunes
-                        })
-                        currentGameState.update(updateGameState)
+                    if (element === 'ship') {
+                        //fet a dalt, nomes mante el dau i fica l'icona
                     }
-                }
-                if (element === 'ship') {
-                    //fet a dalt, nomes mante el dau i fica l'icona
-                }
+                })
+                currentPlayerState.update(updatePlayerState)
             })
-            currentPlayerState.update(updatePlayerState)
         })
-    })
+        setTimeout(function(){ 
+            for (let i = 0; i < numberDices; i++) {
+                let str = instanceDices[i].id
+                let res = str.replace("-selected", "");
+                let ref = fire.database().ref("Room/Game/Dices/" + res)
+                let updates = {}
+                if (arrayValues[i] !== 'ship') {
+                    updates['used'] = true
+                }
+                ref.update(updates)
+            }
+        }, 800);
+
+     }, 1000);
+    
 }
 
 const recursiveWinSearch = (index, arrayPlayers, winnerPoints, winnerName) => {
@@ -163,7 +210,7 @@ export const giveUp = () => {
                 if (currentPlayerLives > 0) {
                     let totalRunes = currentPlayerRunes + snapshot.val().partialRunes
                     updatePlayerState['runes'] = totalRunes
-                    if (totalRunes >= 13 && !snapshot.val().winModeStartPlayer) {
+                    if (totalRunes >= 13 && !snapshot.val().winModeStartPlayer && !snapshot.val().extraTurn) {
                         updateGameState['winModeStartPlayer'] = playerTurn
                     }
                 }
@@ -181,24 +228,55 @@ export const giveUp = () => {
     updatesTurn['selectedDices'] = 0
     refTurn.once("value", function(gameStateSnap) {
         let arrayPlayers = gameStateSnap.val().orderPlayers
-        let currentPlayer = arrayPlayers[0]
-        let newArrayPlayers = [...arrayPlayers]
-        newArrayPlayers.shift()
-        newArrayPlayers.push(currentPlayer)
-        updatesTurn['turn'] = newArrayPlayers[0]
-        if (gameStateSnap.val().winModeStartPlayer === newArrayPlayers[0]) {
-            //GAME OVER
-            recursiveWinSearch(0, newArrayPlayers, -1, "")
-            setTimeout(function(){ 
-                exitGame()
-            }, 7000)
+        let currentPlayer = gameStateSnap.val().turn
+        let indexP = arrayPlayers.indexOf(currentPlayer)
+        let newArrayPlayers = []
+        for(let i = 0; i < arrayPlayers.length; i++) {
+            let newIndx = indexP + i + 1
+            if (newIndx >= arrayPlayers.length) {
+                newIndx -= arrayPlayers.length
+            }
+            newArrayPlayers.push(arrayPlayers[newIndx])
         }
-        updatesTurn['orderPlayers'] = newArrayPlayers
+        //si no es extra-turn
+        if(!gameStateSnap.val().extraTurn) {
+            updatesTurn['turn'] = newArrayPlayers[0]
+            if (gameStateSnap.val().winModeStartPlayer === newArrayPlayers[0]) {
+                //GAME OVER
+                recursiveWinSearch(0, newArrayPlayers, -1, "")
+                setTimeout(function(){ 
+                    exitGame()
+                }, 7000)
+            }
+        }
+
+        updatesTurn['extraTurn'] = false
         refTurn.update(updatesTurn)
     })
 }
 
-export const createNewGame = () => {
+export const checkPlayersReady = (trans) => {
+    let refPlayers = fire.database().ref("Room/Players")
+    refPlayers.once("value", function(playersSnap) {
+        let arrayPlayers = playersSnap.val()
+        let playersReady = true
+        Object.keys(arrayPlayers).forEach(element => {
+            if (!arrayPlayers[element].ready) {
+                playersReady = false
+            }
+        });
+        if (playersReady) {
+            debugger
+            toast.success("toast.allPlayersReady")
+            createNewGame()
+        }
+        else {
+            toast.warn(trans('toast.roomNotReady'));
+        }
+    })
+}
+
+const createNewGame = () => {
     let ref = fire.database().ref().child('Room').child('Game').child('Dices')
     let refStats = fire.database().ref("Room/Game/Stats")
     let refPlayers = fire.database().ref("Room/Players")
@@ -227,15 +305,17 @@ export const createNewGame = () => {
         updateStats['turn'] = arrayPlayers[0]
         updateStats['orderPlayers'] = arrayPlayers
         updateStats['winModeStartPlayer'] = false
+        updateStats['partialRunes'] = 0
         updateStats['playing'] = true
         updateStats['winner'] = {}
         updateStats['giveup'] = true
+        updateStats['extraTurn'] = false
         updateStats['selectedDices'] = 0
         refStats.update(updateStats)
     })
 }
 
-export const flipCard = (e)  => {
+export const flipCard = (e, alert3, alertDead, alertTurn)  => {
     //comprovar si es el teu torn
     let refStats = fire.database().ref("Room/Game/Stats")
     refStats.once("value", function(gameStats) {
@@ -245,7 +325,7 @@ export const flipCard = (e)  => {
                 //if not flipped -> flip
                 if (e.currentTarget.className === 'flip-card') {
                     if (document.getElementById('selected-dices').childElementCount === 3){
-                        alert("Ja tens 3 daus seleccionats")
+                        alert(alert3)
                     } else{
                         //+++++++++++++++++
                         let updateStats = {}
@@ -265,12 +345,20 @@ export const flipCard = (e)  => {
                 }
             }
             else {
-                alert("No pots seleccionar més daus un cop has mort")
+                alert(alertDead)
             }
         }
         else {
-            alert("No es el teu torn")
+            alert(alertTurn)
         }
     })
 }
 
+export const toggleReady = () => {
+    let refPlayer = fire.database().ref("Room/Players/"+cookies.get('key'))
+    refPlayer.once("value", function(playerStats) {
+        let updates = {}
+        updates['ready'] = !playerStats.val().ready
+        refPlayer.update(updates)
+    })
+}

@@ -1,19 +1,19 @@
 import React, {useState} from "react";
 import "./index.css"
 import "./scss/main.scss"
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 import { initFirebase } from './firestorefunc'
 import Header from './components/Header'
 import Home from './components/Home'
 import Room from './components/Room'
 import Game from './components/Game'
+import Error404 from './components/404'
 import Contact from './components/Contact'
 import Arrow from './components/Arrow'
 import { useTranslation } from "react-i18next"
 import { useScrollPosition } from '@n8tb1t/use-scroll-position'
-
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 
 export default function App() {
   const [t] = useTranslation("global")
@@ -33,7 +33,7 @@ return (
       <Route path="/contact" component={Contact}/>
       <Route path="/room" component={Room}/>
       <Route path="/game" component={Game}/>
-      <Route render={() => <h1>404: page not found</h1>} />
+      <Route render={() => <Error404/>} />
     </Switch>
     <ToastContainer />
     {showOnScroll &&
