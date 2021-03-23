@@ -52,16 +52,6 @@ const exitGame = () => {
 }
 
 export const rollDices = () => {
-    //**************** ROll DICES ANIMATION
-
-    const dice = [...document.querySelectorAll(".die-list")];
-    dice.forEach((die) => {
-        die.children[0].innerHTML = ''
-        die.classList.toggle("odd-roll");
-        die.classList.toggle("even-roll");
-    });
-
-    //*****************
     let dices = document.getElementById('selected-dices').childNodes
     let shipCount = 0
     const numberDices = dices.length
@@ -69,7 +59,6 @@ export const rollDices = () => {
     let arrayValues = []
     let currentGameState = fire.database().ref("Room/Game/Stats")
     let giveUpState = {}
-    setTimeout(function(){ 
         for (let i = 0; i < numberDices; i++) {
             let str = instanceDices[i].id
             let res = str.replace("-selected", "");
@@ -83,23 +72,9 @@ export const rollDices = () => {
                 shipCount += 1
             }
             updates['value'] = value
+            updates['rolling'] = true
             arrayValues.push(value)
             ref.update(updates)
-            let frontDiceFace = document.getElementById(instanceDices[i].id).getElementsByClassName('data-side-1')
-            let diceValue = document.createElement('div')
-            if(value === 'damage') {
-                ReactDOM.render(<Damage/>, diceValue)
-            }
-            else if(value === 'ship') {
-                ReactDOM.render(<Ship/>, diceValue)
-            }
-            else if(value === 'rune') {
-                ReactDOM.render(<Rune/>, diceValue)
-            }
-            else if(value === 'valknut') {
-                ReactDOM.render(<Valknut/>, diceValue)
-            }
-            frontDiceFace[0].appendChild(diceValue);
         }
         giveUpState['giveup'] = true
         giveUpState['selectedDices'] = shipCount
@@ -152,11 +127,10 @@ export const rollDices = () => {
                 if (arrayValues[i] !== 'ship') {
                     updates['used'] = true
                 }
+                updates['rolling'] = false
                 ref.update(updates)
             }
-        }, 800);
-
-     }, 1000);
+        }, 2000);
     
 }
 
@@ -186,6 +160,11 @@ const recursiveWinSearch = (index, arrayPlayers, winnerPoints, winnerName) => {
 }
 
 export const giveUp = () => {
+    let objSelectedDices = document.getElementById('selected-dices')
+    let diceChilds = [...objSelectedDices.childNodes]
+    diceChilds.forEach(element => {
+        element.remove()
+    })
     let ref = fire.database().ref("Room/Game/Dices/")
     let randomDicePosition = getRandomDicePosition()
     let updates = {}

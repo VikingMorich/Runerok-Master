@@ -11,7 +11,7 @@ import { toast } from 'react-toastify'
 import Button from './components/Button'
 import RollingDice from './components/RollingDice'
 import { rollDices, giveUp, toggleReady } from './components/GameFunctions'
-import { Ship } from './components/icon/icon';
+import { Ship, Damage, Rune, Valknut, Skull } from './components/icon/icon';
 
 
 export function initFirebase(i18n) {
@@ -115,23 +115,18 @@ export function initFirebase(i18n) {
                 if (snap.val()) {
                     let currentPlayerTurn = firebase.database().ref("Room/Game/Stats/turn")
                     currentPlayerTurn.once("value", function(snapshot) {
+                        let commonView = document.getElementById('common-view')
+                        commonView.className = 'hidden'
+                        let userView = document.getElementById('user-view')
+                        const deadView = document.createElement('div')
+                        deadView.id = "dead-player"
+                        deadView.className = "flex-div"
                         if (snapshot.val() === cookies.get('key')) {
-                            let commonView = document.getElementById('common-view')
-                            commonView.className = 'hidden'
-                            let userView = document.getElementById('user-view')
-                            const deadView = document.createElement('div')
-                            deadView.id = "dead-player"
-                            deadView.className = "flex-div"
                             ReactDOM.render(<PlayerDeadView i18n={i18n}/>, deadView) 
-                            userView.appendChild(deadView)
                         } else {
-                            let deadPlayer = document.getElementById('dead-player')
-                            if (deadPlayer) {
-                                deadPlayer.remove()
-                            }
-                            let commonView = document.getElementById('common-view')
-                            commonView.className = ''
+                            ReactDOM.render(<Skull/>, deadView) 
                         }
+                        userView.appendChild(deadView)
                     })                    
                 } else {
                     let deadPlayer = document.getElementById('dead-player')
@@ -217,9 +212,8 @@ export function initFirebase(i18n) {
                     }
                 })
                 let buttonContainer = document.getElementById('in-game-buttons')
-                if (snap.val() !== cookies.get('key')) {
-                    buttonContainer.innerHTML=''
-                } else {
+                buttonContainer.innerHTML=''
+                if (snap.val() === cookies.get('key')) {
                     const button = document.createElement('div')
                     ReactDOM.render(<Button text={i18n('game.giveUp').toUpperCase()} func={giveUp}/>, button)
                     buttonContainer.appendChild(button)
@@ -345,18 +339,48 @@ export function initFirebase(i18n) {
             dice.id=snap.key
             ReactDOM.render(<Dice color={snap.val().color} selected={snap.val().selected} value={snap.val().value} i18n={i18n}/>, dice)
             objDices.replaceChild(dice, wrapperChanged);
-            let diceChanged = document.getElementById(snap.key + "-selected")
-            if (diceChanged) {
-                diceChanged.remove()
+            
+            if (snap.val().used) {
+                let diceChanged = document.getElementById(snap.key + "-selected")
+                diceChanged && diceChanged.remove()
             }
             if (snap.val().selected && !snap.val().used){
                 let objSelectedDices = document.getElementById('selected-dices')
-                const diceSelected = document.createElement('div')
-                diceSelected.className = snap.val().color
-                diceSelected.id=snap.key+"-selected"
-                even = !even
-                ReactDOM.render(<RollingDice color={snap.val().color} even={even}/>, diceSelected)
-                objSelectedDices.appendChild(diceSelected);
+                let wrapperChanged = document.getElementById(snap.key+"-selected")
+                if (!wrapperChanged){
+                    const diceSelected = document.createElement('div')
+                    diceSelected.className = snap.val().color
+                    diceSelected.id=snap.key+"-selected"
+                    even = !even
+                    ReactDOM.render(<RollingDice color={snap.val().color} even={even}/>, diceSelected)
+                    objSelectedDices.appendChild(diceSelected)
+                }
+                if(snap.val().value && wrapperChanged && snap.val().rolling){
+                    
+                    let frontDiceFace = wrapperChanged.getElementsByClassName('data-side-1')
+                    let diceValue = document.createElement('div')
+                    wrapperChanged.children[0].classList.toggle("odd-roll")
+                    wrapperChanged.children[0].classList.toggle("even-roll")
+                    if(snap.val().value === 'damage') {
+                        ReactDOM.render(<Damage/>, diceValue)
+                    }
+                    else if(snap.val().value === 'ship') {
+                        ReactDOM.render(<Ship/>, diceValue)
+                    }
+                    else if(snap.val().value === 'rune') {
+                        ReactDOM.render(<Rune/>, diceValue)
+                    }
+                    else if(snap.val().value === 'valknut') {
+                        ReactDOM.render(<Valknut/>, diceValue)
+                    }
+                    if(frontDiceFace[0].children[0]){
+                        frontDiceFace[0].replaceChild(diceValue, frontDiceFace[0].children[0])
+                    } else {
+                        frontDiceFace[0].appendChild(diceValue)
+                    }
+                    
+                }
+                
             }
         }
     })
