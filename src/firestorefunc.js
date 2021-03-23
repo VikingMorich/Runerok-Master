@@ -51,6 +51,11 @@ export function initFirebase(i18n) {
                 document.getElementById('partial-runes').innerText = snap.val()
             }
             if (snap.key === 'turn') {
+                let objSelectedDices = document.getElementById('selected-dices')
+                let diceChilds = [...objSelectedDices.childNodes]
+                diceChilds.forEach(element => {
+                    element.remove()
+                })
                 let currentPlayerTurn = firebase.database().ref("Room/Players/"+snap.val() )
                 currentPlayerTurn.once("value", function(snapshot) {
                     if (snapshot.val()){
@@ -184,6 +189,11 @@ export function initFirebase(i18n) {
                 document.getElementById('partial-runes').innerText = snap.val()
             }
             if (snap.key === 'turn') {
+                let objSelectedDices = document.getElementById('selected-dices')
+                let diceChilds = [...objSelectedDices.childNodes]
+                diceChilds.forEach(element => {
+                    element.remove()
+                })
                 let currentGStats = firebase.database().ref("Room/Game/Stats" )
                 currentGStats.once("value", function(gameSnap) {
                     let objPlayers = document.getElementById('players')
@@ -255,23 +265,18 @@ export function initFirebase(i18n) {
                 if (snap.val()) {
                     let currentPlayerTurn = firebase.database().ref("Room/Game/Stats/turn")
                     currentPlayerTurn.once("value", function(snapshot) {
+                        let commonView = document.getElementById('common-view')
+                        commonView.className = 'hidden'
+                        let userView = document.getElementById('user-view')
+                        const deadView = document.createElement('div')
+                        deadView.id = "dead-player"
+                        deadView.className = "flex-div"
                         if (snapshot.val() === cookies.get('key')) {
-                            let commonView = document.getElementById('common-view')
-                            commonView.className = 'hidden'
-                            let userView = document.getElementById('user-view')
-                            const deadView = document.createElement('div')
-                            deadView.id = "dead-player"
-                            deadView.className = "flex-div"
                             ReactDOM.render(<PlayerDeadView i18n={i18n}/>, deadView) 
-                            userView.appendChild(deadView)
                         } else {
-                            let deadPlayer = document.getElementById('dead-player')
-                            if (deadPlayer) {
-                                deadPlayer.remove()
-                            }
-                            let commonView = document.getElementById('common-view')
-                            commonView.className = ''
+                            ReactDOM.render(<Skull/>, deadView) 
                         }
+                        userView.appendChild(deadView)
                     })
                 } else {
                     let deadPlayer = document.getElementById('dead-player')

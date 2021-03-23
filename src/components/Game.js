@@ -16,10 +16,10 @@ export default function Game() {
                     
                 </div>
                 <div className="c-game__exit">
-                    {/* <div>
+                    { /* <div>
                         <Button text={'* '+t('game.roll').toUpperCase()+' *'} func={rollDices}/>
                         <Button text={'* '+t('game.giveUp').toUpperCase()+' *'} func={giveUp}/>
-                    </div> */}
+                    </div> */ }
                     <br/>
                     <Button text={t('game.exit').toUpperCase()} func={() => confirmExitGame(t('game.exitConfirmation'))}/>
                 </div>

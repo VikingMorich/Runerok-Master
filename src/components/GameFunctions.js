@@ -160,11 +160,6 @@ const recursiveWinSearch = (index, arrayPlayers, winnerPoints, winnerName) => {
 }
 
 export const giveUp = () => {
-    let objSelectedDices = document.getElementById('selected-dices')
-    let diceChilds = [...objSelectedDices.childNodes]
-    diceChilds.forEach(element => {
-        element.remove()
-    })
     let ref = fire.database().ref("Room/Game/Dices/")
     let randomDicePosition = getRandomDicePosition()
     let updates = {}
