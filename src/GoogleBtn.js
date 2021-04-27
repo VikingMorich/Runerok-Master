@@ -94,7 +94,6 @@ export default function GoogleBtn (props) {
           )}
           cookiePolicy={'single_host_origin'}
           /> : 
-          <React.Fragment>
             <GoogleLogin
             clientId={CLIENT_ID}
             buttonText={t("home.login")}
@@ -108,8 +107,6 @@ export default function GoogleBtn (props) {
               </div>
             )}
             />
-            <div class="g-signin2" data-onsuccess={responseGoogle}></div>
-          </React.Fragment>
         )
       }
     </div>
