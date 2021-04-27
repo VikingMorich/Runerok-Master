@@ -11,6 +11,7 @@ export default function GoogleBtn (props) {
   const [t] = useTranslation("global")
 
   const responseGoogle = (response) => {
+    debugger
     if (response.profileObj) {
       console.log(response)
       cookies.set('login', true, { path: '/' });
