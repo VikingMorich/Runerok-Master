@@ -6,12 +6,11 @@ import fire from './fire'
 
 export default function GoogleBtn (props) {
   let cookies = new Cookies();
-  const CLIENT_ID = '111265817797-1mqpopu7dj9fcuo4609roa0ra6tusesb.apps.googleusercontent.com';
+  const CLIENT_ID = '111265817797-1pv99pti5lt8nps2o51v28ph05ei0od8.apps.googleusercontent.com';
   const [isLogined, setLogined] = useState(cookies.get('login') || false)
   const [t] = useTranslation("global")
 
   const responseGoogle = (response) => {
-    debugger
     var profile = response.getBasicProfile()
     if (profile) {
       cookies.set('login', true, { path: '/' });
