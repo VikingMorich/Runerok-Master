@@ -61,10 +61,32 @@
         "p14": "Surten de les tirades dels daus i es poden jugar fora del teu torn",
         "p15": "Clica sobre el menu d'accions quan tinguis prous punts per executar una acció",
         "p16": "Ens mantenen el dau seleccionat fent que haguem de tornar a tirar-lo si volem seguir jugant",
-        "p17": "Ens resten 1 vida a les totals",
+        "p17": "Ens resten 1 vida a les totals"
+    },
+    "instructions-ok": {
+        "p1": "Joc de daus on l'objectiu es aconseguir més runes ",
+        "p1-2": " que la resta de jugadors",
+        "p2": "Cada torn comencem amb 3 vides",
+        "p3": "En el nostre torn, escollim els daus de 3 en 3",
+        "p4": "Hi ha 3 colors de daus, cada un ens indica la probabilitat de que surtin més runes o guerrers en els daus",
+        "dices": "DAUS",
+        "colon": " : ",
         "easy": "Fàcil",
         "medium": "Intermitja",
-        "hard": "Difícil"
+        "hard": "Difícil",
+        "p5": "Guanya 1 runa parcial fins que et plantis",
+        "p6": "Perd 1 vida",
+        "p7": "Manté el dau seleccionat, si segueixes jugant has de continuar llençant aquest dau",
+        "p8": "Guanya 1 punt Valknut",
+        "p9": "Després d'una tirada si seguim vius haurem d'escollir entre plantar-nos o seguir jugant",
+        "p10": "Quan perdem les 3 vides morim i perdem les runes parcials acumulades. Si ens plantem abans, les runes parcials passen a ser segures i s'acumulen pel final del joc.",
+        "p11": "Els punts Valknut ",
+        "p11-2": " s'utilitzen per jugar accions instantànies dins o fora del teu torn",
+        "p12": "Clica sobre una acció del menú d'accions i juga aquest instantani a canvi dels punts Valknut.",
+        "p13": "La partida acaba quan algú aconsegueix 13 runes o mes",
+        "p14": "La resta de jugadors tenen una ultima oportunitat per impressionar als deus superant al rival",
+        "p15": "Finalitzada la ultima ronda guanya qui te mes punts",
+        "p16": "En cas d'empat guanya el primer en haver-los aconseguit"
     },
     "contact-op": {
         "name": "Nom",
@@ -108,11 +130,12 @@
         "exitConfirmation": "Segur que vols sortir del joc?",
         "diceAlert3": "Ja tens 3 daus seleccionats",
         "diceAlertDead": "No pots seleccionar més daus un cop has mort",
-        "diceAlertTurn": "No es el teu torn"
+        "diceAlertTurn": "No es el teu torn",
+        "diceTitle": "🎲 panell de daus 🎲"
     },
     "gameAction": {
         "extraPoints": "Afegeix una runa al total de runes segures",
-        "damage": "Fes un punt de mal instantani al teu rival",
+        "damage": "Fes un punt de mal a la persona que tingui el torn",
         "extraTurn": "Guanya un torn extra (nomes disponible en el teu torn)"
     },
     "error404": {

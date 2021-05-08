@@ -7,12 +7,12 @@
     position: relative;
     font-family: 'Pieces of Eight';
     &--title{
-        margin-top: 60px;
+        margin-top: 55px;
         text-align: center;
         font-size: 32px;
         text-decoration: underline;
         text-shadow: 0 0 0.2em #FFF;
-        margin-block-end: 0.4em;
+        margin-block-end: 0.35em;
     }
     &__players{
         background-color: c('medium-blue');
@@ -78,10 +78,23 @@
         width: 90%;
         padding: 10px 5px 5px 10px;
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         margin-bottom: 12px;
         border-radius: 5px;
         flex-wrap: wrap;
+        &--box{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        &--title{
+            color: c('white');
+            margin-block-start: 0px;
+            margin-block-end: 8px;
+            font-size: 26px;
+            font-weight: 100;
+        }
     }
     &__selectedDices{
         width: 300px;
@@ -99,8 +112,8 @@
         }
     }
     &__partialRunes{
-        width: 100px;
-        height: 80px;
+        width: 130px;
+        height: 100px;
         margin-right: 20px;
         border-radius: 5px;
         padding: 5px;
@@ -141,8 +154,9 @@
         }
     }
     &__rune--watermark{
-        background: radial-gradient(circle, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 90%);;
-        padding: 35px 30px 5px;
+        background: radial-gradient(circle, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 90%);
+        padding: 35px 45px 30px;
+        margin-top: -5px;
         width: 40px;
         opacity: 0.5;
         position: absolute;
@@ -151,10 +165,11 @@
 }
 
 #partial-runes{
-    font-size: 24px;
-    margin-block-start: 0;
+    font-size: 40px;
+    margin-block-start: 5px;
     text-shadow: 0 0 0.2em #000;
     font-weight: 900;
+    color: c('white')
 }
 
 #in-game-buttons{

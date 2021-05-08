@@ -47,11 +47,14 @@
             background-color: c('medium-blue');
             height: 15%;
             width: 90%;
-            padding: 15px;
+            padding: 12px;
             border-radius: 5px;
-            padding-bottom: 75px;
+            padding-bottom: 46px;
             .c-room--chat{
-                height: 92%;
+                height: 75%;
+            }
+            .c-chat{
+                margin-top: 0px;
             }
         }
     }

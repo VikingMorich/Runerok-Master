@@ -573,7 +573,7 @@ a:active {
   width: 26px;
   height: 26px;
   border: 2px solid black;
-  margin: 0 8px;
+  margin: 0 8px 0 30px;
 }
 
 .c-modal__dice--green {
@@ -581,7 +581,7 @@ a:active {
 }
 
 .c-modal__dice--yellow {
-  background-color: yellow;
+  background-color: #FFC332;
 }
 
 .c-modal__dice--red {
@@ -684,6 +684,134 @@ a:active {
   padding-bottom: 0px !important;
 }
 
+.wrap {
+  margin-top: 35px;
+  margin-bottom: 10px;
+  -webkit-perspective: 1000px;
+          perspective: 1000px;
+  -webkit-perspective-origin: 50% 50%;
+          perspective-origin: 50% 50%;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.cube {
+  margin: auto;
+  margin-right: 30px;
+  margin-left: 30px;
+  position: relative;
+  height: 60px;
+  width: 60px;
+  transform-style: preserve-3d;
+  -ms-transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  animation: rotate 20s infinite linear;
+  -webkit-animation: rotate 20s infinite linear;
+}
+
+.cube div {
+  position: absolute;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 10px;
+  height: 100%;
+  width: 100%;
+  opacity: 0.9;
+  border: solid 1px #000;
+  color: #ffffff;
+}
+
+.front {
+  transform: translateZ(30px);
+  -ms-transform: translateZ(30px);
+  -webkit-transform: translateZ(30px);
+}
+
+.back {
+  transform: translateZ(-30px) rotateY(180deg);
+  -webkit-transform: translateZ(-30px) rotateY(180deg);
+  -ms-transform: translateZ(-30px) rotateY(180deg);
+}
+
+.right {
+  transform: rotateY(-270deg) translateX(30px);
+  -ms-transform: rotateY(-270deg) translateX(30px);
+  -webkit-transform: rotateY(-270deg) translateX(30px);
+  transform-origin: top right;
+  -ms-transform-origin: top right;
+  -webkit-transform-origin: top right;
+}
+
+.left {
+  transform: rotateY(270deg) translateX(-30px);
+  -webkit-transform: rotateY(270deg) translateX(-30px);
+  -ms-transform: rotateY(270deg) translateX(-30px);
+  transform-origin: center left;
+  -ms-transform-origin: center left;
+  -webkit-transform-origin: center left;
+}
+
+.top {
+  transform: rotateX(-270deg) translateY(-30px);
+  -webkit-transform: rotateX(-270deg) translateY(-30px);
+  -ms-transform: rotateX(-270deg) translateY(-30px);
+  transform-origin: top center;
+  -ms-transform-origin: top center;
+  -webkit-transform-origin: top center;
+}
+
+.bottom {
+  transform: rotateX(270deg) translateY(30px);
+  -webkit-transform: rotateX(270deg) translateY(30px);
+  -ms-transform: rotateX(270deg) translateY(30px);
+  transform-origin: bottom center;
+  -ms-transform-origin: bottom center;
+  -webkit-transform-origin: bottom center;
+}
+
+.background-green {
+  background-color: green;
+}
+
+.background-yellow {
+  background-color: #FFC332;
+}
+
+.background-red {
+  background-color: red;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotateX(0deg) rotateY(0deg);
+    -ms-transform: rotateX(0deg) rotateY(0deg);
+    -webkit-transform: rotateX(0deg) rotateY(0deg);
+  }
+  to {
+    transform: rotateX(360deg) rotateY(360deg);
+    -ms-transform: rotateX(360deg) rotateY(360deg);
+    -webkit-transform: rotateX(360deg) rotateY(360deg);
+  }
+}
+
+@-webkit-keyframes rotate {
+  from {
+    transform: rotateX(0deg) rotateY(0deg);
+    -ms-transform: rotateX(0deg) rotateY(0deg);
+    -webkit-transform: rotateX(0deg) rotateY(0deg);
+  }
+  to {
+    transform: rotateX(360deg) rotateY(360deg);
+    -ms-transform: rotateX(360deg) rotateY(360deg);
+    -webkit-transform: rotateX(360deg) rotateY(360deg);
+  }
+}
+
 .c-room {
   height: 100vh;
   background-color: #8598aa;
@@ -761,13 +889,17 @@ a:active {
   background-color: #485d78;
   height: 15%;
   width: 90%;
-  padding: 15px;
+  padding: 12px;
   border-radius: 5px;
-  padding-bottom: 75px;
+  padding-bottom: 46px;
 }
 
 .c-room__chat-box--in-game .c-room--chat {
-  height: 92%;
+  height: 75%;
+}
+
+.c-room__chat-box--in-game .c-chat {
+  margin-top: 0px;
 }
 
 .c-room--chat {
@@ -1246,13 +1378,13 @@ input {
 }
 
 .c-game--title {
-  margin-top: 60px;
+  margin-top: 55px;
   text-align: center;
   font-size: 32px;
   text-decoration: underline;
   text-shadow: 0 0 0.2em #FFF;
-  -webkit-margin-after: 0.4em;
-          margin-block-end: 0.4em;
+  -webkit-margin-after: 0.35em;
+          margin-block-end: 0.35em;
 }
 
 .c-game__players {
@@ -1362,13 +1494,35 @@ input {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   margin-bottom: 12px;
   border-radius: 5px;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+}
+
+.c-game__dices--box {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.c-game__dices--title {
+  color: white;
+  -webkit-margin-before: 0px;
+          margin-block-start: 0px;
+  -webkit-margin-after: 8px;
+          margin-block-end: 8px;
+  font-size: 26px;
+  font-weight: 100;
 }
 
 .c-game__selectedDices {
@@ -1397,8 +1551,8 @@ input {
 }
 
 .c-game__partialRunes {
-  width: 100px;
-  height: 80px;
+  width: 130px;
+  height: 100px;
   margin-right: 20px;
   border-radius: 5px;
   padding: 5px;
@@ -1464,8 +1618,9 @@ input {
 }
 
 .c-game__rune--watermark {
-  background: radial-gradient(circle, black 0%, rgba(0, 0, 0, 0) 90%);
-  padding: 35px 30px 5px;
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 90%);
+  padding: 35px 45px 30px;
+  margin-top: -5px;
   width: 40px;
   opacity: 0.5;
   position: absolute;
@@ -1473,11 +1628,12 @@ input {
 }
 
 #partial-runes {
-  font-size: 24px;
-  -webkit-margin-before: 0;
-          margin-block-start: 0;
+  font-size: 40px;
+  -webkit-margin-before: 5px;
+          margin-block-start: 5px;
   text-shadow: 0 0 0.2em #000;
   font-weight: 900;
+  color: white;
 }
 
 #in-game-buttons {

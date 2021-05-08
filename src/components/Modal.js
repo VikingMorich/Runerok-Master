@@ -2,6 +2,7 @@ import React from 'react';
 import cross from '../icons/clear-black-18dp.svg'
 import { useTranslation } from "react-i18next"
 import AwesomeSlider from 'react-awesome-slider';
+import RollingDice from './RollingDice'
 import 'react-awesome-slider/dist/styles.css';
 import 'react-awesome-slider/dist/custom-animations/cube-animation.css';
 import { Ship, Valknut, Rune, Heart, Damage} from './icon/icon'
@@ -33,64 +34,141 @@ export default function Modal(props) {
                         <React.Fragment>
                             <AwesomeSlider animation="cubeAnimation" className="c-slider">
                                 <div className="c-slider__text">
-                                    <p>{t('instructions.p1')}</p>
                                     <p>
-                                        {t('instructions.p2')}
+                                        {t('instructions-ok.p1')}
+                                        <div className="c-modal__instructions--icon">
+                                            <Rune></Rune>
+                                        </div>
+                                        {t('instructions-ok.p1-2')}
+                                    </p>
+                                    <p>
+                                        {t('instructions-ok.p2')}
                                         <div className="c-modal__instructions--icon">
                                             <Heart></Heart>
                                         </div>
                                     </p>
+                                    <p>{t('instructions-ok.p3')}</p>
+                                    <p>{t('instructions-ok.p4')}</p>
+                                </div>
+                                <div className="c-slider__text">
+                                    <p><u>{t('instructions-ok.dices')}</u></p>
+                                    <div className="wrap">
+                                        <div className="cube">
+                                            <div className="front background-green">
+                                                <Rune></Rune>
+                                            </div>
+                                            <div className="back background-green">
+                                                <Damage></Damage>
+                                            </div>
+                                            <div className="top background-green">
+                                                <Valknut></Valknut>
+                                            </div>
+                                            <div className="bottom background-green">
+                                                <Ship></Ship>
+                                            </div>
+                                            <div className="left background-green">
+                                                <Rune></Rune>
+                                            </div>
+                                            <div className="right background-green">
+                                                <Rune></Rune>
+                                            </div>
+                                        </div>
+                                        <div className="cube">
+                                            <div className="front background-yellow">
+                                                <Rune></Rune>
+                                            </div>
+                                            <div className="back background-yellow">
+                                                <Damage></Damage>
+                                            </div>
+                                            <div className="top background-yellow">
+                                                <Valknut></Valknut>
+                                            </div>
+                                            <div className="bottom background-yellow">
+                                                <Ship></Ship>
+                                            </div>
+                                            <div className="left background-yellow">
+                                                <Rune></Rune>
+                                            </div>
+                                            <div className="right background-yellow">
+                                                <Damage></Damage>
+                                            </div>
+                                        </div>
+                                        <div className="cube">
+                                            <div className="front background-red">
+                                                <Damage></Damage>
+                                            </div>
+                                            <div className="back background-red">
+                                                <Damage></Damage>
+                                            </div>
+                                            <div className="top background-red">
+                                                <Valknut></Valknut>
+                                            </div>
+                                            <div className="bottom background-red">
+                                                <Ship></Ship>
+                                            </div>
+                                            <div className="left background-red">
+                                                <Damage></Damage>
+                                            </div>
+                                            <div className="right background-red">
+                                                <Rune></Rune>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div className="c-modal__dices">
+                                        <div className="c-modal__dice c-modal__dice--green"></div>
+                                        <span>{t('instructions-ok.easy')}</span>
+                                        <div className="c-modal__dice c-modal__dice--yellow"></div>
+                                        <span>{t('instructions-ok.medium')}</span>
+                                        <div className="c-modal__dice c-modal__dice--red"></div>
+                                        <span>{t('instructions-ok.hard')}</span>
+                                    </div>
                                     <p>
-                                        {t('instructions.p3')}
                                         <div className="c-modal__instructions--icon">
                                             <Rune></Rune>
                                         </div>
-                                        {t('instructions.p3-2')}
-                                    </p>
-                                    <p>{t('instructions.p4')}</p>
-                                </div>
-                                <div className="c-slider__text">
-                                    <p>{t('instructions.p5')}</p>
-                                    <p>{t('instructions.p6')}</p>
-                                    <div className="c-modal__dices">
-                                        <div className="c-modal__dice c-modal__dice--green"></div>
-                                        <span>{t('instructions.easy')}</span>
-                                        <div className="c-modal__dice c-modal__dice--yellow"></div>
-                                        <span>{t('instructions.medium')}</span>
-                                        <div className="c-modal__dice c-modal__dice--red"></div>
-                                        <span>{t('instructions.hard')}</span>
-                                    </div>
-                                    <p>{t('instructions.p7')}</p>
-                                    <p>{t('instructions.p8')}</p>
-                                </div>
-                                <div className="c-slider__text">
-                                    <p>{t('instructions.p9')}</p>
-                                    <p>{t('instructions.p10')}</p>
-                                    <p>{t('instructions.p11')}</p>
-                                    <p>{t('instructions.p12')}</p>
-                                </div>
-                                <div className="c-slider__text">
-                                    <p>
-                                        {t('instructions.p13')}
-                                        <div className="c-modal__instructions--icon">
-                                            <Valknut></Valknut>
-                                        </div>
-                                        {t('instructions.p13-2')}
-                                    </p>
-                                    <p>{t('instructions.p14')}</p>
-                                    <p>{t('instructions.p15')}</p>
-                                    <p>
-                                        <div className="c-modal__instructions--icon">
-                                            <Ship></Ship>
-                                        </div>
-                                        {t('instructions.p16')}
+                                        {t('instructions-ok.colon')}
+                                        {t('instructions-ok.p5')}
                                     </p>
                                     <p>
                                         <div className="c-modal__instructions--icon">
                                             <Damage></Damage>
                                         </div>
-                                        {t('instructions.p17')}
+                                        {t('instructions-ok.colon')}
+                                        {t('instructions-ok.p6')}
                                     </p>
+                                    <p>
+                                        <div className="c-modal__instructions--icon">
+                                            <Ship></Ship>
+                                        </div>
+                                        {t('instructions-ok.colon')}
+                                        {t('instructions-ok.p7')}
+                                    </p>
+                                    <p>
+                                        <div className="c-modal__instructions--icon">
+                                            <Valknut></Valknut>
+                                        </div>
+                                        {t('instructions-ok.colon')}
+                                        {t('instructions-ok.p8')}
+                                    </p>
+                                </div>
+                                <div className="c-slider__text">
+                                    <p>{t('instructions-ok.p9')}</p>
+                                    <p>{t('instructions-ok.p10')}</p>
+                                    <p>
+                                        {t('instructions-ok.p11')}
+                                        <div className="c-modal__instructions--icon">
+                                            <Valknut></Valknut>
+                                        </div>
+                                        {t('instructions-ok.p11-2')}
+                                    </p>
+                                    <p>{t('instructions-ok.p12')}</p>
+                                </div>
+                                <div className="c-slider__text">
+                                    <p>{t('instructions-ok.p13')}</p>
+                                    <p>{t('instructions-ok.p14')}</p>
+                                    <p>{t('instructions-ok.p15')}</p>
+                                    <p>{t('instructions-ok.p16')}</p>
                                 </div>
                             </AwesomeSlider>
                         </React.Fragment>
