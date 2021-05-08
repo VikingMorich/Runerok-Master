@@ -140,8 +140,8 @@
     transform-style: preserve-3d;
     -ms-transform-style: preserve-3d;
     -webkit-transform-style: preserve-3d;
-    animation: rotate 20s infinite linear;
-    -webkit-animation: rotate 20s infinite linear;
+    animation: rotate-dice 20s infinite linear;
+    -webkit-animation: rotate-dice 20s infinite linear;
    }
 .cube div {
     position: absolute;
@@ -208,7 +208,7 @@ transform-origin: bottom center;
     background-color: red;
 }
 
-@keyframes rotate {
+@keyframes rotate-dice {
     from {
     transform: rotateX(0deg) rotateY(0deg);
     -ms-transform: rotateX(0deg) rotateY(0deg);
@@ -220,7 +220,7 @@ transform-origin: bottom center;
     -webkit-transform: rotateX(360deg) rotateY(360deg);
     }
    }
-   @-webkit-keyframes rotate {
+   @-webkit-keyframes rotate-dice {
     from {
     transform: rotateX(0deg) rotateY(0deg);
     -ms-transform: rotateX(0deg) rotateY(0deg);
