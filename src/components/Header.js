@@ -71,7 +71,7 @@ export default function Header() {
     function handleSubmit(e){
         e.preventDefault()
         changeUsername(nickname)
-        cookies.set('username', nickname, { path: '/' });
+        cookies.set('userName', nickname, { path: '/' });
         setNickname('')
         setConfigType('')
     }

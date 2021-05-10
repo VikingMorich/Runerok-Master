@@ -36,7 +36,7 @@ export default function GoogleBtn (props) {
     let key = ref.push().key
     cookies.set('key', key, { path: '/' });
     cookies.set('img', imageUrl, { path: '/' });
-    cookies.set('username', name, { path: '/' });
+    cookies.set('userName', name, { path: '/' });
     let updates = {}
     updates[key] = {
       username: name,
