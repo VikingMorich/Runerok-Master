@@ -66,7 +66,7 @@
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  border-left: 1px solid;
+  border-left: 1px solid white;
 }
 
 .c-header-mobile--baseHeader {
@@ -78,7 +78,7 @@
           justify-content: space-between;
   height: 60px;
   padding: 0px 20px;
-  border-bottom: 1px solid;
+  border-bottom: 1px solid white;
 }
 
 .c-header-mobile--back {
@@ -91,7 +91,7 @@
       -ms-flex-align: center;
           align-items: center;
   color: white;
-  border-bottom: 1px solid;
+  border-bottom: 1px solid white;
   cursor: pointer;
   font-size: 24px;
 }
@@ -125,7 +125,7 @@
   padding: 0px 20px;
   height: 60px;
   color: white;
-  border-bottom: 1px solid;
+  border-bottom: 1px solid white;
   cursor: pointer;
   font-size: 24px;
 }
@@ -134,7 +134,7 @@
   padding: 0px 20px;
   height: 60px;
   color: white;
-  border-bottom: 1px solid;
+  border-bottom: 1px solid white;
   font-weight: 800;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -211,6 +211,116 @@ a:active {
 .opacity-off {
   opacity: 0;
   display: none !important;
+}
+
+.c-config__nickname-modal {
+  height: 240px;
+  width: 35%;
+  background-color: #333333;
+  position: absolute;
+  margin: 15% 30%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  z-index: 30;
+  color: white;
+  font-family: 'Pieces of Eight';
+}
+
+.c-config__nickname-modal--title {
+  font-size: 26px;
+  text-decoration: underline;
+}
+
+.c-config__nickname-modal--input {
+  width: calc(100% - 20px);
+  height: 20px;
+}
+
+.c-config__nickname-modal--form {
+  width: 85%;
+}
+
+.c-config__nickname-modal .send-button {
+  font-size: 22px;
+}
+
+.c-config__avatar-modal {
+  height: 600px;
+  width: 40%;
+  background-color: #333333;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: absolute;
+  margin: 4% 30%;
+  color: white;
+  z-index: 30;
+  font-family: 'Pieces of Eight';
+}
+
+.c-config__avatar-modal--title {
+  font-size: 26px;
+  text-decoration: underline;
+}
+
+.c-config__avatar-modal .c-button {
+  font-size: 22px;
+}
+
+.c-config__avatar-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  height: 450px;
+  width: 100%;
+}
+
+.c-config__avatar-img {
+  margin: 0 15px;
+  height: 125px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  border-radius: 50%;
+  border: 2px solid black;
+}
+
+.c-config__avatar-img--selected {
+  margin: 0px 10px 0px 10px;
+  border: 7px solid #397201;
+}
+
+.c-config__avatar-img--selected:hover {
+  border: 5px solid limegreen !important;
+  margin: 2px 12px 2px 12px;
+}
+
+.c-config__avatar-img:hover {
+  border: 5px solid #c0bea1;
+  margin: 2px 12px 2px 12px;
 }
 
 .fadeIn {
@@ -710,8 +820,8 @@ a:active {
   transform-style: preserve-3d;
   -ms-transform-style: preserve-3d;
   -webkit-transform-style: preserve-3d;
-  animation: rotate 20s infinite linear;
-  -webkit-animation: rotate 20s infinite linear;
+  animation: rotate-dice 20s infinite linear;
+  -webkit-animation: rotate-dice 20s infinite linear;
 }
 
 .cube div {
@@ -786,7 +896,7 @@ a:active {
   background-color: red;
 }
 
-@keyframes rotate {
+@keyframes rotate-dice {
   from {
     transform: rotateX(0deg) rotateY(0deg);
     -ms-transform: rotateX(0deg) rotateY(0deg);
@@ -799,7 +909,7 @@ a:active {
   }
 }
 
-@-webkit-keyframes rotate {
+@-webkit-keyframes rotate-dice {
   from {
     transform: rotateX(0deg) rotateY(0deg);
     -ms-transform: rotateX(0deg) rotateY(0deg);
@@ -1452,7 +1562,7 @@ input {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-top: 30px;
+  margin-top: 15px;
 }
 
 .c-game__actions--value {

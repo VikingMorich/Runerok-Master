@@ -34,6 +34,8 @@ export default function Modal(props) {
                         <React.Fragment>
                             <AwesomeSlider animation="cubeAnimation" className="c-slider">
                                 <div className="c-slider__text">
+                                    <h3><u>{t('header.instructions').toUpperCase()}</u></h3>
+                                    <br />
                                     <p>
                                         {t('instructions-ok.p1')}
                                         <div className="c-modal__instructions--icon">
@@ -51,7 +53,7 @@ export default function Modal(props) {
                                     <p>{t('instructions-ok.p4')}</p>
                                 </div>
                                 <div className="c-slider__text">
-                                    <p><u>{t('instructions-ok.dices')}</u></p>
+                                    <h3><u>{t('instructions-ok.dices')}</u></h3>
                                     <div className="wrap">
                                         <div className="cube">
                                             <div className="front background-green">
@@ -116,6 +118,7 @@ export default function Modal(props) {
                                     </div>
                                     <br />
                                     <div className="c-modal__dices">
+                                        <span>{t('instructions-ok.dificult')}</span>
                                         <div className="c-modal__dice c-modal__dice--green"></div>
                                         <span>{t('instructions-ok.easy')}</span>
                                         <div className="c-modal__dice c-modal__dice--yellow"></div>

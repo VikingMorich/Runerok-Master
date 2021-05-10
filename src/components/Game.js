@@ -26,8 +26,11 @@ export default function Game() {
             </div>
             <div className="c-game__game">
                 <h1 className="c-game--title">{t('game.title')}<span id="turn-title"></span></h1>
-                <div className="c-game__dices" id="game-dices">
-                    
+                <div className="c-game__dices">
+                    <h3 className="c-game__dices--title">{t('game.diceTitle')}</h3>
+                    <div className="c-game__dices--box" id="game-dices">
+
+                    </div>
                 </div>
                 <div className="c-game__interface" id="user-view">
                     <div id="common-view">

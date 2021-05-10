@@ -11,7 +11,15 @@
         "instructions": "Instruccions",
         "contact": "Contacte",
         "login": "Iniciar sessió",
-        "logout": "Tancar la sessió"
+        "logout": "Tancar la sessió",
+        "configuration": "Configuració",
+        "profile": "Perfil",
+        "nickname": "Canviar nom d'usuari",
+        "avatar": "Canviar imatge",
+        "confirm": "Confirmar",
+        "avatarTitle": "Escull una imatge d'avatar",
+        "nicknameTitle": "Escull un nom d'usuari",
+        "nick": "Username"
     },
     "languages": {
         "cat": "CAT",
@@ -71,6 +79,7 @@
         "p4": "Hi ha 3 colors de daus, cada un ens indica la probabilitat de que surtin més runes o guerrers en els daus",
         "dices": "DAUS",
         "colon": " : ",
+        "dificult": "Dificultat: ",
         "easy": "Fàcil",
         "medium": "Intermitja",
         "hard": "Difícil",

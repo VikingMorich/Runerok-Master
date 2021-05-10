@@ -42,13 +42,13 @@
   z-index: 15;
   display: flex;
   flex-direction: column;
-  border-left: 1px solid c('light-blue');
+  border-left: 1px solid c('white');
   &--baseHeader{
     display: flex;
     justify-content: space-between;
     height: 60px;
     padding: 0px 20px;
-    border-bottom: 1px solid c('light-blue');
+    border-bottom: 1px solid c('white');
   }
   &--back{
     display: flex;
@@ -56,7 +56,7 @@
     padding: 0px 20px;
     align-items: center;
     color: c('white');
-    border-bottom: 1px solid c('light-blue');
+    border-bottom: 1px solid c('white');
     cursor: pointer;
     font-size: 24px;
   }
@@ -78,7 +78,7 @@
     padding: 0px 20px;
     height: 60px;
     color: c('white');
-    border-bottom: 1px solid c('light-blue');
+    border-bottom: 1px solid c('white');
     cursor: pointer;
     font-size: 24px;
   }
@@ -87,7 +87,7 @@
     height: 60px;
     color: c('white');
     background-color: c('boom-blue');
-    border-bottom: 1px solid c('light-blue');
+    border-bottom: 1px solid c('white');
     font-weight: 800;
     display: flex;
     align-items: center;
@@ -161,6 +161,85 @@ a:active {
 .opacity-off{
   opacity: 0;
   display: none !important;
+}
+
+.c-config{
+  &__nickname-modal{
+    height: 240px;
+    width: 35%;
+    background-color: c('gray');
+    position: absolute;
+    margin: 15% 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 30;
+    color: white;
+    font-family: 'Pieces of Eight';
+    &--title{
+      font-size: 26px;
+      text-decoration: underline;
+    }
+    &--input{
+      width: calc(100% - 20px);
+      height: 20px;
+
+    }
+    &--form{
+      width: 85%;
+    }
+    .send-button{
+      font-size: 22px;
+    }
+  }
+  &__avatar-modal{
+    height: 600px;
+    width: 40%;
+    background-color: c('gray');
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    margin: 4% 30%;
+    color: white;
+    z-index: 30;
+    font-family: 'Pieces of Eight';
+    &--title{
+      font-size: 26px;
+      text-decoration: underline;
+    }
+    .c-button{
+      font-size: 22px;
+    }
+  }
+  &__avatar-box{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    height: 450px;
+    width: 100%;
+  }
+  &__avatar-img{
+    margin: 0 15px;
+    height: 125px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    border-radius: 50%;
+    border: 2px solid black;
+    &--selected{
+      margin: 0px 10px 0px 10px;
+      border: 7px solid c('green');
+    }
+    &--selected:hover{
+      border: 5px solid limegreen !important;
+      margin: 2px 12px 2px 12px;
+    }
+  }
+  &__avatar-img:hover{
+      border: 5px solid c('gold');
+      margin: 2px 12px 2px 12px;
+  }
 }
 
  .fadeIn {

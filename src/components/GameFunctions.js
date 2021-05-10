@@ -336,3 +336,17 @@ export const toggleReady = () => {
         refPlayer.update(updates)
     })
 }
+
+export const changeImgAvatar = (img) => {
+    let refPlayer = fire.database().ref("Room/Players/"+cookies.get('key'))
+    let updates = {}
+    updates['imageUrl'] = img
+    refPlayer.update(updates)
+}
+
+export const changeUsername = (name) => {
+    let refPlayer = fire.database().ref("Room/Players/"+cookies.get('key'))
+    let updates = {}
+    updates['username'] = name
+    refPlayer.update(updates)
+}

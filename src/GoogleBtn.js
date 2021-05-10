@@ -15,8 +15,6 @@ export default function GoogleBtn (props) {
     if (profile) {
       cookies.set('login', true, { path: '/' });
       setLogined(true)
-      cookies.set('userName', profile.getName(), { path: '/' });
-      cookies.set('img', profile.getImageUrl(), { path: '/' });
       window.location.href = '/room'
       addPlayerDB(profile.getName(), profile.getImageUrl())
     }
@@ -28,8 +26,6 @@ export default function GoogleBtn (props) {
   const logout = () => {
     setLogined(false)
     cookies.remove('login', { path: '/' });
-    cookies.remove('userName', { path: '/' });
-    cookies.remove('img', { path: '/' });
     removePlayerDB(cookies.get('key'))
     cookies.remove('key', { path: '/' });
     window.location.href = '/'
@@ -39,10 +35,12 @@ export default function GoogleBtn (props) {
     let ref = fire.database().ref().child('Room').child('Players')
     let key = ref.push().key
     cookies.set('key', key, { path: '/' });
+    cookies.set('img', imageUrl, { path: '/' });
     let updates = {}
     updates[key] = {
       username: name,
       imageUrl: imageUrl,
+      googleImg: imageUrl,
       ready: false,
       runes: 0,
       lives: 3,

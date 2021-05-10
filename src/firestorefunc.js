@@ -528,6 +528,10 @@ export function initFirebase(i18n) {
                 if (playerChanged){
                     objPlayers.replaceChild(user, playerChanged)
                 }
+
+                if (snapshot.val() === snap.key) {
+                    document.getElementById('turn-title').innerText = snap.val().username
+                }
             })
         }
     })
