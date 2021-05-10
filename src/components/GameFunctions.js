@@ -45,9 +45,10 @@ export const confirmExitGame = (text) => {
 }
 
 const exitGame = () => {
-    let refStats = fire.database().ref("Room/Game/Stats/")
+    let refStats = fire.database().ref("Room/Game/")
     let updateStats = {}
-    updateStats['playing'] = false
+    updateStats['Dices'] = null
+    updateStats['Stats'] = null
     refStats.update(updateStats)
 }
 
