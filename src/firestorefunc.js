@@ -306,6 +306,11 @@ export function initFirebase(i18n) {
             if (window.location.pathname === '/room' && snap.val()) {
                 window.location.href = '/game'
             } else if (window.location.pathname === '/game' && !snap.val()) {
+                let refGame = firebase.database().ref("Room/Game/")
+                let updateGameStats = {}
+                updateGameStats['Dices'] = null
+                updateGameStats['Stats'] = null
+                refGame.update(updateGameStats)
                 window.location.href = '/room'
             }
         }

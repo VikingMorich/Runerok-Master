@@ -45,11 +45,18 @@ export const confirmExitGame = (text) => {
 }
 
 const exitGame = () => {
-    let refStats = fire.database().ref("Room/Game/")
+    let refStats = fire.database().ref("Room/Game/Stats")
     let updateStats = {}
-    updateStats['Dices'] = null
-    updateStats['Stats'] = null
+    updateStats['playing'] = false
     refStats.update(updateStats)
+    setTimeout(function(){ 
+        let refGame = fire.database().ref("Room/Game/")
+        let updateGameStats = {}
+        updateGameStats['Dices'] = null
+        updateGameStats['Stats'] = null
+        debugger
+        refGame.update(updateGameStats)
+    }, 1000)
 }
 
 export const rollDices = () => {
@@ -153,7 +160,7 @@ const recursiveWinSearch = (index, arrayPlayers, winnerPoints, winnerName) => {
                 "winner": {
                     "username": partialWinnerName,
                     "runes": partialWinnerPoints
-                }
+                },
             }
             refStats.update(winnerStats)
         }
@@ -221,7 +228,8 @@ export const giveUp = () => {
                 recursiveWinSearch(0, newArrayPlayers, -1, "")
                 setTimeout(function(){ 
                     exitGame()
-                }, 7000)
+                }, 6000)
+                
             }
         }
 
@@ -241,7 +249,6 @@ export const checkPlayersReady = (trans) => {
             }
         });
         if (playersReady) {
-            debugger
             toast.success("toast.allPlayersReady")
             createNewGame()
         }
