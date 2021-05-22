@@ -1,0 +1,46 @@
+.c-gamePlayer{
+    margin-bottom: 20px;
+    padding: 15px 0;
+    .c-gamePlayer__stats{
+        background-color: transparent;
+    }
+    &--notTurn{
+        padding: 12px 0;
+        .c-gamePlayer__stats{
+            background-color: transparent;
+        }
+    }
+    &__img{
+        margin: 0 20px;
+        height: 60px;
+    }
+    &__name{
+        font-size: 28px;
+        position: relative;
+        left: auto;
+    }
+    &__icon{
+        min-width: 60px;
+        height: auto;
+        &--img{
+            width: 25px;
+            margin-right: 10px;
+        }
+        span{
+            font-size: 24px;
+            margin-right: 10px;
+        }
+    }
+    &__info{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        justify-content: space-around;
+        align-items: flex-start;
+    }
+    &__stats{
+        position: relative;
+        right: auto;
+        padding-right: 0px;
+    }
+}

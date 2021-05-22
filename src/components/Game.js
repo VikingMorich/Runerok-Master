@@ -25,7 +25,7 @@ export default function Game() {
                 </div>
             </div>
             <div className="c-game__game">
-                <h1 className="c-game--title">{t('game.title')}<span id="turn-title"></span></h1>
+                <h1 className="c-game--title c-game--turn">{t('game.title')}<span id="turn-title"></span></h1>
                 <div className="c-game__dices">
                     <h3 className="c-game__dices--title">{t('game.diceTitle')}</h3>
                     <div className="c-game__dices--box" id="game-dices">
@@ -55,7 +55,7 @@ export default function Game() {
                 <Chat type="game"/>
             </div>
             <div className="c-game__actions">
-                <h1 className="c-game--title">{t('game.actions').toUpperCase()}</h1>
+                <h1 className="c-game--title c-game__actions--title">{t('game.actions').toUpperCase()}</h1>
                 <div className="c-game__actions--container" id="actions-container">
 
                 </div>
@@ -64,6 +64,9 @@ export default function Game() {
                         <Valknut />
                     </div>
                 </div>
+            </div>
+            <div className="c-game__other-mobile-buttons">
+                <Button text={t('game.exit').toUpperCase()} func={() => confirmExitGame(t('game.exitConfirmation'))}/>
             </div>
         </div>
     );

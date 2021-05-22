@@ -165,17 +165,20 @@ a:active {
 
 .c-config{
   &__nickname-modal{
-    height: 240px;
-    width: 35%;
     background-color: c('gray');
     position: absolute;
-    margin: 15% 30%;
+    width: 70%;
+    padding: 20px;
+    margin: 25vh calc(15% - 20px);
+    text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     z-index: 30;
     color: white;
     font-family: 'Pieces of Eight';
+    
+    
     &--title{
       font-size: 26px;
       text-decoration: underline;
@@ -186,21 +189,22 @@ a:active {
 
     }
     &--form{
-      width: 85%;
+      width: 100%;
     }
     .send-button{
       font-size: 22px;
     }
   }
   &__avatar-modal{
-    height: 600px;
-    width: 40%;
+    width: 80%;
+    padding: 15px;
     background-color: c('gray');
     display: flex;
     flex-direction: column;
     align-items: center;
     position: absolute;
-    margin: 4% 30%;
+    margin: 18vh calc(10% - 15px);
+    text-align: center;
     color: white;
     z-index: 30;
     font-family: 'Pieces of Eight';
@@ -217,12 +221,13 @@ a:active {
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: center;
-    height: 450px;
+    height: 50%;
     width: 100%;
+    margin-bottom: 10px;
   }
   &__avatar-img{
-    margin: 0 15px;
-    height: 125px;
+    margin: 0 10px;
+    height: 68px;
     margin-bottom: 5px;
     margin-top: 5px;
     border-radius: 50%;

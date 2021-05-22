@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslation } from "react-i18next";
 import fire from '../fire'
 import Cookies from 'universal-cookie';
+import { Damage, Rune } from './icon/icon';
 
 
 export default function GameAction(props) {
@@ -74,6 +75,20 @@ export default function GameAction(props) {
                 </div>
             </div>
             }
+            {props.type === 'extra-points-mobile' && 
+            <div className={(props.type === 'extra-points-mobile' && props.valknut >= extraPointsCost)
+                ? "c-action-mobile" : "c-action-mobile--disabled"} onClick={(props.type === 'extra-points-mobile' && props.valknut >= extraPointsCost) ? useAction : () => {}}>
+                <div className="c-action__cost">
+                    <span className="c-roomPlayer__name">{extraPointsCost}</span>
+                </div>
+                <div className="c-action__info">
+                    <span className="c-roomPlayer__name">🤫</span>
+                    <div className="c-action__info--icon">
+                        <Rune />
+                    </div>
+                </div>
+            </div>
+            }
             {props.type === 'damage' && 
                 <div className={(props.type === 'damage' && props.valknut >= damageCost) ? "c-action" : "c-action--disabled"} 
                 onClick={(props.type === 'damage' && props.valknut >= damageCost) ? useAction : () => {}}>
@@ -82,6 +97,20 @@ export default function GameAction(props) {
                     </div>
                     <div className="c-action__info">
                         <span className="c-roomPlayer__name">{props.i18n('gameAction.damage')}</span>
+                    </div>
+                </div>
+            }
+            {props.type === 'damage-mobile' && 
+                <div className={(props.type === 'damage-mobile' && props.valknut >= damageCost) ? "c-action-mobile" : "c-action-mobile--disabled"} 
+                onClick={(props.type === 'damage-mobile' && props.valknut >= damageCost) ? useAction : () => {}}>
+                    <div className="c-action__cost">
+                    <span className="c-roomPlayer__name">{damageCost}</span>
+                    </div>
+                    <div className="c-action__info">
+                        <span className="c-roomPlayer__name">🥊</span>
+                        <div className="c-action__info--icon">
+                            <Damage />
+                        </div>
                     </div>
                 </div>
             }
@@ -95,6 +124,17 @@ export default function GameAction(props) {
                     </div>
                 </div>
             }
+            {props.type === 'extra-turn-mobile' && 
+                <div id="extra-turn-mobile" className={(props.type === 'extra-turn-mobile' && props.valknut >= extraTurnCost && props.turn) ? "c-action-mobile" : "c-action-mobile--disabled"} onClick={(props.type === 'extra-turn-mobile' && props.valknut >= extraTurnCost && props.turn) ? useAction : () => {}}>
+                    <div className="c-action__cost">
+                    <span className="c-roomPlayer__name">{extraTurnCost}</span>
+                    </div>
+                    <div className="c-action__info">
+                        <span className="c-roomPlayer__name">🔄⏳</span>
+                    </div>
+                </div>
+            }
+            {/* ⏳🔄    🎖️🏅➕🤫🎣🧎🏻‍♂️    🥊🧨🪤🏴‍☠️ */}
         </React.Fragment>
     );
 }

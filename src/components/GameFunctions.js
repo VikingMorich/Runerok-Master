@@ -49,14 +49,6 @@ const exitGame = () => {
     let updateStats = {}
     updateStats['playing'] = false
     refStats.update(updateStats)
-    setTimeout(function(){ 
-        let refGame = fire.database().ref("Room/Game/")
-        let updateGameStats = {}
-        updateGameStats['Dices'] = null
-        updateGameStats['Stats'] = null
-        debugger
-        refGame.update(updateGameStats)
-    }, 1000)
 }
 
 export const rollDices = () => {

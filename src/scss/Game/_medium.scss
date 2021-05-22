@@ -1,0 +1,102 @@
+.c-game{
+    flex-direction: row;
+    position: relative;
+    &__players{
+        width: 400px;
+        overflow-y: auto;
+        height: auto;
+        position: relative;
+        padding-bottom: 0px;
+        border-bottom: none;
+        &--players{
+            margin-top: 10px;
+        }
+    }
+    &__other-mobile-buttons{
+        display: none;
+    }
+    &__dices--title{
+    font-size: 26px;
+    }
+    &--title{
+        font-size: 32px;
+        margin-block-end: 0.35em;
+        display: block;
+    }
+    &__actions{
+        width: 400px;
+        margin-top: 0px;
+        z-index: 5;
+        border-top: none;
+        &--container{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 15px;
+            margin-bottom: 0px;
+            height: auto;
+        }
+        &--title {
+            margin-top: 55px;
+            position: initial;
+            background-color: transparent;
+            border-radius: 0px;
+            padding: 0px;
+            border: none;
+        }
+        &--value{
+            width: 40%;
+            right: 30%;
+            height: 65px;
+            span{
+                font-size: 36px;
+            }
+        }
+        &--valknut{
+            width: 40px;
+        }
+    }
+    &__game{
+        width: 50%;
+        padding: 0 20px;
+        margin-top: 0px;
+        height: auto;
+        overflow-y: auto;
+        position: relative;
+    }
+    &--turn{
+        display: block;
+    }
+    &__exit{
+        display: block;
+    }
+    &__selectedDices{
+        width: 280px;
+        height: 120px;
+        margin-bottom: 7px;
+        span{
+            margin: 5px;
+            margin-block-start: 10px; 
+        }
+    }
+    &__partialRunes{
+        width: 90px;
+        height: 100px;
+        margin-right: 20px;
+        margin-left: 10px;
+        margin-bottom: 7px;
+    }
+    &__interface{
+        width: 100%;
+        margin-bottom: 0px;
+    }
+}
+
+#common-view{
+    justify-content: space-evenly;
+}
+
+#in-game-buttons{
+ margin-top: 0;
+ margin-bottom: 7px;
+}

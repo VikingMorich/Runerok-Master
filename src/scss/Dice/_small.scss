@@ -1,7 +1,7 @@
 .flip-card {
     background-color: transparent;
-    width: 55px;
-    height: 55px;
+    width: 41px;
+    height: 41px;
     perspective: 1000px;
     margin-right: 10px;
     margin-bottom: 10px;
@@ -44,7 +44,8 @@
   }
   
   .icon{
-    width: 40px;
+    width: 32px;
+    margin-top: 1px;
   }
   
   .flip-card-back {
@@ -72,4 +73,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+@include medium {
+  @import'medium';
+}
+@include large {
+  @import'large';
 }

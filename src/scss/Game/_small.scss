@@ -2,26 +2,40 @@
     height: 100vh;
     background-color: c('bright-blue');
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     overflow: auto;
-    position: relative;
     font-family: 'Pieces of Eight';
+    &__other-mobile-buttons{
+        display: flex;
+        justify-content: center;
+        padding: 20px 0 10px;
+        background-color: c('more-upper-blue');
+        border-top: 1px solid c('bright-blue');
+    }
     &--title{
         margin-top: 55px;
         text-align: center;
-        font-size: 32px;
+        font-size: 17px;
         text-decoration: underline;
         text-shadow: 0 0 0.2em #FFF;
-        margin-block-end: 0.35em;
+        margin-block-end: 3px;
+    }
+    &--turn{
+        display: none;
     }
     &__players{
         background-color: c('medium-blue');
-        width: 400px;
+        width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
+        overflow-y: scroll;
+        position: absolute;
+        padding-bottom: 2px;
+        height: calc(25vh - 5px);
+        border-bottom: 2px solid c('dark-blue');
         &--players{
-            margin-top: 10px;
+            margin-top: 2px;
             width: 90%;
             display: flex;
             flex-direction: column;
@@ -29,25 +43,45 @@
     }
     &__game{
         background-color: c('bright-blue');
-        width: 50%;
-        padding: 0 20px;
+        width: calc(100% - 10px);
+        height: 55vh;
+        overflow-y: scroll;
+        position: absolute;
+        padding: 8px 5px 0;
         display: flex;
         flex-direction: column;
         align-items: center;
+        margin-top: 25vh;
     }
     &__exit{
         position: absolute;
         bottom: 10px;
+        display: none;
     }
     &__actions{
         background-color: c('medium-blue');
-        width: 400px;
+        width: 100%;
         position: relative;
+        margin-top: calc(8px + 80vh);
+        z-index: 10;
+        border-top: 2px solid c('dark-blue');
+        &--title {
+            margin-top: 10px;
+            position: absolute;
+            top: -25px;
+            background-color: c('medium-blue');
+            border-top: 2px solid c('dark-blue');
+            border-radius: 7px;
+            padding: 5px;
+            left: 14px;
+        }
         &--container{
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-top: 15px;
+            flex-direction: row;
+            justify-content: space-evenly;
+            margin-top: 13px;
+            width: 100%;
+            height: calc(20vh - 19px);
         }
         &--value{
             background-color: c('dark-medium-blue');
@@ -55,22 +89,22 @@
             align-items: center;
             position: absolute;
             bottom: 0;
-            width: 40%;
-            right: 30%;
-            height: 65px;
+            width: 36%;
+            right: 32%;
+            height: 47px;
             justify-content: center;
             border-top-left-radius: 7px;
             border-top-right-radius: 7px;
             border: 1px solid c('bright-blue');
             border-bottom: none;
             span{
-                font-size: 36px;
+                font-size: 32px;
                 margin-left: 20px;
                 color: white;
             }
         }
         &--valknut{
-            width: 40px;
+            width: 33px;
         }
     }
     &__dices{
@@ -79,7 +113,7 @@
         padding: 10px 5px 5px 10px;
         display: flex;
         justify-content: center;
-        margin-bottom: 12px;
+        margin-bottom: 6px;
         border-radius: 5px;
         flex-wrap: wrap;
         &--box{
@@ -92,37 +126,39 @@
             color: c('white');
             margin-block-start: 0px;
             margin-block-end: 8px;
-            font-size: 26px;
+            font-size: 23px;
             font-weight: 100;
         }
     }
     &__selectedDices{
-        width: 300px;
-        height: 120px;
+        width: 230px;
+        height: 90px;
         border-radius: 5px;
         padding: 5px;
-        background-color: c('medium-blue');
+        background-color: c('other-blue');
         display: flex;
         flex-direction: column;
         align-items: center;
+        margin-bottom: 0px;
         span{
             color: white;
-            margin: 5px;
-            margin-block-start: 10px;
+            margin: 0px;
+            margin-block-start: 5px;
         }
     }
     &__partialRunes{
-        width: 130px;
+        width: 75px;
         height: 100px;
-        margin-right: 20px;
+        margin-right: 10px;
         border-radius: 5px;
         padding: 5px;
-        background-color: c('medium-blue');
+        background-color: c('other-blue');
         display: flex;
         flex-direction: column;
         align-items: center;
         text-align: center;
-        margin-left: 10px;
+        margin-left: 0px;
+        margin-bottom: 0px;
         span{
             z-index: 5;
             color: white;
@@ -138,7 +174,7 @@
         width: 100%;
     }
     &__interface{
-        width: 90%;
+        width: 100%;
         display: flex;
         align-items: center;
         margin-bottom: 12px;
@@ -154,11 +190,10 @@
         }
     }
     &__rune--watermark{
-        background: radial-gradient(circle, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 90%);
-        padding: 35px 45px 30px;
         margin-top: -5px;
         width: 40px;
-        opacity: 0.5;
+        padding: 35px 10px 30px;
+        opacity: 0.7;
         position: absolute;
         z-index: 3;
     }
@@ -173,8 +208,10 @@
 }
 
 #in-game-buttons{
+    margin-top: 6px;
     display: flex;
     align-items: center;
+    margin-bottom: 0px;
 }
 
 .Toastify__toast--dark{
@@ -200,4 +237,13 @@
 #common-view{
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+@include medium {
+    @import'medium';
+}
+@include large {
+    @import'large';
 }

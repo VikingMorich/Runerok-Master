@@ -92,8 +92,11 @@ export function initFirebase(i18n) {
                 currentPlayerStats.once("value", function(snapshot) {
                     ReactDOM.render(<React.Fragment>
                         <GameAction type="extra-points" valknut={snapshot.val().valknut} runes={snapshot.val().runes} i18n={i18n}/>
+                        <GameAction type="extra-points-mobile" valknut={snapshot.val().valknut} runes={snapshot.val().runes} i18n={i18n}/>
                         <GameAction type="damage" valknut={snapshot.val().valknut} i18n={i18n}/>
+                        <GameAction type="damage-mobile" valknut={snapshot.val().valknut} i18n={i18n}/>
                         <GameAction type="extra-turn" valknut={snapshot.val().valknut} turn={snap.val() === cookies.get('key')} i18n={i18n}/>
+                        <GameAction type="extra-turn-mobile" valknut={snapshot.val().valknut} turn={snap.val() === cookies.get('key')} i18n={i18n}/>
                     </React.Fragment>, actionButtons)
                     objActions.appendChild(actionButtons)
                 }) 
@@ -237,8 +240,11 @@ export function initFirebase(i18n) {
                 currentPlayerStats.once("value", function(snapshot) {
                     ReactDOM.render(<React.Fragment>
                         <GameAction type="extra-points" valknut={snapshot.val().valknut} runes={snapshot.val().runes} i18n={i18n}/>
+                        <GameAction type="extra-points-mobile" valknut={snapshot.val().valknut} runes={snapshot.val().runes} i18n={i18n}/>
                         <GameAction type="damage" valknut={snapshot.val().valknut} i18n={i18n}/>
+                        <GameAction type="damage-mobile" valknut={snapshot.val().valknut} i18n={i18n}/>
                         <GameAction type="extra-turn" valknut={snapshot.val().valknut} turn={snap.val() === cookies.get('key')} i18n={i18n}/>
+                        <GameAction type="extra-turn-mobile" valknut={snapshot.val().valknut} turn={snap.val() === cookies.get('key')} i18n={i18n}/>
                     </React.Fragment>, actionButtons)
                     objActions.appendChild(actionButtons)
                 })
@@ -447,8 +453,11 @@ export function initFirebase(i18n) {
                 currentPlayerTurn.once("value", function(snapshot) {
                     ReactDOM.render(<React.Fragment>
                         <GameAction type="extra-points" valknut={snap.val().valknut} runes={snap.val().runes} i18n={i18n}/>
+                        <GameAction type="extra-points-mobile" valknut={snap.val().valknut} runes={snap.val().runes} i18n={i18n}/>
                         <GameAction type="damage" valknut={snap.val().valknut} i18n={i18n}/>
+                        <GameAction type="damage-mobile" valknut={snap.val().valknut} i18n={i18n}/>
                         <GameAction type="extra-turn" valknut={snap.val().valknut} turn={snapshot.val() === cookies.get('key')} i18n={i18n}/>
+                        <GameAction type="extra-turn-mobile" valknut={snap.val().valknut} turn={snapshot.val() === cookies.get('key')} i18n={i18n}/>
                     </React.Fragment>, actionButtons)
                     objActions.appendChild(actionButtons)
                 }) 
@@ -516,8 +525,11 @@ export function initFirebase(i18n) {
                 currentPlayerTurn.once("value", function(snapshot) {
                     ReactDOM.render(<React.Fragment>
                         <GameAction type="extra-points" valknut={snap.val().valknut} runes={snap.val().runes} i18n={i18n}/>
+                        <GameAction type="extra-points-mobile" valknut={snap.val().valknut} runes={snap.val().runes} i18n={i18n}/>
                         <GameAction type="damage" valknut={snap.val().valknut} i18n={i18n}/>
+                        <GameAction type="damage-mobile" valknut={snap.val().valknut} i18n={i18n}/>
                         <GameAction type="extra-turn" valknut={snap.val().valknut} turn={snapshot.val() === cookies.get('key')} i18n={i18n}/>
+                        <GameAction type="extra-turn-mobile" valknut={snap.val().valknut} turn={snapshot.val() === cookies.get('key')} i18n={i18n}/>
                     </React.Fragment>, actionButtons)
                     objActions.appendChild(actionButtons)
                 })

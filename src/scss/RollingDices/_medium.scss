@@ -1,0 +1,29 @@
+.data-side-1 {
+    transform: rotate3d(0, 0, 0, 90deg) translateZ(2rem);
+  }
+.data-side-2 {
+    transform: rotate3d(-1, 0, 0, 90deg) translateZ(2rem);
+  }
+.data-side-3 {
+    transform: rotate3d(0, 1, 0, 90deg) translateZ(2rem);
+  }
+.data-side-4 {
+    transform: rotate3d(0, -1, 0, 90deg) translateZ(2rem);
+  }
+.data-side-5 {
+    transform: rotate3d(1, 0, 0, 90deg) translateZ(2rem);
+  }
+.data-side-6 {
+    transform: rotate3d(1, 0, 0, 180deg) translateZ(2rem);
+  }
+
+  .die-list {
+    height: 2rem;
+    width: 2rem;
+    margin-left: 20px;
+    margin-right: 35px;
+  }
+
+  .die-item {
+    padding: 1rem;
+  }

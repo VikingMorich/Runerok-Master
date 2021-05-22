@@ -1,12 +1,11 @@
 .c-button{
-    height: 22px;
     width: fit-content;
     background-color: c('upper-blue');
-    padding: 15px;
+    padding: 8px;
     font-size: 18px;
     display: flex;
     align-items: center;
-    margin: 0 20px;
+    margin: 0 6px;
     border-radius: 7px;
     color: c('white');
     transition-duration: 0.3s;
@@ -26,4 +25,11 @@
 
 .c-button--disabled:hover {
     background-color: gray;
+}
+
+@include medium {
+    @import'medium';
+}
+@include large {
+    @import'large';
 }

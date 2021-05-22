@@ -1,5 +1,54 @@
 .c-room{
+    padding: 0 40px;
+    &--top{
+        height: 100%;
+        margin-top: 10px;
+    }
     &--game{
         height: 55%;
+        min-height: 290px;
     }
+    &--players{
+        margin-bottom: 20px;
+        height: 60%;
+        min-height: 180px;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+    &__chat-box{
+        width: calc(100% - 30px);
+        height: 36%;
+    }
+    &--buttons{
+        margin-bottom: 20px;
+    }
+    &--chat{
+        height: 63%;
+    }
+    &--title{
+        margin-top: 70px;
+        font-size: 32px;
+    }
+    &__chat-box{
+        &--in-game{
+            display: block;
+            background-color: c('medium-blue');
+            height: 15%;
+            width: 90%;
+            padding: 12px;
+            border-radius: 5px;
+            padding-bottom: 46px;
+            .c-room--chat{
+                height: 75%;
+            }
+            .c-chat{
+                margin-top: 0px;
+            }
+        }
+    }
+}
+
+.c-chat{
+    margin-top: 10px;
 }

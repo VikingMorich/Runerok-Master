@@ -3,9 +3,10 @@
         width: 43%;
         height: auto;
     }
-    &--chat-box{
+    &__chat-box{
         width: 45%;
         height: 75%;
+        min-height: 385px;
     }
     &--top{
         flex-direction: row;
@@ -15,6 +16,7 @@
     &--players{
         height: 60%;
         display: block;
+        min-height: 310px;
     }
     &--chat{
         height: 82%;

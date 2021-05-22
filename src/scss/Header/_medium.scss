@@ -1,0 +1,24 @@
+.c-config{
+    &__nickname-modal{
+        height: 240px;
+        width: 35%;
+        margin: 15% 30%;
+        padding: 0px;
+        &--form{
+            width: 85%;
+          }
+    }
+    &__avatar-modal{
+        height: 600px;
+        width: 40%;
+        margin: 4% 30%;
+        padding: 0;
+    }
+    &__avatar-img{
+        margin: 0 15px;
+        height: 125px;
+    }
+    &__avatar-box{
+        height: 450px;
+      }
+}

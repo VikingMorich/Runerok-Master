@@ -1,0 +1,19 @@
+.flip-card {
+    background-color: transparent;
+    width: 55px;
+    height: 55px;
+}
+
+.flip-card-front {
+    background-color: #bbb;
+    color: black;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+  
+.icon{
+    width: 40px;
+    margin-top: 0;
+}

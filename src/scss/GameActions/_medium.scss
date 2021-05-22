@@ -1,0 +1,21 @@
+.c-action-mobile {
+    display: none;
+    &--disabled{
+        display: none;
+    }
+}
+
+.c-action {
+    display: block;
+    &--disabled{
+        width: 85%;
+        display: block;
+    }
+    &__cost{
+        width: 40px;
+        height: 40px;
+    }
+    &__info{
+        padding: 10px 15px;
+    }
+}
