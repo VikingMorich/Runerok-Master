@@ -431,8 +431,8 @@ a:active {
   position: absolute;
   color: white;
   text-align: center;
-  -webkit-animation-duration: 2s;
-  animation-duration: 2s;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
   -webkit-animation-fill-mode: forwards;
   animation-fill-mode: forwards;
   -webkit-animation-delay: 1s;
@@ -726,9 +726,7 @@ a:active {
 }
 
 .c-modal__dices {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  display: none;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -787,8 +785,8 @@ a:active {
 .c-modal--cross {
   width: 30px;
   position: absolute;
-  right: 10px;
-  top: 10px;
+  right: 12px;
+  top: 12px;
   z-index: 5;
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 50%;
@@ -827,10 +825,15 @@ a:active {
   color: white;
   display: block;
   font-family: 'Pieces of Eight';
-  font-size: 24px;
-  padding: 0 70px 0 70px;
+  font-size: 20px;
+  padding: 0 15px 0 15px;
   text-align: center;
   width: 100%;
+}
+
+.c-slider__text h3 {
+  -webkit-margin-after: 1.1em;
+          margin-block-end: 1.1em;
 }
 
 .c-slider__text p {
@@ -843,6 +846,53 @@ a:active {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.c-slider__text span {
+  margin-left: 7px;
+}
+
+.c-slider__text--first {
+  -webkit-margin-before: 0em !important;
+          margin-block-start: 0em !important;
+}
+
+.c-slider__text--span {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-margin-before: 1em;
+          margin-block-start: 1em;
+  -webkit-margin-after: 1em;
+          margin-block-end: 1em;
+}
+
+.c-slider__text--span p {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-margin-before: 0em;
+          margin-block-start: 0em;
+  -webkit-margin-after: 0em;
+          margin-block-end: 0em;
 }
 
 .awssld__container {
@@ -868,8 +918,6 @@ a:active {
 
 .cube {
   margin: auto;
-  margin-right: 30px;
-  margin-left: 30px;
   position: relative;
   height: 60px;
   width: 60px;
@@ -997,8 +1045,39 @@ a:active {
     margin-top: 0;
     height: 50%;
   }
+  .c-modal--cross {
+    top: 10px;
+    right: 10px;
+  }
+  .c-modal__dices {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
   .modal-background-video {
     margin: -20px 0 0 -20px;
+  }
+  .c-slider__text {
+    padding: 0 70px 0 70px;
+    font-size: 24px;
+  }
+  .c-slider__text h3 {
+    -webkit-margin-after: 1.5em;
+            margin-block-end: 1.5em;
+  }
+  .c-slider__text--first {
+    -webkit-margin-before: 1em !important;
+            margin-block-start: 1em !important;
+  }
+  .c-slider__text--span {
+    -webkit-margin-before: 0.75em;
+            margin-block-start: 0.75em;
+    -webkit-margin-after: 0.75em;
+            margin-block-end: 0.75em;
+  }
+  .cube {
+    margin-right: 30px;
+    margin-left: 30px;
   }
 }
 
@@ -1658,7 +1737,7 @@ input {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  overflow-y: scroll;
+  overflow-y: auto;
   position: absolute;
   padding-bottom: 2px;
   height: calc(25vh - 5px);

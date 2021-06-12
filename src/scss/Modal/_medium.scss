@@ -17,8 +17,37 @@
         margin-top: 0;
         height: 50%;
     }
+    &--cross{
+        top: 10px;
+        right: 10px;
+    }
+    &__dices{
+        display: flex;
+    }
 }
 
 .modal-background-video{
     margin: -20px 0 0 -20px;
+}
+
+.c-slider{
+    &__text{
+        padding: 0 70px 0 70px;
+        font-size: 24px;
+        h3{
+            margin-block-end: 1.5em;
+        }
+        &--first{
+            margin-block-start: 1em !important; 
+        }
+        &--span{
+            margin-block-start: 0.75em;
+            margin-block-end: 0.75em;
+        }
+    }
+}
+
+.cube{
+    margin-right: 30px;
+    margin-left: 30px;
 }

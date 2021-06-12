@@ -15,13 +15,14 @@ export default function GameAction(props) {
     function useAction() {
         let ref = fire.database().ref().child('Room').child('Players').child(cookies.get('key'))
         let updates = {}
-        let actionCost = props.type === 'extra-points' ? extraPointsCost : props.type === 'damage' ? damageCost : props.type === 'extra-turn' ? extraTurnCost : 0
+        let actionType = props.type === 'extra-points' || props.type === 'extra-points-mobile' ? 'extra-points' : props.type === 'damage' || props.type === 'damage-mobile' ? 'damage' : props.type === 'extra-turn' || props.type === 'extra-turn-mobile' ? 'extra-turn' : ''
+        let actionCost = actionType === 'extra-points' ? extraPointsCost : actionType === 'damage' ? damageCost : actionType === 'extra-turn' ? extraTurnCost : 0
         updates['valknut'] = props.valknut - actionCost
-        if (props.type === 'extra-points'){
+        if (actionType === 'extra-points'){
             let totalRunes = props.runes + 1
             updates['runes'] = totalRunes
         }
-        if (props.type === 'damage'){
+        if (actionType === 'damage'){
             let livesVal
             let currentTurn = fire.database().ref("Room/Game/Stats/turn")
             currentTurn.once("value", function(data) {
@@ -42,7 +43,7 @@ export default function GameAction(props) {
                 })
             })
         }
-        if (props.type === 'extra-turn'){
+        if (actionType === 'extra-turn'){
             let currentStats = fire.database().ref("Room/Game/Stats")
             let updateStats = {}
             updateStats['extraTurn'] = true
@@ -52,7 +53,7 @@ export default function GameAction(props) {
         let key = refAction.push().key
         let updatesActions = {}
         updatesActions[key] = {
-            message: props.type,
+            message: actionType,
             user: cookies.get('userName')
         }
         refAction.update(updatesActions)

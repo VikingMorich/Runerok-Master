@@ -35,7 +35,6 @@ export default function Modal(props) {
                             <AwesomeSlider animation="cubeAnimation" className="c-slider">
                                 <div className="c-slider__text">
                                     <h3><u>{t('header.instructions').toUpperCase()}</u></h3>
-                                    <br />
                                     <p>
                                         {t('instructions-ok.p1')}
                                         <div className="c-modal__instructions--icon">
@@ -126,34 +125,36 @@ export default function Modal(props) {
                                         <div className="c-modal__dice c-modal__dice--red"></div>
                                         <span>{t('instructions-ok.hard')}</span>
                                     </div>
-                                    <p>
+                                    <div className="c-slider__text--span c-slider__text--first">
                                         <div className="c-modal__instructions--icon">
                                             <Rune></Rune>
                                         </div>
-                                        {t('instructions-ok.colon')}
-                                        {t('instructions-ok.p5')}
-                                    </p>
-                                    <p>
+                                        <p>{t('instructions-ok.colon')}
+                                        {t('instructions-ok.p5')}</p>
+                                        <span>{t('instructions-ok.p5-2')}</span>
+                                    </div>
+                                    <div className="c-slider__text--span">
                                         <div className="c-modal__instructions--icon">
                                             <Damage></Damage>
                                         </div>
-                                        {t('instructions-ok.colon')}
-                                        {t('instructions-ok.p6')}
-                                    </p>
-                                    <p>
+                                        <p>{t('instructions-ok.colon')}
+                                        {t('instructions-ok.p6')}</p>
+                                    </div>
+                                    <div className="c-slider__text--span">
                                         <div className="c-modal__instructions--icon">
                                             <Ship></Ship>
                                         </div>
-                                        {t('instructions-ok.colon')}
-                                        {t('instructions-ok.p7')}
-                                    </p>
-                                    <p>
+                                        <p>{t('instructions-ok.colon')}
+                                        {t('instructions-ok.p7')}</p>
+                                        <span>{t('instructions-ok.p7-2')}</span>
+                                    </div>
+                                    <div className="c-slider__text--span">
                                         <div className="c-modal__instructions--icon">
                                             <Valknut></Valknut>
                                         </div>
-                                        {t('instructions-ok.colon')}
-                                        {t('instructions-ok.p8')}
-                                    </p>
+                                        <p>{t('instructions-ok.colon')}
+                                        {t('instructions-ok.p8')}</p>
+                                    </div>
                                 </div>
                                 <div className="c-slider__text">
                                     <p>{t('instructions-ok.p9')}</p>

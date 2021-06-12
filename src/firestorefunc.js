@@ -193,7 +193,7 @@ export function initFirebase(i18n) {
             }
             if (snap.key === 'turn') {
                 let objSelectedDices = document.getElementById('selected-dices')
-                let diceChilds = [...objSelectedDices.childNodes]
+                let diceChilds = [...objSelectedDices.children]
                 diceChilds.forEach(element => {
                     element.remove()
                 })
@@ -325,10 +325,15 @@ export function initFirebase(i18n) {
     dbRefGameDices.on('child_added', snap => {
         if(window.location.pathname === '/game') {
             let objDices = document.getElementById('game-dices')
+            let diceChanged = document.getElementById(snap.key)
             const dice = document.createElement('div')
             dice.id=snap.key
             ReactDOM.render(<Dice color={snap.val().color} selected={snap.val().selected} value={snap.val().value} i18n={i18n}/>, dice)
-            objDices.appendChild(dice);
+            if (diceChanged){
+                objDices.replaceChild(dice, diceChanged)
+            } else {
+                objDices.appendChild(dice)
+            }
             if (snap.val().selected && !snap.val().used){
                 let objSelectedDices = document.getElementById('selected-dices')
                 const diceSelected = document.createElement('div')
@@ -354,15 +359,18 @@ export function initFirebase(i18n) {
             const dice = document.createElement('div')
             dice.id=snap.key
             ReactDOM.render(<Dice color={snap.val().color} selected={snap.val().selected} value={snap.val().value} i18n={i18n}/>, dice)
-            objDices.replaceChild(dice, wrapperChanged);
-            
+            if (wrapperChanged){
+                objDices.replaceChild(dice, wrapperChanged)
+            } else {
+                objDices.appendChild(dice)
+            }
             if (snap.val().used) {
                 let diceChanged = document.getElementById(snap.key + "-selected")
                 diceChanged && diceChanged.remove()
             }
             if (snap.val().selected && !snap.val().used){
                 let objSelectedDices = document.getElementById('selected-dices')
-                let wrapperChanged = document.getElementById(snap.key+"-selected")
+                wrapperChanged = document.getElementById(snap.key+"-selected")
                 if (!wrapperChanged){
                     const diceSelected = document.createElement('div')
                     diceSelected.className = snap.val().color

@@ -22,9 +22,9 @@ export default function Home() {
                 setShowLogo(false)
                 setTimeout(() => { 
                     setHideLogo(false) 
-                }, 700);
-            }, 4000);
-        }, 1000);
+                }, 300);
+            }, 500);
+        }, 500);
         
     }, []);
     

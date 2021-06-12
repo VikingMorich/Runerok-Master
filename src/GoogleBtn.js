@@ -23,6 +23,10 @@ export default function GoogleBtn (props) {
     }
   }
 
+  const errorGoogleResponse = () => {
+    alert('You have an error with Google response, please contact with staff')
+  }
+
   const logout = () => {
     setLogined(false)
     cookies.remove('login', { path: '/' });
@@ -86,7 +90,7 @@ export default function GoogleBtn (props) {
           <GoogleLogin
           clientId={CLIENT_ID}
           onSuccess={responseGoogle}
-          onFailure={responseGoogle}
+          onFailure={errorGoogleResponse}
           render={renderProps => (
             <div className="c-header-mobile--option" onClick={renderProps.onClick} disabled={renderProps.disabled}>{t("header.login")}</div>
           )}
@@ -96,7 +100,7 @@ export default function GoogleBtn (props) {
             clientId={CLIENT_ID}
             buttonText={t("home.login")}
             onSuccess={responseGoogle}
-            onFailure={responseGoogle}
+            onFailure={errorGoogleResponse}
             cookiePolicy={'single_host_origin'}
             render={renderProps => (
               <div onClick={renderProps.onClick} disabled={renderProps.disabled} className="c-gbutton__home">
