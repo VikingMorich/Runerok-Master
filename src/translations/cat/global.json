@@ -19,7 +19,7 @@
         "confirm": "Confirmar",
         "avatarTitle": "Escull una imatge d'avatar",
         "nicknameTitle": "Escull un nom d'usuari",
-        "nick": "Username"
+        "nick": "Nom d'usuari"
     },
     "languages": {
         "cat": "CAT",
@@ -50,29 +50,8 @@
         "final1": "🎊 RONDA FINAL 🎊\n\n🏅",
         "final2": " ha conseguit impresionar als deus🏅"
     },
-    "instructions": {
-        "p1": "Objectiu: Aconseguir mes runes que la resta de jugadors",
-        "p2": "Cada torn comencem amb 3 vides",
-        "p3": "Objectiu de cada torn es conseguir el maxim de runes",
-        "p3-2": " sense morir",
-        "p4": "Quan mors perds totes les runes acumulades aquell torn, si et plantes acumules les runes pel final del joc",
-        "p5": "Durant els torns escollirem els daus de 3 en 3",
-        "p6": "El color dels daus ens indica la dificultad de superar l'expedició:",
-        "p7": "Haurem de decidir entre plantar-nos o seguir jugant abans d'escollir els daus",
-        "p8": "Despres de cada tirada, si seguim vius podrem continuar decidint",
-        "p9": "La partida acaba quan algu consegueix 13 runes o mes",
-        "p10": "La resta de jugadors tenen una ultima oportunitat per impresionar als deus superant al rival",
-        "p11": "Finalitzada la ultima ronda guanya qui te mes punts",
-        "p12": "En cas d'empat guanya el primer en conseguir-los",
-        "p13": "Punts valknut",
-        "p13-2": "serveixen per utilitzar accions especials a canvi de punts",
-        "p14": "Surten de les tirades dels daus i es poden jugar fora del teu torn",
-        "p15": "Clica sobre el menu d'accions quan tinguis prous punts per executar una acció",
-        "p16": "Ens mantenen el dau seleccionat fent que haguem de tornar a tirar-lo si volem seguir jugant",
-        "p17": "Ens resten 1 vida a les totals"
-    },
     "instructions-ok": {
-        "p1": "Joc de daus on l'objectiu es aconseguir més runes ",
+        "p1": "Joc de daus on l'objectiu és aconseguir més runes ",
         "p1-2": " que la resta de jugadors",
         "p2": "Cada torn comencem amb 3 vides",
         "p3": "En el nostre torn, escollim els daus de 3 en 3",
@@ -118,7 +97,7 @@
         "title": "POLÍTICA DE PRIVACITAT",
         "p1": "El present Política de Privacitat estableix els termes en què fa servir i protegeix la informació que és proporcionada pels seus usuaris a l'hora d'utilitzar el seu lloc web. Runerök està compromesa amb la seguretat de les dades dels seus usuaris. Quan li demanem omplir els camps d'informació personal amb la qual vostè pugui ser identificat, ho fem assegurant que només es farà servir d'acord amb els termes d'aquest document. No obstant això aquesta política de privacitat pot canviar amb el temps o ser actualitzada pel que li recomanem i emfatitzem revisar contínuament aquesta pàgina per assegurar-se que està d'acord amb aquests canvis",
         "h1": "Enllaços a Tercers",
-        "p2": "Aquest lloc web pogués contenir en llaços a altres llocs que puguin ser del seu interès. Una vegada que vostè de clic en aquests enllaços i abandoni la nostra pàgina, ja no tenim control sobre a el lloc a què és redirigit i per tant no som responsables dels termes o privacitat ni de la protecció de les seves dades en aquests altres llocs tercers. Aquests llocs estan subjectes a les seves pròpies polítiques de privacitat per la qual cosa és recomanable que els consulti per confirmar que vostè està d'acord amb aquestes.",
+        "p2": "Aquest lloc web pogués contenir enllaços a altres llocs que puguin ser del seu interès. Una vegada que vostè de clic en aquests enllaços i abandoni la nostra pàgina, ja no tenim control sobre a el lloc a què és redirigit i per tant no som responsables dels termes o privacitat ni de la protecció de les seves dades en aquests altres llocs tercers. Aquests llocs estan subjectes a les seves pròpies polítiques de privacitat per la qual cosa és recomanable que els consulti per confirmar que vostè està d'acord amb aquestes.",
         "h2": "Ús de la vostra informació personal",
         "p3": "En qualsevol moment vostè pot restringir la recopilació o l'ús de la informació personal que ens és proporcionada. Tot i això aquesta companyia no vendrà, cedirà o distribuirà la informació personal que és recopilada sense el seu consentiment.",
         "h3": "Acceptació i consentiment",

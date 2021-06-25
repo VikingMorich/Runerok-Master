@@ -1062,18 +1062,18 @@ a:active {
     font-size: 24px;
   }
   .c-slider__text h3 {
-    -webkit-margin-after: 1.5em;
-            margin-block-end: 1.5em;
+    -webkit-margin-after: 1.2em;
+            margin-block-end: 1.2em;
   }
   .c-slider__text--first {
-    -webkit-margin-before: 1em !important;
-            margin-block-start: 1em !important;
+    -webkit-margin-before: 0.75em !important;
+            margin-block-start: 0.75em !important;
   }
   .c-slider__text--span {
-    -webkit-margin-before: 0.75em;
-            margin-block-start: 0.75em;
-    -webkit-margin-after: 0.75em;
-            margin-block-end: 0.75em;
+    -webkit-margin-before: 0.5em;
+            margin-block-start: 0.5em;
+    -webkit-margin-after: 0.5em;
+            margin-block-end: 0.5em;
   }
   .cube {
     margin-right: 30px;

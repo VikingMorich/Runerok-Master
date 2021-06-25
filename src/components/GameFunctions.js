@@ -161,72 +161,86 @@ const recursiveWinSearch = (index, arrayPlayers, winnerPoints, winnerName) => {
 
 export const giveUp = () => {
     let ref = fire.database().ref("Room/Game/Dices/")
-    let randomDicePosition = getRandomDicePosition()
-    let updates = {}
-    randomDicePosition.forEach((element, key) => {
-        updates[(key+1)] = {
-            "color": element,
-        }
-    });
-    ref.update(updates)
-    let currentGameState = fire.database().ref("Room/Game/Stats")
-    currentGameState.once("value", function(gameStateSnap) {
-        let playerTurn = gameStateSnap.val().turn
-        let currentPlayerState = fire.database().ref("Room/Players/"+playerTurn)
-        currentPlayerState.once("value", function(snap) {
-            let updateGameState = {}
-            let currentPlayerRunes = snap.val().runes
-            let currentPlayerLives = snap.val().lives
-            let updatePlayerState = {
-                "lives": 3,
+    ref.once("value", function (refSnap) {
+        let notPlayed = true
+        refSnap.val().forEach(element => {
+            if (element.selected) {
+                notPlayed = false
             }
-            currentGameState.once("value", function(snapshot) {
-                if (currentPlayerLives > 0) {
-                    let totalRunes = currentPlayerRunes + snapshot.val().partialRunes
-                    updatePlayerState['runes'] = totalRunes
-                    if (totalRunes >= 13 && !snapshot.val().winModeStartPlayer && !snapshot.val().extraTurn) {
-                        updateGameState['winModeStartPlayer'] = playerTurn
+        });
+        if (notPlayed) {
+            alert("No has jugat cap dau")
+        }
+        else {
+            let randomDicePosition = getRandomDicePosition()
+            let updates = {}
+            randomDicePosition.forEach((element, key) => {
+                updates[(key+1)] = {
+                    "color": element,
+                }
+            });
+            ref.update(updates)
+            let selectedDicesBox = document.getElementById('selected-dices')
+            selectedDicesBox.innerHTML = ''
+            let currentGameState = fire.database().ref("Room/Game/Stats")
+            currentGameState.once("value", function(gameStateSnap) {
+                let playerTurn = gameStateSnap.val().turn
+                let currentPlayerState = fire.database().ref("Room/Players/"+playerTurn)
+                currentPlayerState.once("value", function(snap) {
+                    let updateGameState = {}
+                    let currentPlayerRunes = snap.val().runes
+                    let currentPlayerLives = snap.val().lives
+                    let updatePlayerState = {
+                        "lives": 3,
+                    }
+                    currentGameState.once("value", function(snapshot) {
+                        if (currentPlayerLives > 0) {
+                            let totalRunes = currentPlayerRunes + snapshot.val().partialRunes
+                            updatePlayerState['runes'] = totalRunes
+                            if (totalRunes >= 13 && !snapshot.val().winModeStartPlayer && !snapshot.val().extraTurn) {
+                                updateGameState['winModeStartPlayer'] = playerTurn
+                            }
+                        }
+                        updateGameState['partialRunes'] = 0
+                        updateGameState['dead'] = false
+                        
+                        currentGameState.update(updateGameState)
+                        currentPlayerState.update(updatePlayerState)
+                    })
+                })
+            })
+            let refTurn = fire.database().ref("Room/Game/Stats/")
+            let updatesTurn = {}
+            updatesTurn['giveup'] = true
+            updatesTurn['selectedDices'] = 0
+            refTurn.once("value", function(gameStateSnap) {
+                let arrayPlayers = gameStateSnap.val().orderPlayers
+                let currentPlayer = gameStateSnap.val().turn
+                let indexP = arrayPlayers.indexOf(currentPlayer)
+                let newArrayPlayers = []
+                for(let i = 0; i < arrayPlayers.length; i++) {
+                    let newIndx = indexP + i + 1
+                    if (newIndx >= arrayPlayers.length) {
+                        newIndx -= arrayPlayers.length
+                    }
+                    newArrayPlayers.push(arrayPlayers[newIndx])
+                }
+                //si no es extra-turn
+                if(!gameStateSnap.val().extraTurn) {
+                    updatesTurn['turn'] = newArrayPlayers[0]
+                    if (gameStateSnap.val().winModeStartPlayer === newArrayPlayers[0]) {
+                        //GAME OVER
+                        recursiveWinSearch(0, newArrayPlayers, -1, "")
+                        setTimeout(function(){ 
+                            exitGame()
+                        }, 6000)
+                        
                     }
                 }
-                updateGameState['partialRunes'] = 0
-                updateGameState['dead'] = false
-                
-                currentGameState.update(updateGameState)
-                currentPlayerState.update(updatePlayerState)
+                updatesTurn['extraTurn'] = false
+                refTurn.update(updatesTurn)
             })
-        })
-    })
-    let refTurn = fire.database().ref("Room/Game/Stats/")
-    let updatesTurn = {}
-    updatesTurn['giveup'] = true
-    updatesTurn['selectedDices'] = 0
-    refTurn.once("value", function(gameStateSnap) {
-        let arrayPlayers = gameStateSnap.val().orderPlayers
-        let currentPlayer = gameStateSnap.val().turn
-        let indexP = arrayPlayers.indexOf(currentPlayer)
-        let newArrayPlayers = []
-        for(let i = 0; i < arrayPlayers.length; i++) {
-            let newIndx = indexP + i + 1
-            if (newIndx >= arrayPlayers.length) {
-                newIndx -= arrayPlayers.length
-            }
-            newArrayPlayers.push(arrayPlayers[newIndx])
         }
-        //si no es extra-turn
-        if(!gameStateSnap.val().extraTurn) {
-            updatesTurn['turn'] = newArrayPlayers[0]
-            if (gameStateSnap.val().winModeStartPlayer === newArrayPlayers[0]) {
-                //GAME OVER
-                recursiveWinSearch(0, newArrayPlayers, -1, "")
-                setTimeout(function(){ 
-                    exitGame()
-                }, 6000)
-                
-            }
-        }
-
-        updatesTurn['extraTurn'] = false
-        refTurn.update(updatesTurn)
     })
 }
 

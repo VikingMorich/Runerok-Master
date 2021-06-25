@@ -37,7 +37,7 @@ export default function Dice(props) {
                                 <Rune/>
                             </div>
                             :
-                            <span>{props.color.toUpperCase()}</span>
+                            <React.Fragment />
                             }  
                             </div>
                         </div>
