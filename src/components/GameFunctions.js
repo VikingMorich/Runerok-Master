@@ -78,6 +78,7 @@ export const rollDices = () => {
         }
         giveUpState['giveup'] = true
         giveUpState['selectedDices'] = shipCount
+        giveUpState['rolling'] = true
         currentGameState.update(giveUpState)
         currentGameState.once("value", function(gameStateSnap) {
             let playerTurn = gameStateSnap.val().turn
@@ -118,7 +119,7 @@ export const rollDices = () => {
                 currentPlayerState.update(updatePlayerState)
             })
         })
-        setTimeout(function(){ 
+        setTimeout(function(){
             for (let i = 0; i < numberDices; i++) {
                 let str = instanceDices[i].id
                 let res = str.replace("-selected", "");
@@ -130,7 +131,11 @@ export const rollDices = () => {
                 updates['rolling'] = false
                 ref.update(updates)
             }
-        }, 2000);
+            let currentGameState = fire.database().ref("Room/Game/Stats")
+            let giveUpState = {}
+            giveUpState['rolling'] = false
+            currentGameState.update(giveUpState)
+        }, 1500);
     
 }
 
@@ -160,6 +165,19 @@ const recursiveWinSearch = (index, arrayPlayers, winnerPoints, winnerName) => {
 }
 
 export const giveUp = () => {
+    let currentGameState = fire.database().ref("Room/Game/Stats")
+    currentGameState.once("value", function(gameStateSnap) {
+        if(!gameStateSnap.val().rolling){
+            check()
+        }
+        else {
+            setTimeout(giveUp, 200);
+        }
+    })
+}
+
+
+const check = () => {
     let ref = fire.database().ref("Room/Game/Dices/")
     ref.once("value", function (refSnap) {
         let notPlayed = true
