@@ -28,7 +28,7 @@
     },
     "modal": {
         "title": "Runerök",
-        "p1": "After the death of most of the gods in the Ragnarök, the few survivors risked the right to hold Thor Mjölnir's hammer and be named Odin's successor and main leader in Asgard Castle. To win this right they will have to get all the ruins and get the secret they are waiting for to dominate absolute power, but only the first to get it will be the new host at Valhalla so the rest of the rivals will not make it easy for us. . Live the Runerök experience and play the best strategy to sabotage your rivals and win the glory of every hero."
+        "p1": "After the death of most of the gods in the Ragnarök, a few survivors risk the right to hold Thor Mjölnir's hammer and to be named Odin's successor and main leader in Asgard Castle. To win this right, they will have to get all the runes and the secret they keep to dominate absolute power. Only the first to get this will be the new host at Valhalla, so the rest of the rivals will not make it easy. Live the Runerök experience and play the best strategy to sabotage your rivals and win the glory of such an hero."
     },
     "room": {
         "title": "Room",
@@ -39,7 +39,7 @@
         "notReady": "I'm not ready"
     },
     "toast": {
-        "allPlayersReady": "The game has start",
+        "allPlayersReady": "The game has started",
         "roomNotReady": "Wait until all members are ready",
         "act1": "⚠️ ACTION PLAYED ⚠️\n\n🧙🏻‍♂️ Player: ",
         "act2": "\n🔮 Action: ",
@@ -51,11 +51,11 @@
         "final2": " has managed to impress the gods🏅"
     },
     "instructions-ok": {
-        "p1": "Dice game where the goal is to get more runes ",
+        "p1": "Dices game where the goal is to get more runes ",
         "p1-2": " than other players",
-        "p2": "Each turn we start with 3 lives",
-        "p3": "In turn, we choose the dice 3 by 3",
-        "p4": "There are 3 colors of dice, each one tells us the probability of more runes or warriors coming out on the dice",
+        "p2": "Each turn we start with 3 lifes",
+        "p3": "In a turn, we choose dices 3 by 3",
+        "p4": "There are 3 colors of dices, each one tells us the probability to get more runes or warriors coming out of the dices",
         "dices": "DICES",
         "colon": " : ",
         "dificult": "Difficulty: ",
@@ -63,20 +63,20 @@
         "medium": "Medium",
         "hard": "Hard",
         "p5": " Earn 1 partial rune ",
-        "p5-2": "until you plant",
+        "p5-2": "until you stick",
         "p6": "Lose 1 life",
         "p7": "Keep the dice selected,",
-        "p7-2": "if you keep playing you have to keep rolling that dice",
+        "p7-2": "if you keep on playing, you must keep on rolling this dice",
         "p8": "Earn 1 Valknut point",
-        "p9": "After a run if we are still alive we will have to choose between standing or continuing to play",
-        "p10": "When we lose all 3 lives we die and lose the accumulated partial ruins. If we plant earlier, the partial ruins become safe and accumulate by the end of the game.",
-        "p11": "The Valknut points ",
+        "p9": "After a round, if we are still alive, we will have to choose between sticking or keeping on playing",
+        "p10": "When we lose all 3 lifes, we die and lose the accumulated partial runes. Otherwise, if we stick earlier, partial runes are saved and accumulated by the end of the game.",
+        "p11": "Valknut points ",
         "p11-2": " are used to play instant actions inside or outside your turn",
         "p12": "Click on an action in the action menu and play this snapshot in exchange for Valknut points.",
         "p13": "The game ends when someone gets 13 runes or more",
         "p14": "The rest of the players have one last chance to impress the gods by beating the opponent",
-        "p15": "At the end of the last round, the one with the most points wins",
-        "p16": "In case of a tie, the first to win them wins"
+        "p15": "At the end of the last round, the winner is the player with most points",
+        "p16": "In case of a tie, the winner is who gets all runes first"
     },
     "contact-op": {
         "name": "Name",
@@ -87,9 +87,9 @@
         "accept": "I accept the terms of the ",
         "privacy": "privacy policy",
         "submit": "Submit",
-        "presentation": "I am VikingMorich, the developer of this video game. Write to me to report any bugs, tell me about your experience, or suggest improvements for future updates. Thanks for playing this game, I hope you enjoy the experience.",
+        "presentation": "I am VikingMorich, the developer of this video game. Write me to report any bugs, tell me about your experience, or suggest improvements for future updates. Thanks for playing this game, I hope you enjoy the experience.",
         "presentation-end": "See you in Valhalla.",
-        "code200": "Your email was sent successfully. Thanks",
+        "code200": "Your email has sent successfully. Thanks",
         "error": "All fields must be filled in correctly to contact the developer.",
         "footer": "© Runerok 2021. Design and programming by Enric Moriche"
     },
@@ -112,19 +112,19 @@
         "exit": "Exit game",
         "selectedDices": "Selected dices",
         "roll": "Throw dices",
-        "giveUp": "Plant yourself",
+        "giveUp": "Stick yourself",
         "changeTurn": "Change shifts",
         "continue": "Continue",
-        "dead": "You have died and lost the accumulated runes",
+        "dead": "You have died and have lost the accumulated runes",
         "partialRunes": "Partial runes",
         "exitConfirmation": "Are you sure you want to exit the game?",
-        "diceAlert3": "You already have 3 dice selected",
+        "diceAlert3": "You already have 3 dices selected",
         "diceAlertDead": "You cannot select more dices once you are dead",
         "diceAlertTurn": "It's not your turn",
-        "diceTitle": "🎲 dice panel 🎲"
+        "diceTitle": "🎲 dices panel 🎲"
     },
     "gameAction": {
-        "extraPoints": "Add a rune to the total safe runes",
+        "extraPoints": "Add a rune to total safed runes",
         "damage": "Make a point of damage to the person who has the turn",
         "extraTurn": "Earn an extra turn (only available on your turn)"
     },

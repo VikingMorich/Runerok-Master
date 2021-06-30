@@ -28,7 +28,7 @@
     },
     "modal": {
         "title": "Runerök",
-        "p1": "Despues de la muerte de la mayoria de los dioses en el Ragnarök los pocos superviventes se juegan el derecho a sostener el martillo de Thor Mjölnir y nombrarse así sucesor de Odín y principal lider del castillo de Asgard. Para ganarse ese derecho se deben conseguir todas las runas y obtener el secreto que aguardan para dominar el poder absoluto, pero sólo el primero en conseguirlo será el nuevo anfitrión en el Valhalla, así que el resto de ribales no nos lo pondran facil. Vive la experiencia de Runerök y juega la mejor estrategia para sabotear a tus ribales y ganate la gloria de todo heroe."
+        "p1": "Después de la muerte de la mayoria de los dioses en el Ragnarök los pocos superviventes se juegan el derecho a sostener el martillo de Thor Mjölnir y nombrarse así sucesor de Odín y principal líder del castillo de Asgard. Para ganarse ese derecho, se deben conseguir todas las runas y obtener el secreto que aguardan para dominar el poder absoluto. Sólo el primero en conseguirlo será el nuevo anfitrión en el Valhalla, así que el resto de rivales no nos lo pondran fácil. Vive la experiencia de Runerök y juega la mejor estrategia para sabotear a tus rivales y gánate la gloria de todo héroe."
     },
     "room": {
         "title": "Sala",
@@ -71,12 +71,12 @@
         "p9": "Después de una tirada, si seguimos vivos tendremos que escoger entre plantarnos o seguir jugando",
         "p10": "Cuando perdemos las 3 vides morimos y perdemos las runas parciales acumuladas. Si nos plantamos antes, las runas parciales pasan a ser seguras y se acumulan para el final del juego.",
         "p11": "Los puntos Valknut ",
-        "p11-2": " se utilizan para jugar acciones instantaneas dentro o fuera de tu turno",
+        "p11-2": " se utilizan para jugar acciones instantáneas dentro o fuera de tu turno",
         "p12": "Clica sobre una acción del menú de acciones y juega este instantaneo a canvio de los puntos Valknut.",
         "p13": "La partida acaba cuando alguien consige 13 runas o más",
-        "p14": "El resto de jugadores tienen una ultima oportunidad para impresionar a los dioses superando al ribal",
-        "p15": "Finalitzada la ultima ronda gana quien tiene más puntos",
-        "p16": "En caso de empate gana el primero en haberlos conseguido"
+        "p14": "El resto de jugadores tienen una última oportunidad para impresionar a los dioses superando al rival",
+        "p15": "Finalitzada la última ronda. Gana quien tiene más puntos",
+        "p16": "En caso de empate, gana el primero en haberlos conseguido"
     },
     "contact-op": {
         "name": "Nombre",
@@ -87,7 +87,7 @@
         "accept": "Acepto los terminos de la ",
         "privacy": "política de privacidad",
         "submit": "Enviar",
-        "presentation": "Soy VikingMorich, el desarrollador de este videojuego. Escribeme para reportar cualquier error, explicarme tu experiencia o proponer mejoras para futuras actualizaciones. Gracias por jugar a este juego, deseo que gozes de la experiencia.",
+        "presentation": "Soy VikingMorich, el desarrollador de este videojuego. Escribeme para reportar cualquier error, explicarme tu experiencia o proponer mejoras para futuras actualizaciones. Grácias por jugar a este juego, deseo que gozes de la experiencia.",
         "presentation-end": "Nos vemos en el Valhalla.",
         "code200": "Vuestro email se ha enviado correctamente. Gracias",
         "error": "Es necesario llenar correctamente todos los campos para contactar con el desarrollador.",
@@ -95,15 +95,15 @@
     },
     "privacy": {
         "title": "POLÍTICA DE PRIVACIDAD",
-        "p1": "La presente Política de Privacidad establece los terminos en que se hace servir y protege la información que és proporcionada por los usuarios a la hora de utilitzar el sitio web. Runerök està comprometida con la seguridad de los datos de sus usuarios. Cuando le pidan llenar los campos de información personal con la cual usted pueda ser identificado, lo hacemos asegurandonos de que solo se hara servir de acuerdo con los terminos de este documento. No obstante esta política de privacidad puede cambiar con el tiempo o ser actualizada por lo que le recomendamos y enfatizamos revisar contínuamente esta pagina para asegurarse de que está de acuerdo con estos cambios",
+        "p1": "La presente Política de Privacidad establece los terminos en que se hace servir y protege la información que es proporcionada por los usuarios a la hora de utilitzar el sitio web. Runerök está comprometida con la seguridad de los datos de sus usuarios. Cuando le pidan llenar los campos de información personal con la cual usted pueda ser identificado, lo hacemos asegurandonos que solo se hará servir de acuerdo con los terminos de este documento. No obstante, esta política de privacidad puede cambiar con el tiempo o ser actualizada por lo que le recomendamos y enfatizamos revisar contínuamente esta página para asegurarse que está de acuerdo con estos cambios",
         "h1": "Enlaces a Terceros",
-        "p2": "Este sitio web puede contener enlaces a otros sitios que pueden ser del su interés. Una vez usted haga clic en estos enlaces y abandone nuestra página, ya no tendremos el control sobre ese sitio al que es redirigido y por tanto no somos responsables de los terminos o privacidad ni de la protección de sus datos en estos otros sitios terceros. Estos sitios estan sujetos a sus propias políticas de privacidad por la cual cosa es recomanable que los consulte para confirmar que uested está de acuerdo con estos.",
-        "h2": "Uso de vuestra informació personal",
-        "p3": "En cualquier momento usted puede restringir la recopilación o el uso de la información personal que nos proporciona. Aún así esta compañia no vendrá, cederá o distribuirá la información personal que se recopila sin su consentimento.",
+        "p2": "Este sitio web puede contener enlaces a otros sitios que pueden ser de su interés. Una vez usted haga clic en estos enlaces y abandone nuestra página, ya no tendremos el control sobre ese sitio al que es redirigido y, por tanto, no somos responsables de los terminos o privacidad ni de la protección de sus datos en estos otros sitios terceros. Estos sitios estan sujetos a sus propias políticas de privacidad por la cual cosa es recomendable que los consulte para confirmar que usted está de acuerdo con estos.",
+        "h2": "Uso de vuestra información personal",
+        "p3": "En cualquier momento usted puede restringir la recopilación o el uso de la información personal que nos proporciona. Aún así, esta compañia no venderá, cederá o distribuirá la información personal que se recopila sin su consentimento alguno.",
         "h3": "Aceptación y consentimiento",
-        "p4": "Como Usuario de el sitio web declara haber esdo informado de las condiciones sobre protección de datos de carácter personal, acceptas y consientes el tratamiento de los mismos por parte del titular en la forma y para las finalidades indicadas en esta Política de Privacidad.",
+        "p4": "Como Usuario de el sitio web declara haber esdo informado de las condiciones sobre protección de datos de carácter personal, aceptas y consientes el tratamiento de los mismos por parte del titular en la forma y para las finalidades indicadas en esta Política de Privacidad.",
         "h4": "Cambios en la Política de Privacidad",
-        "p5": "Runerök se reserva el derecho a modificar la presente Política de Privacidad para adaptarla a novedades legislativas o jurisprudenciales, asi como a prácticas de la indústria."
+        "p5": "Runerök se reserva el derecho a modificar la presente Política de Privacidad para adaptarla a novedades legislativas o jurisprudenciales, así como a prácticas de la indústria."
     },
     "game": {
         "title": "Turno de ",
@@ -129,7 +129,7 @@
         "extraTurn": "Gana un turno extra (sólo disponible en tú turno)"
     },
     "error404": {
-        "title": "404: PAGINA NO ENCONTRADA",
+        "title": "404: PÁGINA NO ENCONTRADA",
         "subtitle": "Visita nuestra dirección principal"
     }
 }

@@ -7,7 +7,7 @@
         "login": "Entra amb Google"
     },
     "header": {
-        "history": "Historia",
+        "history": "Història",
         "instructions": "Instruccions",
         "contact": "Contacte",
         "login": "Iniciar sessió",
@@ -28,7 +28,7 @@
     },
     "modal": {
         "title": "Runerök",
-        "p1": "Despres de la mort de la majoria dels deus en el Ragnarök els pocs supervivents es juguen el dret a sostindre el martell de Thor Mjölnir i nomenar-se aixi succesor de Odín i principal lider al castell d'Asgard. Per guanyar aquest dret s'hauran de conseguir totes les runes i obtindre el secret que aguardan per dominar el poder absolut, pero nomes el primer en conseguir-ho sera el nou anfitrió en el Valhalla aixi que la resta de rivals no ens ho posaran facil. Viu l'experiencia de Runerök i juga la millor estrategia per sabotejar als teus rivals i guanyar la gloria de tot heroi."
+        "p1": "Després de la mort de la majoria dels déus en el Ragnarök, els pocs supervivents es juguen el dret a sostindre el martell de Thor Mjölnir i anomenar-se així succesor de Odín i principal líder al castell d'Asgard. Per guanyar aquest dret s'hauran d'aconseguir totes les runes i obtindre el secret que aguarden per dominar el poder absolut, però, només el primer en aconseguir-ho serà el nou anfitrió en el Valhalla. Així que la resta de rivals no ens ho posaran fàcil. Viu l'experiència del Runerök i juga la millor estratègia per sabotejar als teus rivals i guanyar la glòria de tot heroi."
     },
     "room": {
         "title": "Sala",
@@ -44,11 +44,11 @@
         "act1": "⚠️ ACCIÓ JUGADA ⚠️\n\n🧙🏻‍♂️ Jugador: ",
         "act2": "\n🔮 Acció: ",
         "act3": " ✨",
-        "win1": "🎴 JOC ACABAT 🎴\n\n🏆 El guanyador es ",
+        "win1": "🎴 JOC ACABAT 🎴\n\n🏆 El guanyador és ",
         "win2": " amb ",
         "win3": " runes 🔥\n\nValhalleluja",
         "final1": "🎊 RONDA FINAL 🎊\n\n🏅",
-        "final2": " ha conseguit impresionar als deus🏅"
+        "final2": " ha conseguit impresionar als déus🏅"
     },
     "instructions-ok": {
         "p1": "Joc de daus on l'objectiu és aconseguir més runes ",
@@ -68,14 +68,14 @@
         "p7": "Manté el dau seleccionat,",
         "p7-2": "si segueixes jugant has de continuar llençant aquest dau",
         "p8": "Guanya 1 punt Valknut",
-        "p9": "Després d'una tirada si seguim vius haurem d'escollir entre plantar-nos o seguir jugant",
+        "p9": "Després d'una tirada, si seguim vius haurem d'escollir entre plantar-nos o seguir jugant",
         "p10": "Quan perdem les 3 vides morim i perdem les runes parcials acumulades. Si ens plantem abans, les runes parcials passen a ser segures i s'acumulen pel final del joc.",
         "p11": "Els punts Valknut ",
         "p11-2": " s'utilitzen per jugar accions instantànies dins o fora del teu torn",
         "p12": "Clica sobre una acció del menú d'accions i juga aquest instantani a canvi dels punts Valknut.",
-        "p13": "La partida acaba quan algú aconsegueix 13 runes o mes",
-        "p14": "La resta de jugadors tenen una ultima oportunitat per impressionar als deus superant al rival",
-        "p15": "Finalitzada la ultima ronda guanya qui te mes punts",
+        "p13": "La partida acaba quan algú aconsegueix 13 runes o més",
+        "p14": "La resta de jugadors tenen una última oportunitat per impressionar als déus superant al rival",
+        "p15": "Finalitzada la última ronda guanya qui te més punts",
         "p16": "En cas d'empat guanya el primer en haver-los aconseguit"
     },
     "contact-op": {
@@ -90,18 +90,18 @@
         "presentation": "Sóc VikingMorich, el desenvolupador d'aquest videojoc. Escriu-me per reportar qualsevol error, explicar-me la teva experiencia o proposar millores per futures actualitzacions. Gràcies per jugar a aquest joc, desitjo que gaudeixis de l'experiencia.",
         "presentation-end": "Ens veiem al Valhalla.",
         "code200": "El vostre email s'ha enviat correctament. Gràcies",
-        "error": "Es necesari omplir correctament tots els camps per contactar amb el desenvolupador.",
+        "error": "És necessari omplir correctament tots els camps per contactar amb el desenvolupador.",
         "footer": "© Runerok 2021. Disseny i programació per Enric Moriche"
     },
     "privacy": {
         "title": "POLÍTICA DE PRIVACITAT",
-        "p1": "El present Política de Privacitat estableix els termes en què fa servir i protegeix la informació que és proporcionada pels seus usuaris a l'hora d'utilitzar el seu lloc web. Runerök està compromesa amb la seguretat de les dades dels seus usuaris. Quan li demanem omplir els camps d'informació personal amb la qual vostè pugui ser identificat, ho fem assegurant que només es farà servir d'acord amb els termes d'aquest document. No obstant això aquesta política de privacitat pot canviar amb el temps o ser actualitzada pel que li recomanem i emfatitzem revisar contínuament aquesta pàgina per assegurar-se que està d'acord amb aquests canvis",
+        "p1": "La present Política de Privacitat estableix els termes en què fa servir i protegeix la informació que és proporcionada pels seus usuaris a l'hora d'utilitzar el seu lloc web. Runerök està compromesa amb la seguretat de les dades dels seus usuaris. Quan li demanem omplir els camps d'informació personal amb la qual vostè pugui ser identificat, ho fem assegurant que només es farà servir d'acord amb els termes d'aquest document. No obstant, aquesta política de privacitat pot canviar amb el temps o ser actualitzada pel que li recomanem i emfatitzem revisar contínuament aquesta pàgina per assegurar-se que està d'acord amb aquests canvis",
         "h1": "Enllaços a Tercers",
-        "p2": "Aquest lloc web pogués contenir enllaços a altres llocs que puguin ser del seu interès. Una vegada que vostè de clic en aquests enllaços i abandoni la nostra pàgina, ja no tenim control sobre a el lloc a què és redirigit i per tant no som responsables dels termes o privacitat ni de la protecció de les seves dades en aquests altres llocs tercers. Aquests llocs estan subjectes a les seves pròpies polítiques de privacitat per la qual cosa és recomanable que els consulti per confirmar que vostè està d'acord amb aquestes.",
+        "p2": "Aquest lloc web pogués contenir enllaços a altres llocs que puguin ser del seu interès. Una vegada que vostè cliqui en aquests enllaços i abandoni la nostra pàgina, ja no tenim control sobre a el lloc a què és redirigit i, per tant, no som responsables dels termes o privacitat ni de la protecció de les seves dades en aquests altres llocs tercers. Aquests llocs, estan subjectes a les seves pròpies polítiques de privacitat per la qual cosa és recomanable que els consulti per confirmar que vostè està d'acord amb aquestes.",
         "h2": "Ús de la vostra informació personal",
-        "p3": "En qualsevol moment vostè pot restringir la recopilació o l'ús de la informació personal que ens és proporcionada. Tot i això aquesta companyia no vendrà, cedirà o distribuirà la informació personal que és recopilada sense el seu consentiment.",
+        "p3": "En qualsevol moment vostè pot restringir la recopilació o l'ús de la informació personal que ens és proporcionada. Tot i això, aquesta companyia no vendrà, cedirà o distribuirà la informació personal que és recopilada sense el seu consentiment.",
         "h3": "Acceptació i consentiment",
-        "p4": "Com Usuari de el lloc web declares haver estat informat de les condicions sobre protecció de dades de caràcter personal, acceptes i consenteixes el tractament dels mateixos per part del titular en la forma i per a les finalitats indicades en aquesta Política de Privacitat.",
+        "p4": "Com Usuari del lloc web, declares haver estat informat de les condicions sobre protecció de dades de caràcter personal, acceptes i consenteixes el tractament dels mateixos per part del titular en la forma i per a les finalitats indicades en aquesta Política de Privacitat.",
         "h4": "Canvis en la Política de Privacitat",
         "p5": "Runerök es reserva el dret a modificar la present Política de Privacitat per adaptar-la a novetats legislatives o jurisprudencials, així com a pràctiques de la indústria."
     },
@@ -120,16 +120,16 @@
         "exitConfirmation": "Segur que vols sortir del joc?",
         "diceAlert3": "Ja tens 3 daus seleccionats",
         "diceAlertDead": "No pots seleccionar més daus un cop has mort",
-        "diceAlertTurn": "No es el teu torn",
+        "diceAlertTurn": "No és el teu torn",
         "diceTitle": "🎲 panell de daus 🎲"
     },
     "gameAction": {
         "extraPoints": "Afegeix una runa al total de runes segures",
         "damage": "Fes un punt de mal a la persona que tingui el torn",
-        "extraTurn": "Guanya un torn extra (nomes disponible en el teu torn)"
+        "extraTurn": "Guanya un torn extra (només disponible en el teu torn)"
     },
     "error404": {
-        "title": "404: PAGINA NO TROBADA",
+        "title": "404: PÀGINA NO TROBADA",
         "subtitle": "Visita la nostra adreça principal"
     }
 }
