@@ -1,9 +1,9 @@
-import React, {useEffect} from 'react';
+import React from 'react'
 import { useTranslation } from "react-i18next"
 import Form from "./Form"
 
 export default function Contact() {
-    const [t, i18n] = useTranslation("global")
+    const [t] = useTranslation("global")
 
     return (
         <div className="c-contact">

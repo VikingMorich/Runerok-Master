@@ -11,7 +11,7 @@ import { toast } from 'react-toastify'
 import Button from './components/Button'
 import RollingDice from './components/RollingDice'
 import { rollDices, giveUp, toggleReady } from './components/GameFunctions'
-import { Ship, Damage, Rune, Valknut, Skull } from './components/icon/icon';
+import { Ship, Damage, Rune, Valknut, Skull, Beer, Shield, Helmet, Horn, Critical, Ham } from './components/icon/icon';
 
 
 export function initFirebase(i18n) {
@@ -21,6 +21,7 @@ export function initFirebase(i18n) {
     let dbRefGameActions = firebase.database().ref().child('Room').child('Game').child('Actions')
     let dbRefGameDices = firebase.database().ref().child('Room').child('Game').child('Dices')
     let dbRefGameStats = firebase.database().ref().child('Room').child('Game').child('Stats')
+    let dbRefGameMode = firebase.database().ref().child('Room').child('RoomState')
     let even = false
 
     // db functions working
@@ -39,7 +40,11 @@ export function initFirebase(i18n) {
                     let currentPlayerStats = firebase.database().ref("Room/Players/"+arrayPlayers[element] )
                     currentPlayerStats.once("value", function(snapshot) {
                         if(snapshot.val()){
-                            ReactDOM.render(<GamePlayer userName={snapshot.val().username} userTurn={arrayPlayers[0] === snapshot.key} imageUrl={snapshot.val().imageUrl} runes={snapshot.val().runes} lives={snapshot.val().lives} valknut={snapshot.val().valknut}/>, user) 
+                            // let currentGameMode = firebase.database().ref("Room/Game/Stats")
+                            // currentGameMode.once("value", function(gameModeSnap) {
+                            //     ReactDOM.render(<GamePlayer i18n={i18n} userName={snapshot.val().username} userTurn={arrayPlayers[0] === snapshot.key} imageUrl={snapshot.val().imageUrl} runes={snapshot.val().runes} lives={snapshot.val().lives} valknut={snapshot.val().valknut} gameMode={gameModeSnap.val().gameMode}/>, user) 
+                            // })
+                            ReactDOM.render(<GamePlayer i18n={i18n} userName={snapshot.val().username} userTurn={arrayPlayers[0] === snapshot.key} imageUrl={snapshot.val().imageUrl} runes={snapshot.val().runes} lives={snapshot.val().lives} valknut={snapshot.val().valknut} />, user) 
                             if (playerChanged){
                                 objPlayers.replaceChild(user, playerChanged)
                             }
@@ -73,7 +78,7 @@ export function initFirebase(i18n) {
                                 let currentPlayerStats = firebase.database().ref("Room/Players/"+arrayPlayers[element] )
                                 currentPlayerStats.once("value", function(snapshot) {
                                     if (snapshot.val()) {
-                                        ReactDOM.render(<GamePlayer userName={snapshot.val().username} userTurn={snap.val() === snapshot.key} imageUrl={snapshot.val().imageUrl} runes={snapshot.val().runes} lives={snapshot.val().lives} valknut={snapshot.val().valknut}/>, user) 
+                                        ReactDOM.render(<GamePlayer i18n={i18n} userName={snapshot.val().username} userTurn={snap.val() === snapshot.key} imageUrl={snapshot.val().imageUrl} runes={snapshot.val().runes} lives={snapshot.val().lives} valknut={snapshot.val().valknut}/>, user) 
                                         if (playerChanged){
                                             objPlayers.replaceChild(user, playerChanged)
                                         }
@@ -100,6 +105,8 @@ export function initFirebase(i18n) {
                     </React.Fragment>, actionButtons)
                     objActions.appendChild(actionButtons)
                 }) 
+                // NEW GAME ACTION GHOST DICES (UNSELECT UNROLLED DICES)
+                // EVITAR MAL A UN MATEIX AMB DAMAGE
             }
             if (snap.key === 'selectedDices') {
                 let buttonContainer = document.getElementById('in-game-buttons')
@@ -180,7 +187,7 @@ export function initFirebase(i18n) {
                     user.className="c-roomPlayer__container"
                     let currentPlayerStats = firebase.database().ref("Room/Players/"+arrayPlayers[element] )
                     currentPlayerStats.once("value", function(snapshot) {
-                        ReactDOM.render(<GamePlayer userName={snapshot.val().username} userTurn={arrayPlayers[0] === snapshot.key} imageUrl={snapshot.val().imageUrl} runes={snapshot.val().runes} lives={snapshot.val().lives} valknut={snapshot.val().valknut}/>, user) 
+                        ReactDOM.render(<GamePlayer i18n={i18n} userName={snapshot.val().username} userTurn={arrayPlayers[0] === snapshot.key} imageUrl={snapshot.val().imageUrl} runes={snapshot.val().runes} lives={snapshot.val().lives} valknut={snapshot.val().valknut}/>, user) 
                     if (playerChanged){
                         playerChanged.remove()
                     }
@@ -210,7 +217,7 @@ export function initFirebase(i18n) {
                         let currentPlayerStats = firebase.database().ref("Room/Players/"+arrayPlayers[element] )
                         currentPlayerStats.once("value", function(snapshot) {
                             if (snapshot.val()) {
-                                ReactDOM.render(<GamePlayer userName={snapshot.val().username} userTurn={snap.val() === snapshot.key} imageUrl={snapshot.val().imageUrl} runes={snapshot.val().runes} lives={snapshot.val().lives} valknut={snapshot.val().valknut}/>, user) 
+                                ReactDOM.render(<GamePlayer i18n={i18n} userName={snapshot.val().username} userTurn={snap.val() === snapshot.key} imageUrl={snapshot.val().imageUrl} runes={snapshot.val().runes} lives={snapshot.val().lives} valknut={snapshot.val().valknut}/>, user) 
                                 if (playerChanged){
                                     objPlayers.replaceChild(user, playerChanged)
                                 }
@@ -394,6 +401,24 @@ export function initFirebase(i18n) {
                     else if(snap.val().value === 'rune') {
                         ReactDOM.render(<Rune/>, diceValue)
                     }
+                    else if(snap.val().value === 'beer') {
+                        ReactDOM.render(<Beer/>, diceValue)
+                    }
+                    else if(snap.val().value === 'helmet') {
+                        ReactDOM.render(<Helmet/>, diceValue)
+                    }
+                    else if(snap.val().value === 'shield') {
+                        ReactDOM.render(<Shield/>, diceValue)
+                    }
+                    else if(snap.val().value === 'horn') {
+                        ReactDOM.render(<Horn/>, diceValue)
+                    }
+                    else if(snap.val().value === 'ham') {
+                        ReactDOM.render(<Ham/>, diceValue)
+                    }
+                    else if(snap.val().value === 'critical') {
+                        ReactDOM.render(<Critical/>, diceValue)
+                    }
                     else if(snap.val().value === 'valknut') {
                         ReactDOM.render(<Valknut/>, diceValue)
                     }
@@ -477,7 +502,7 @@ export function initFirebase(i18n) {
             user.className="c-roomPlayer__container"
             let currentGameTurn = firebase.database().ref("Room/Game/Stats/turn")
             currentGameTurn.once("value", function(snapshot) {
-                ReactDOM.render(<GamePlayer userName={snap.val().username} userTurn={snapshot.val() === snap.key} imageUrl={snap.val().imageUrl} runes={snap.val().runes} lives={snap.val().lives} valknut={snap.val().valknut}/>, user) 
+                ReactDOM.render(<GamePlayer i18n={i18n} userName={snap.val().username} userTurn={snapshot.val() === snap.key} imageUrl={snap.val().imageUrl} runes={snap.val().runes} lives={snap.val().lives} valknut={snap.val().valknut}/>, user) 
                 if (playerChanged){
                     objPlayers.replaceChild(user, playerChanged)
                 }
@@ -486,7 +511,7 @@ export function initFirebase(i18n) {
     })
     dbRefPlayers.on('child_removed', snap => {
         const pRemoved = document.getElementById(snap.key)
-        pRemoved.remove()
+        if (pRemoved) pRemoved.remove()
     })
 
     dbRefPlayers.on('child_changed', snap => {
@@ -549,7 +574,7 @@ export function initFirebase(i18n) {
             user.className="c-roomPlayer__container"
             let currentGameTurn = firebase.database().ref("Room/Game/Stats/turn")
             currentGameTurn.once("value", function(snapshot) {
-                ReactDOM.render(<GamePlayer userName={snap.val().username} userTurn={snapshot.val() === snap.key} imageUrl={snap.val().imageUrl} runes={snap.val().runes} lives={snap.val().lives} valknut={snap.val().valknut}/>, user) 
+                ReactDOM.render(<GamePlayer i18n={i18n} userName={snap.val().username} userTurn={snapshot.val() === snap.key} imageUrl={snap.val().imageUrl} runes={snap.val().runes} lives={snap.val().lives} valknut={snap.val().valknut}/>, user) 
                 if (playerChanged){
                     objPlayers.replaceChild(user, playerChanged)
                 }
@@ -563,43 +588,57 @@ export function initFirebase(i18n) {
 
     dbRefChat.on('child_added', snap => {
         if (window.location.pathname === '/room' || window.location.pathname === '/game'){
-        let pChanged = document.getElementById(snap.key)
-        if (pChanged) {
-            pChanged.remove()
-        }
-        const user = document.createElement('p')
-        user.innerText = snap.val().username + ': '
-        user.id = snap.key
-        const message = document.createElement('span')
-        message.innerText = snap.val().message
-        user.appendChild(message)
-        let objChat = document.getElementById('chat')
-        objChat.appendChild(user)
-        objChat.scrollTop = objChat.scrollHeight
+            let pChanged = document.getElementById(snap.key)
+            if (pChanged) {
+                pChanged.remove()
+            }
+            const user = document.createElement('p')
+            user.innerText = snap.val().username + ': '
+            user.id = snap.key
+            const message = document.createElement('span')
+            message.innerText = snap.val().message
+            user.appendChild(message)
+            let objChat = document.getElementById('chat')
+            objChat.appendChild(user)
+            objChat.scrollTop = objChat.scrollHeight
         }
     })
 
     dbRefChat.on('child_changed', snap => {
         if (window.location.pathname === '/room' || window.location.pathname === '/game'){
-        let pChanged = document.getElementById(snap.key)
-        if (pChanged) {
-            pChanged.remove()
-        }
-        const user = document.createElement('p')
-        user.innerText = snap.val().username + ': '
-        user.id = snap.key
-        const message = document.createElement('span')
-        message.innerText = snap.val().message
-        user.appendChild(message)
-        let objChat = document.getElementById('chat')
-        objChat.appendChild(user)
-        objChat.scrollTop = objChat.scrollHeight
+            let pChanged = document.getElementById(snap.key)
+            if (pChanged) {
+                pChanged.remove()
+            }
+            const user = document.createElement('p')
+            user.innerText = snap.val().username + ': '
+            user.id = snap.key
+            const message = document.createElement('span')
+            message.innerText = snap.val().message
+            user.appendChild(message)
+            let objChat = document.getElementById('chat')
+            objChat.appendChild(user)
+            objChat.scrollTop = objChat.scrollHeight
         }
     })
 
     dbRefChat.on('child_removed', snap => {
         const pRemoved = document.getElementById(snap.key)
         pRemoved.remove()
+    })
+
+    dbRefGameMode.on('child_added', snap => {
+        if (window.location.pathname === '/room') {
+            let gameModeButton = document.getElementById('game-mode-button')
+            gameModeButton.innerText = snap.val().toUpperCase()
+        }
+    })
+
+    dbRefGameMode.on('child_changed', snap => {
+        if (window.location.pathname === '/room') {
+            let gameModeButton = document.getElementById('game-mode-button')
+            gameModeButton.innerText = snap.val().toUpperCase()
+        }
     })
 }
 

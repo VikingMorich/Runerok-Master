@@ -61,7 +61,13 @@
     overflow: hidden;
   }
   .die--green{
-    background-color: green;
+    background-color: c('green');
+  }
+  .die--blue{
+    background-color: c('blue');
+  }
+  .die--purple{
+    background-color: c('purple');
   }
   .die--yellow{
     background-color: c('yellow');

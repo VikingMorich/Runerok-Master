@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Rune, Damage, Ship, Viking, Helmet, Shield, Horn, Beer, Ham, Valknut, Skull, Heart, Skull_alternative } from '../components/icon/icon';
+import { Rune, Damage, Ship, Viking, Helmet, Shield, Horn, Beer, Ham, Valknut, Skull, Heart, Critical } from '../components/icon/icon';
 
 export default {
   title: 'Runerok/Icons',
@@ -134,11 +134,11 @@ export const IconsList = () => {
                 </div>
                 <div style={{backgroundColor: "lightgrey", marginRight: '15px', width: '100px', border: '1px solid black', marginTop: '10px', marginTop: '10px'}}>
                     <div style={{textAlign: 'center', margin: '10px'}}>
-                        <Skull_alternative />
+                        <Critical />
                     </div>
                     <div style={{textAlign: 'center', borderTop: '1px solid black', marginBottom: '10px', paddingTop: '10px'}}>
                         <span>
-                            Skull_alternative
+                            Critical
                         </span>
                     </div>
                 </div>

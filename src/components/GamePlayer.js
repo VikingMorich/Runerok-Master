@@ -1,7 +1,8 @@
 import React from 'react';
-import {Heart, Rune, Valknut} from './icon/icon'
+import {Heart, Rune, Valknut, Helmet, Shield} from './icon/icon'
 
 export default function GamePlayer(props) {
+    
     return (
         <div className={props.userTurn ? 'c-gamePlayer': 'c-gamePlayer c-gamePlayer--notTurn'}>
             <img src={props.imageUrl} alt="Runerok" className='c-gamePlayer__img'/>
@@ -10,7 +11,7 @@ export default function GamePlayer(props) {
                 <div className="c-gamePlayer__stats">
                     <div className="c-gamePlayer__icon">
                         <div className="c-gamePlayer__icon--img">
-                            <Rune></Rune>
+                            <Rune />
                         </div>
                         <span>{props.runes}</span>
                     </div>
@@ -27,6 +28,15 @@ export default function GamePlayer(props) {
                         <span>{props.valknut}</span>
                     </div>
                 </div>
+                {props.gameMode === 'hardcore' && <div className='c-gamePlayer__armor'>
+                    <span>{props.i18n('game.armor')}</span>
+                    <div className="c-gamePlayer__icon--img">
+                        <Helmet />
+                    </div>
+                    <div className="c-gamePlayer__icon--img armor-used">
+                        <Shield />
+                    </div>
+                </div>}
             </div>
         </div>
     );

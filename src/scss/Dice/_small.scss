@@ -58,7 +58,7 @@
     font-size: 13px;
     z-index: 1;
     &--green{
-        background-color: green; 
+        background-color: c('green'); 
     }
     &--yellow{
         background-color: c('yellow'); 
@@ -66,6 +66,13 @@
     &--red{
         background-color: red; 
     }
+    &--blue{
+      background-color: c('blue'); 
+    }
+    &--purple{
+      background-color: c('purple'); 
+    }
+    
   }
   
 .flipped-card-content{

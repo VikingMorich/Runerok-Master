@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from "react-i18next";
 import Button from './Button';
 import Chat from './Chat'
-import { checkPlayersReady } from './GameFunctions'
+import { checkPlayersReady, changeGameMode } from './GameFunctions'
 
 export default function Room() {
     const [t] = useTranslation("global")
@@ -17,8 +17,12 @@ export default function Room() {
                     </div>
                     <div className="c-room--buttons">
                         <Button text={t('room.start').toUpperCase()} func={()=>checkPlayersReady(t)}/>
-                        <div id="room-ready-btn">
-
+                        <div id="room-ready-btn" />
+                    </div>
+                    <div className="c-room--buttons">
+                        <div className="game-mode-button" onClick={changeGameMode}>
+                            <span>{t('room.gameMode') + ' - '}</span>
+                            <span id="game-mode-button" />
                         </div>
                     </div>
                 </div>

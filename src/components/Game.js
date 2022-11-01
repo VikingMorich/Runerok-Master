@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import Chat from './Chat'
 import { Valknut, Rune } from './icon/icon'
 import Button from './Button'
-import { rollDices, giveUp, confirmExitGame } from './GameFunctions'
+import { confirmExitGame } from './GameFunctions'
 
 export default function Game() {
     const [t] = useTranslation("global")
@@ -16,10 +16,6 @@ export default function Game() {
                     
                 </div>
                 <div className="c-game__exit">
-                    { /* <div>
-                        <Button text={'* '+t('game.roll').toUpperCase()+' *'} func={rollDices}/>
-                        <Button text={'* '+t('game.giveUp').toUpperCase()+' *'} func={giveUp}/>
-                    </div> */ }
                     <br/>
                     <Button text={t('game.exit').toUpperCase()} func={() => confirmExitGame(t('game.exitConfirmation'))}/>
                 </div>

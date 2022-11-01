@@ -2,10 +2,9 @@ import React from 'react';
 import cross from '../icons/clear-black-18dp.svg'
 import { useTranslation } from "react-i18next"
 import AwesomeSlider from 'react-awesome-slider';
-import RollingDice from './RollingDice'
 import 'react-awesome-slider/dist/styles.css';
 import 'react-awesome-slider/dist/custom-animations/cube-animation.css';
-import { Ship, Valknut, Rune, Heart, Damage} from './icon/icon'
+import { Ship, Valknut, Rune, Heart, Damage, Helmet, Shield, Ham, Beer, Critical, Horn} from './icon/icon'
 
 
 export default function Modal(props) {
@@ -34,7 +33,7 @@ export default function Modal(props) {
                         <React.Fragment>
                             <AwesomeSlider animation="cubeAnimation" className="c-slider">
                                 <div className="c-slider__text">
-                                    <h3><u>{t('header.instructions').toUpperCase()}</u></h3>
+                                    <h3><u>{t('header.instructions').toUpperCase() + ' - STANDART'}</u></h3>
                                     <p>
                                         {t('instructions-ok.p1')}
                                         <div className="c-modal__instructions--icon">
@@ -173,6 +172,100 @@ export default function Modal(props) {
                                     <p>{t('instructions-ok.p14')}</p>
                                     <p>{t('instructions-ok.p15')}</p>
                                     <p>{t('instructions-ok.p16')}</p>
+                                </div>
+                                <div className="c-slider__text">
+                                    <h3><u>{t('instructions-ok.t1')}</u></h3>
+                                    <div className="wrap wrap-extra-bottom">
+                                        <div className="cube">
+                                            <div className="front background-blue">
+                                                <Shield />
+                                            </div>
+                                            <div className="back background-blue">
+                                                <Helmet />
+                                            </div>
+                                            <div className="top background-blue">
+                                                <Damage />
+                                            </div>
+                                            <div className="bottom background-blue">
+                                                <Damage />
+                                            </div>
+                                            <div className="left background-blue">
+                                                <Valknut />
+                                            </div>
+                                            <div className="right background-blue">
+                                                <Ship />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="c-slider__text--span">
+                                        <div className="c-modal__instructions--icon">
+                                            <Helmet />
+                                        </div>
+                                        <p>{t('instructions-ok.colon')}
+                                        {t('instructions-ok.p17')}</p>
+                                    </div>
+                                    <div className="c-slider__text--span">
+                                        <div className="c-modal__instructions--icon">
+                                            <Shield />
+                                        </div>
+                                        <p>{t('instructions-ok.colon')}
+                                        {t('instructions-ok.p18')}</p>
+                                    </div>
+                                    <div className="c-slider__text--span">
+                                        <p>{t('instructions-ok.p18-2')}</p>
+                                    </div>
+                                </div>
+                                <div className="c-slider__text">
+                                    <div className="wrap wrap-extra-bottom">
+                                        <div className="cube">
+                                            <div className="front background-purple">
+                                                <Horn />
+                                            </div>
+                                            <div className="back background-purple">
+                                                <Ham />
+                                            </div>
+                                            <div className="top background-purple">
+                                                <Beer />
+                                            </div>
+                                            <div className="bottom background-purple">
+                                                <Damage />
+                                            </div>
+                                            <div className="left background-purple">
+                                                <Critical />
+                                            </div>
+                                            <div className="right background-purple">
+                                                <Critical />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="c-slider__text--span">
+                                        <div className="c-modal__instructions--icon">
+                                            <Horn />
+                                        </div>
+                                        <p>{t('instructions-ok.colon')}
+                                        {t('instructions-ok.p19')}</p>
+                                    </div>
+                                    <div className="c-slider__text--span">
+                                        <div className="c-modal__instructions--icon">
+                                            <Beer />
+                                        </div>
+                                        <p>{t('instructions-ok.colon')}
+                                        {t('instructions-ok.p20')}</p>
+                                    </div>
+                                    <div className="c-slider__text--span">
+                                        <div className="c-modal__instructions--icon">
+                                            <Ham />
+                                        </div>
+                                        <p>{t('instructions-ok.colon')}
+                                        {t('instructions-ok.p21')}</p>
+                                    </div>
+                                    <div className="c-slider__text--span">
+                                        <div className="c-modal__instructions--icon">
+                                            <Critical />
+                                        </div>
+                                        <p>{t('instructions-ok.colon')}
+                                        {t('instructions-ok.p22')}</p>
+                                    </div>
                                 </div>
                             </AwesomeSlider>
                         </React.Fragment>

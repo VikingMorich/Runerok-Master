@@ -1,9 +1,6 @@
 import fire from '../fire'
 import { toast } from 'react-toastify';
 import Cookies from 'universal-cookie';
-import { Ship, Damage, Rune, Valknut } from './icon/icon';
-import ReactDOM from 'react-dom'
-
 
 let cookies = new Cookies();
   
@@ -11,15 +8,34 @@ const diceTypes = {
     "green": ["rune", "rune", "rune", "ship", "valknut", "damage"],
     "yellow": ["rune", "rune", "ship", "valknut", "damage", "damage"],
     "red": ["rune", "valknut", "ship", "damage", "damage", "damage"],
-    // "blue": ['shield', 'helmet', 'damage', 'damage', 'valknut', 'ship'],
-    // "black": ['horn', 'ham', 'beer', 'damage', 'damage', 'damage'],
+    "blue": ['shield', 'helmet', 'damage', 'damage', 'valknut', 'ship'],
+    "purple": ['horn', 'ham', 'beer', 'damage', 'critical', 'critical'],
+    //"blue": ['beer', 'beer', 'beer', 'beer', 'beer', 'beer'],
+
+    
+    /** Helmet = +1 armor helm
+    * Shield = +1 armor shield
+    * Horn = +1 punt directe pel final
+    * Beer= inmunity to take damage this turn
+    * Ham= +1 live
+    * Critical = -2 live
+    */
 }
-const diceNumber = {
+const diceNumberStandart = {
     "green": 11,
     "yellow": 9,
-    "red": 7
-    //"blue": 2
-    //"black": 3 
+    "red": 7,
+}
+
+const diceNumberHardcore = {
+    "green": 1,
+    "blue": 10,
+    "purple": 10,
+    // "green": 9,
+    // "yellow": 7,
+    // "red": 7,
+    // "blue": 1,
+    // "purple": 3, 
 }
 
 const getRandomInt = (max) => {
@@ -28,11 +44,24 @@ const getRandomInt = (max) => {
 
 const getRandomDicePosition = () => {
     let arrayDices = []
-    Object.keys(diceNumber).forEach(element => {
-        for (let i = 0; i < diceNumber[element]; i++) {
-            arrayDices.push(element)
+    let refGameMode = fire.database().ref("Room/RoomState/gameMode")
+    //standart, hardcore
+    refGameMode.once("value", function(gameModeSnap) {
+        if (gameModeSnap.val() === 'standart') {
+            Object.keys(diceNumberStandart).forEach(element => {
+                for (let i = 0; i < diceNumberStandart[element]; i++) {
+                    arrayDices.push(element)
+                }
+            });
         }
-    });
+        else if (gameModeSnap.val() === 'hardcore') {
+            Object.keys(diceNumberHardcore).forEach(element => {
+                for (let i = 0; i < diceNumberHardcore[element]; i++) {
+                    arrayDices.push(element)
+                }
+            });
+        }
+    })
     arrayDices = arrayDices.sort(function() {return Math.random() - 0.5})
     return arrayDices
 }
@@ -273,7 +302,7 @@ export const checkPlayersReady = (trans) => {
             }
         });
         if (playersReady) {
-            toast.success("toast.allPlayersReady")
+            toast.success(trans("toast.allPlayersReady"))
             createNewGame()
         }
         else {
@@ -286,6 +315,7 @@ const createNewGame = () => {
     let ref = fire.database().ref().child('Room').child('Game').child('Dices')
     let refStats = fire.database().ref("Room/Game/Stats")
     let refPlayers = fire.database().ref("Room/Players")
+    let refRoomGameMode = fire.database().ref("Room/RoomState/gameMode")
     let randomDicePosition = getRandomDicePosition()
     let updates = {}
     randomDicePosition.forEach((element, key) => {
@@ -317,7 +347,11 @@ const createNewGame = () => {
         updateStats['giveup'] = true
         updateStats['extraTurn'] = false
         updateStats['selectedDices'] = 0
-        refStats.update(updateStats)
+        refRoomGameMode.once("value", function(gameModeSnap) {
+            updateStats['gameMode'] = gameModeSnap.val()
+            refStats.update(updateStats)
+        })
+        
     })
 }
 
@@ -357,6 +391,21 @@ export const flipCard = (e, alert3, alertDead, alertTurn)  => {
         else {
             alert(alertTurn)
         }
+    })
+}
+
+export const changeGameMode = () => {
+    let refGameMode = fire.database().ref("Room/RoomState")
+    //standart, hardcore
+    refGameMode.once("value", function(gameModeSnap) {
+        let updates = {}
+        if (gameModeSnap.val().gameMode === 'standart') {
+            updates['gameMode'] = 'hardcore'
+        }
+        else if (gameModeSnap.val().gameMode === 'hardcore') {
+            updates['gameMode'] = 'standart'
+        }
+        refGameMode.update(updates)
     })
 }
 

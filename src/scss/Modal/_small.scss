@@ -157,6 +157,10 @@
     justify-content: center;
 }
 
+.wrap-extra-bottom {
+    margin-bottom: 30px;
+}
+
 .cube {
     margin: auto;
     position: relative;
@@ -222,7 +226,7 @@ transform-origin: bottom center;
 }
 
 .background-green{
-    background-color: green;
+    background-color: c('green');
 }
 
 .background-yellow {
@@ -231,6 +235,14 @@ transform-origin: bottom center;
 
 .background-red{
     background-color: red;
+}
+
+.background-blue{
+    background-color: c('blue');
+}
+
+.background-purple{
+    background-color: c('purple');
 }
 
 @keyframes rotate-dice {

@@ -36,7 +36,8 @@
         "ready": "Ready",
         "noReady": "Not ready",
         "imReady": "I'm ready",
-        "notReady": "I'm not ready"
+        "notReady": "I'm not ready",
+        "gameMode": "Game mode"
     },
     "toast": {
         "allPlayersReady": "The game has started",
@@ -76,7 +77,8 @@
         "p13": "The game ends when someone gets 13 runes or more",
         "p14": "The rest of the players have one last chance to impress the gods by beating the opponent",
         "p15": "At the end of the last round, the winner is the player with most points",
-        "p16": "In case of a tie, the winner is who gets all runes first"
+        "p16": "In case of a tie, the winner is who gets all runes first",
+        "t1": "GAME MODE - HARDCORE"
     },
     "contact-op": {
         "name": "Name",
@@ -121,7 +123,8 @@
         "diceAlert3": "You already have 3 dices selected",
         "diceAlertDead": "You cannot select more dices once you are dead",
         "diceAlertTurn": "It's not your turn",
-        "diceTitle": "🎲 dices panel 🎲"
+        "diceTitle": "🎲 dices panel 🎲",
+        "armor": "Armor: "
     },
     "gameAction": {
         "extraPoints": "Add a rune to total safed runes",

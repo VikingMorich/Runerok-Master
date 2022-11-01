@@ -6,6 +6,9 @@
     align-items: center;
     margin-bottom: 10px;
     padding: 5px 0;
+    .armor-used{
+        opacity: 0.2;
+    }
     .c-gamePlayer__stats{
         background-color: c('gold');
     }
@@ -44,6 +47,13 @@
         z-index: 10;
         right: 5%;
         padding-right: 5px;
+    }
+    &__armor{
+        display: flex;
+        align-items: center;
+        span{
+            margin-right: 5px
+        }
     }
     &__icon{
         display: flex;

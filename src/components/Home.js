@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useTranslation } from "react-i18next"
 import GoogleBtn from '../GoogleBtn'
 import Cookies from 'universal-cookie';
 
 export default function Home() {
     let cookies = new Cookies();
     let isLogined = cookies.get('login') || false
-    const [t] = useTranslation("global")
     const [showLogo, setShowLogo] = useState(false)
     const [hideLogo, setHideLogo] = useState(false)
     useEffect(() => {

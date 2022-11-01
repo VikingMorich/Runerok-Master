@@ -1,5 +1,4 @@
 import React from 'react';
-import { useTranslation } from "react-i18next";
 import fire from '../fire'
 import Cookies from 'universal-cookie';
 import { Damage, Rune } from './icon/icon';
@@ -10,7 +9,6 @@ export default function GameAction(props) {
     const extraPointsCost = 2
     const damageCost = 3
     const extraTurnCost = 10
-    const [t] = useTranslation("global")
 
     function useAction() {
         let ref = fire.database().ref().child('Room').child('Players').child(cookies.get('key'))

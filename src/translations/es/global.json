@@ -36,7 +36,8 @@
         "ready": "Listo",
         "noReady": "No listo",
         "imReady": "Estoy listo",
-        "notReady": "No estoy listo"
+        "notReady": "No estoy listo",
+        "gameMode": "Modo de juego"
     },
     "toast": {
         "allPlayersReady": "Empezar el juego",
@@ -76,7 +77,8 @@
         "p13": "La partida acaba cuando alguien consige 13 runas o más",
         "p14": "El resto de jugadores tienen una última oportunidad para impresionar a los dioses superando al rival",
         "p15": "Finalitzada la última ronda. Gana quien tiene más puntos",
-        "p16": "En caso de empate, gana el primero en haberlos conseguido"
+        "p16": "En caso de empate, gana el primero en haberlos conseguido",
+        "t1": "MODO DE JUEGO - HARDCORE"
     },
     "contact-op": {
         "name": "Nombre",
@@ -121,7 +123,8 @@
         "diceAlert3": "Ya tienes 3 dados seleccionados",
         "diceAlertDead": "No puedes seleccionar más dados una vez has muerto",
         "diceAlertTurn": "No es tú turno",
-        "diceTitle": "🎲 panel de dados 🎲"
+        "diceTitle": "🎲 panel de dados 🎲",
+        "armor": "Armadura: "
     },
     "gameAction": {
         "extraPoints": "Añade una runa al total de runas seguras",

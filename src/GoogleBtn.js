@@ -50,6 +50,11 @@ export default function GoogleBtn (props) {
       runes: 0,
       lives: 3,
       valknut: 0,
+      armor: false,
+      armorUsed: false,
+      helmet: false,
+      helmetUsed: false,
+      dateLogin: new Date(),
     }
     ref.update(updates)
   }
