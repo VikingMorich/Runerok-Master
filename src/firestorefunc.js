@@ -44,7 +44,24 @@ export function initFirebase(i18n) {
                             // currentGameMode.once("value", function(gameModeSnap) {
                             //     ReactDOM.render(<GamePlayer i18n={i18n} userName={snapshot.val().username} userTurn={arrayPlayers[0] === snapshot.key} imageUrl={snapshot.val().imageUrl} runes={snapshot.val().runes} lives={snapshot.val().lives} valknut={snapshot.val().valknut} gameMode={gameModeSnap.val().gameMode}/>, user) 
                             // })
-                            ReactDOM.render(<GamePlayer i18n={i18n} userName={snapshot.val().username} userTurn={arrayPlayers[0] === snapshot.key} imageUrl={snapshot.val().imageUrl} runes={snapshot.val().runes} lives={snapshot.val().lives} valknut={snapshot.val().valknut} />, user) 
+
+                            let currentGameMode = firebase.database().ref("Room/RoomState")
+                            currentGameMode.once("value", function(gameModeSnap) {
+                                let gamePlayerData = {
+                                    userName: snapshot.val().username,
+                                    userTurn: arrayPlayers[0] === snapshot.key,
+                                    imageUrl: snapshot.val().imageUrl,
+                                    runes: snapshot.val().runes,
+                                    lives: snapshot.val().lives,
+                                    valknut: snapshot.val().valknut,
+                                    helmet: snapshot.val().helmet,
+                                    helmetUsed: snapshot.val().helmetUsed,
+                                    shield: snapshot.val().shield,
+                                    shieldUsed: snapshot.val().shieldUsed,
+                                    gameMode: gameModeSnap.val().gameMode
+                                }
+                                ReactDOM.render(<GamePlayer i18n={i18n} gamePlayerData={gamePlayerData}/>, user) 
+                            })
                             if (playerChanged){
                                 objPlayers.replaceChild(user, playerChanged)
                             }
@@ -78,7 +95,23 @@ export function initFirebase(i18n) {
                                 let currentPlayerStats = firebase.database().ref("Room/Players/"+arrayPlayers[element] )
                                 currentPlayerStats.once("value", function(snapshot) {
                                     if (snapshot.val()) {
-                                        ReactDOM.render(<GamePlayer i18n={i18n} userName={snapshot.val().username} userTurn={snap.val() === snapshot.key} imageUrl={snapshot.val().imageUrl} runes={snapshot.val().runes} lives={snapshot.val().lives} valknut={snapshot.val().valknut}/>, user) 
+                                        let currentGameMode = firebase.database().ref("Room/RoomState")
+                                        currentGameMode.once("value", function(gameModeSnap) {
+                                            let gamePlayerData = {
+                                                userName: snapshot.val().username,
+                                                userTurn: snap.val() === snapshot.key,
+                                                imageUrl: snapshot.val().imageUrl,
+                                                runes: snapshot.val().runes,
+                                                lives: snapshot.val().lives,
+                                                valknut: snapshot.val().valknut,
+                                                helmet: snapshot.val().helmet,
+                                                helmetUsed: snapshot.val().helmetUsed,
+                                                shield: snapshot.val().shield,
+                                                shieldUsed: snapshot.val().shieldUsed,
+                                                gameMode: gameModeSnap.val().gameMode
+                                            }
+                                            ReactDOM.render(<GamePlayer i18n={i18n} gamePlayerData={gamePlayerData}/>, user)
+                                        })
                                         if (playerChanged){
                                             objPlayers.replaceChild(user, playerChanged)
                                         }
@@ -187,7 +220,23 @@ export function initFirebase(i18n) {
                     user.className="c-roomPlayer__container"
                     let currentPlayerStats = firebase.database().ref("Room/Players/"+arrayPlayers[element] )
                     currentPlayerStats.once("value", function(snapshot) {
-                        ReactDOM.render(<GamePlayer i18n={i18n} userName={snapshot.val().username} userTurn={arrayPlayers[0] === snapshot.key} imageUrl={snapshot.val().imageUrl} runes={snapshot.val().runes} lives={snapshot.val().lives} valknut={snapshot.val().valknut}/>, user) 
+                        let currentGameMode = firebase.database().ref("Room/RoomState")
+                        currentGameMode.once("value", function(gameModeSnap) {
+                            let gamePlayerData = {
+                                userName: snapshot.val().username,
+                                userTurn: arrayPlayers[0] === snapshot.key,
+                                imageUrl: snapshot.val().imageUrl,
+                                runes: snapshot.val().runes,
+                                lives: snapshot.val().lives,
+                                valknut: snapshot.val().valknut,
+                                helmet: snapshot.val().helmet,
+                                helmetUsed: snapshot.val().helmetUsed,
+                                shield: snapshot.val().shield,
+                                shieldUsed: snapshot.val().shieldUsed,
+                                gameMode: gameModeSnap.val().gameMode
+                            }
+                            ReactDOM.render(<GamePlayer i18n={i18n} gamePlayerData={gamePlayerData}/>, user)
+                        })
                     if (playerChanged){
                         playerChanged.remove()
                     }
@@ -217,7 +266,23 @@ export function initFirebase(i18n) {
                         let currentPlayerStats = firebase.database().ref("Room/Players/"+arrayPlayers[element] )
                         currentPlayerStats.once("value", function(snapshot) {
                             if (snapshot.val()) {
-                                ReactDOM.render(<GamePlayer i18n={i18n} userName={snapshot.val().username} userTurn={snap.val() === snapshot.key} imageUrl={snapshot.val().imageUrl} runes={snapshot.val().runes} lives={snapshot.val().lives} valknut={snapshot.val().valknut}/>, user) 
+                                let currentGameMode = firebase.database().ref("Room/RoomState")
+                                currentGameMode.once("value", function(gameModeSnap) {
+                                    let gamePlayerData = {
+                                        userName: snapshot.val().username,
+                                        userTurn: snap.val() === snapshot.key,
+                                        imageUrl: snapshot.val().imageUrl,
+                                        runes: snapshot.val().runes,
+                                        lives: snapshot.val().lives,
+                                        valknut: snapshot.val().valknut,
+                                        helmet: snapshot.val().helmet,
+                                        helmetUsed: snapshot.val().helmetUsed,
+                                        shield: snapshot.val().shield,
+                                        shieldUsed: snapshot.val().shieldUsed,
+                                        gameMode: gameModeSnap.val().gameMode
+                                    }
+                                    ReactDOM.render(<GamePlayer i18n={i18n} gamePlayerData={gamePlayerData}/>, user)
+                                })
                                 if (playerChanged){
                                     objPlayers.replaceChild(user, playerChanged)
                                 }
@@ -502,7 +567,23 @@ export function initFirebase(i18n) {
             user.className="c-roomPlayer__container"
             let currentGameTurn = firebase.database().ref("Room/Game/Stats/turn")
             currentGameTurn.once("value", function(snapshot) {
-                ReactDOM.render(<GamePlayer i18n={i18n} userName={snap.val().username} userTurn={snapshot.val() === snap.key} imageUrl={snap.val().imageUrl} runes={snap.val().runes} lives={snap.val().lives} valknut={snap.val().valknut}/>, user) 
+                let currentGameMode = firebase.database().ref("Room/RoomState")
+                currentGameMode.once("value", function(gameModeSnap) {
+                    let gamePlayerData = {
+                        userName: snap.val().username,
+                        userTurn: snapshot.val() === snap.key,
+                        imageUrl: snap.val().imageUrl,
+                        runes: snap.val().runes,
+                        lives: snap.val().lives,
+                        valknut: snap.val().valknut,
+                        helmet: snap.val().helmet,
+                        helmetUsed: snap.val().helmetUsed,
+                        shield: snap.val().shield,
+                        shieldUsed: snap.val().shieldUsed,
+                        gameMode: gameModeSnap.val().gameMode
+                    }
+                    ReactDOM.render(<GamePlayer i18n={i18n} gamePlayerData={gamePlayerData}/>, user)
+                })
                 if (playerChanged){
                     objPlayers.replaceChild(user, playerChanged)
                 }
@@ -574,7 +655,23 @@ export function initFirebase(i18n) {
             user.className="c-roomPlayer__container"
             let currentGameTurn = firebase.database().ref("Room/Game/Stats/turn")
             currentGameTurn.once("value", function(snapshot) {
-                ReactDOM.render(<GamePlayer i18n={i18n} userName={snap.val().username} userTurn={snapshot.val() === snap.key} imageUrl={snap.val().imageUrl} runes={snap.val().runes} lives={snap.val().lives} valknut={snap.val().valknut}/>, user) 
+                let currentGameMode = firebase.database().ref("Room/RoomState")
+                currentGameMode.once("value", function(gameModeSnap) {
+                    let gamePlayerData = {
+                        userName: snap.val().username,
+                        userTurn: snapshot.val() === snap.key,
+                        imageUrl: snap.val().imageUrl,
+                        runes: snap.val().runes,
+                        lives: snap.val().lives,
+                        valknut: snap.val().valknut,
+                        helmet: snap.val().helmet,
+                        helmetUsed: snap.val().helmetUsed,
+                        shield: snap.val().shield,
+                        shieldUsed: snap.val().shieldUsed,
+                        gameMode: gameModeSnap.val().gameMode
+                    }
+                    ReactDOM.render(<GamePlayer i18n={i18n} gamePlayerData={gamePlayerData}/>, user)
+                })
                 if (playerChanged){
                     objPlayers.replaceChild(user, playerChanged)
                 }

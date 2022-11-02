@@ -315,7 +315,6 @@ const createNewGame = () => {
     let ref = fire.database().ref().child('Room').child('Game').child('Dices')
     let refStats = fire.database().ref("Room/Game/Stats")
     let refPlayers = fire.database().ref("Room/Players")
-    let refRoomGameMode = fire.database().ref("Room/RoomState/gameMode")
     let randomDicePosition = getRandomDicePosition()
     let updates = {}
     randomDicePosition.forEach((element, key) => {
@@ -347,11 +346,7 @@ const createNewGame = () => {
         updateStats['giveup'] = true
         updateStats['extraTurn'] = false
         updateStats['selectedDices'] = 0
-        refRoomGameMode.once("value", function(gameModeSnap) {
-            updateStats['gameMode'] = gameModeSnap.val()
-            refStats.update(updateStats)
-        })
-        
+        refStats.update(updateStats)
     })
 }
 
