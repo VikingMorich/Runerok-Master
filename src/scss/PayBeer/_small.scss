@@ -1,0 +1,41 @@
+.c-pay-beer{
+    background-color: c('bright-blue');
+    height: 100%;
+    min-height: calc(100vh - 20px);
+    display: flex;
+    flex-direction: column;
+    padding: 0 40px 20px;
+    position: relative;
+    font-family: 'Pieces of Eight';
+    &--title{
+        margin-top: 70px;
+        text-align: center;
+        font-size: 32px;
+        text-decoration: underline;
+    }
+    &__footer{
+        background-color: black;
+        width: 100%;
+        min-height: 40px;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        span{
+            padding: 7px;
+            text-align: center;
+            color: white;
+            font-size: 18px;
+        }
+    }
+}
+
+@include medium {
+    @import'medium';
+}
+
+@include large {
+    @import'large';
+}

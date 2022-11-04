@@ -138,10 +138,15 @@
     "gameAction": {
         "extraPoints": "Afegeix una runa al total de runes segures",
         "damage": "Fes un punt de mal a la persona que tingui el torn",
-        "extraTurn": "Guanya un torn extra (només disponible en el teu torn)"
+        "extraTurn": "Guanya un torn extra (només en el teu torn)",
+        "ghostDices": "Desmarca els daus seleccionats"
     },
     "error404": {
         "title": "404: PÀGINA NO TROBADA",
         "subtitle": "Visita la nostra adreça principal"
+    },
+    "payBeer": {
+        "title": "Invitam a una deliciosa i refrescant cervesa",
+        "headerButton": "Invitam a una birra"
     }
 }

@@ -114,6 +114,7 @@ export default function Header() {
                         setType('instructions')
                     }}>{t("header.instructions")}</div>
                     <a className="c-header-mobile--option" href="/contact">{t("header.contact")}</a>
+                    <a className="c-header-mobile--option" href="/pay-beer">{t("payBeer.headerButton")}</a>
                     <GoogleBtn type = "header"/>
                 </React.Fragment> 
                 :

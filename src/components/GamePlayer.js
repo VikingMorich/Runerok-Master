@@ -35,6 +35,7 @@ export default function GamePlayer(props) {
                     {props.gamePlayerData.shield && <div className={"c-gamePlayer__icon--img " + (props.gamePlayerData.shieldUsed && "armor-used")}>
                         <Shield />
                     </div>}
+                    {!props.gamePlayerData.helmet && !props.gamePlayerData.shield && <div> - </div>}
                 </div>}
             </div>
         </div>

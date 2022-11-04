@@ -67,6 +67,11 @@ export default function Dice(props) {
                                 <Ham/>
                             </div>
                             :
+                            props.value === 'ghost' ?
+                            <div className="icon">
+                                👻
+                            </div>
+                            :
                             <React.Fragment />
                             }  
                             </div>

@@ -19,6 +19,8 @@ const diceTypes = {
     * Beer= inmunity to take damage this turn
     * Ham= +1 live
     * Critical = -2 live
+    * Thunder = ships are valknuts
+    * Mushrooms = damage x2 & runes x2
     */
 }
 const diceNumberStandart = {
@@ -88,83 +90,114 @@ export const rollDices = () => {
     let arrayValues = []
     let currentGameState = fire.database().ref("Room/Game/Stats")
     let giveUpState = {}
+    for (let i = 0; i < numberDices; i++) {
+        let str = instanceDices[i].id
+        let res = str.replace("-selected", "");
+        let ref = fire.database().ref("Room/Game/Dices/" + res)
+        let updates = {}
+        
+        let randVal = getRandomInt(6)
+        let color = instanceDices[i].className
+        let value = diceTypes[color][randVal]
+        if (value === 'ship') {
+            shipCount += 1
+        }
+        updates['value'] = value
+        updates['rolling'] = true
+        arrayValues.push(value)
+        ref.update(updates)
+    }
+    giveUpState['giveup'] = true
+    giveUpState['selectedDices'] = shipCount
+    giveUpState['rolling'] = true
+    currentGameState.update(giveUpState)
+    currentGameState.once("value", function(gameStateSnap) {
+        let playerTurn = gameStateSnap.val().turn
+        let currentPlayerState = fire.database().ref("Room/Players/"+playerTurn)
+        currentPlayerState.once("value", function(snap) {
+            let updatePlayerState = {}
+            let countDamage = 0
+            let countValknut = 0
+            let countHam = 0
+            arrayValues.forEach(element => {
+                if (element === 'damage') {
+                    countDamage += 1
+                }
+                if (element === 'critical') {
+                    countDamage += 2
+                }
+                if (element === 'valknut') {
+                    countValknut += 1
+                    updatePlayerState['valknut'] = snap.val().valknut + countValknut
+                }
+                if (element === 'rune') {
+                    let countRunes = 0
+                    let updateGameState = {}
+                    if(snap.val().lives > 0) {
+                        currentGameState.once("value", function(snap) {
+                            countRunes += 1
+                            updateGameState['partialRunes'] = snap.val().partialRunes + countRunes
+                        })
+                        currentGameState.update(updateGameState)
+                    }
+                }
+                if (element === 'ham') {
+                    countHam += 1
+                }
+                if (element === 'ship') {
+                    //fet a dalt, nomes mante el dau i fica l'icona
+                }
+                if (element === 'helmet') {
+                    updatePlayerState['helmet'] = true
+                }
+                if (element === 'shield') {
+                    updatePlayerState['shield'] = true
+                }
+            })
+            //BEER CASE
+            if(arrayValues.indexOf('beer') >= 0) {
+                countDamage = 0
+            }
+            //ARMOR CASES
+            if((snap.val().shield || updatePlayerState.shield) && countDamage > 0 && !snap.val().shieldUsed) {
+                updatePlayerState['shieldUsed'] = true
+                countDamage -= 1
+            }
+            if((snap.val().helmet || updatePlayerState.helmet) && countDamage > 0 && !snap.val().helmetUsed) {
+                updatePlayerState['helmetUsed'] = true
+                countDamage -= 1
+            }
+            //LOSE/WIN LIVE
+            if (countDamage > 0 || countHam > 0) {
+                let finalLives = snap.val().lives - countDamage + countHam
+                updatePlayerState['lives'] = (finalLives > 3) ? 3 : finalLives
+            }
+            //DEAD CASE
+            if (snap.val().lives - countDamage <= 0){
+                let updateGameState = {}
+                updateGameState['dead'] = true
+                currentGameState.update(updateGameState)
+            }
+            currentPlayerState.update(updatePlayerState)
+        })
+    })
+    setTimeout(function(){
         for (let i = 0; i < numberDices; i++) {
             let str = instanceDices[i].id
             let res = str.replace("-selected", "");
             let ref = fire.database().ref("Room/Game/Dices/" + res)
             let updates = {}
-            
-            let randVal = getRandomInt(6)
-            let color = instanceDices[i].className
-            let value = diceTypes[color][randVal]
-            if (value === 'ship') {
-                shipCount += 1
+            if (arrayValues[i] !== 'ship') {
+                updates['used'] = true
             }
-            updates['value'] = value
-            updates['rolling'] = true
-            arrayValues.push(value)
+            updates['rolling'] = false
             ref.update(updates)
         }
-        giveUpState['giveup'] = true
-        giveUpState['selectedDices'] = shipCount
-        giveUpState['rolling'] = true
+        let currentGameState = fire.database().ref("Room/Game/Stats")
+        let giveUpState = {}
+        giveUpState['rolling'] = false
         currentGameState.update(giveUpState)
-        currentGameState.once("value", function(gameStateSnap) {
-            let playerTurn = gameStateSnap.val().turn
-            let currentPlayerState = fire.database().ref("Room/Players/"+playerTurn)
-            currentPlayerState.once("value", function(snap) {
-                let updatePlayerState = {}
-                let countDamage = 0
-                let countValknut = 0
-                arrayValues.forEach(element => {
-                    if (element === 'damage') {
-                        countDamage += 1
-                        updatePlayerState['lives'] = snap.val().lives - countDamage
-                        if (snap.val().lives - countDamage <= 0){
-                            let updateGameState = {}
-                            updateGameState['dead'] = true
-                            currentGameState.update(updateGameState)
-                        }
-                    }
-                    if (element === 'valknut') {
-                        countValknut += 1
-                        updatePlayerState['valknut'] = snap.val().valknut + countValknut
-                    }
-                    if (element === 'rune') {
-                        let countRunes = 0
-                        let updateGameState = {}
-                        if(snap.val().lives >= 0) {
-                            currentGameState.once("value", function(snap) {
-                                countRunes += 1
-                                updateGameState['partialRunes'] = snap.val().partialRunes + countRunes
-                            })
-                            currentGameState.update(updateGameState)
-                        }
-                    }
-                    if (element === 'ship') {
-                        //fet a dalt, nomes mante el dau i fica l'icona
-                    }
-                })
-                currentPlayerState.update(updatePlayerState)
-            })
-        })
-        setTimeout(function(){
-            for (let i = 0; i < numberDices; i++) {
-                let str = instanceDices[i].id
-                let res = str.replace("-selected", "");
-                let ref = fire.database().ref("Room/Game/Dices/" + res)
-                let updates = {}
-                if (arrayValues[i] !== 'ship') {
-                    updates['used'] = true
-                }
-                updates['rolling'] = false
-                ref.update(updates)
-            }
-            let currentGameState = fire.database().ref("Room/Game/Stats")
-            let giveUpState = {}
-            giveUpState['rolling'] = false
-            currentGameState.update(giveUpState)
-        }, 1500);
+    }, 1500);
     
 }
 
@@ -239,6 +272,8 @@ const check = () => {
                     let currentPlayerLives = snap.val().lives
                     let updatePlayerState = {
                         "lives": 3,
+                        "shieldUsed": false,
+                        "helmetUsed": false,
                     }
                     currentGameState.once("value", function(snapshot) {
                         if (currentPlayerLives > 0) {
@@ -333,6 +368,10 @@ const createNewGame = () => {
             updatePlayerStats['lives'] = 3
             updatePlayerStats['valknut'] = 0
             updatePlayerStats['runes'] = 0
+            updatePlayerStats['helmet'] = false
+            updatePlayerStats['helmetUsed'] = false
+            updatePlayerStats['shield'] = false
+            updatePlayerStats['shieldUsed'] = false
             refPlayer.update(updatePlayerStats)
             
         });

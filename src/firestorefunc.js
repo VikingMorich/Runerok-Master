@@ -131,8 +131,10 @@ export function initFirebase(i18n) {
                     ReactDOM.render(<React.Fragment>
                         <GameAction type="extra-points" valknut={snapshot.val().valknut} runes={snapshot.val().runes} i18n={i18n}/>
                         <GameAction type="extra-points-mobile" valknut={snapshot.val().valknut} runes={snapshot.val().runes} i18n={i18n}/>
-                        <GameAction type="damage" valknut={snapshot.val().valknut} i18n={i18n}/>
-                        <GameAction type="damage-mobile" valknut={snapshot.val().valknut} i18n={i18n}/>
+                        <GameAction type="damage" valknut={snapshot.val().valknut} i18n={i18n} currentPlayer={snapshot.key}/>
+                        <GameAction type="damage-mobile" valknut={snapshot.val().valknut} i18n={i18n} currentPlayer={snapshot.key}/>
+                        <GameAction type="ghost-dices" valknut={snapshot.val().valknut} i18n={i18n}/>
+                        <GameAction type="ghost-dices-mobile" valknut={snapshot.val().valknut} i18n={i18n}/>
                         <GameAction type="extra-turn" valknut={snapshot.val().valknut} turn={snap.val() === cookies.get('key')} i18n={i18n}/>
                         <GameAction type="extra-turn-mobile" valknut={snapshot.val().valknut} turn={snap.val() === cookies.get('key')} i18n={i18n}/>
                     </React.Fragment>, actionButtons)
@@ -313,8 +315,10 @@ export function initFirebase(i18n) {
                     ReactDOM.render(<React.Fragment>
                         <GameAction type="extra-points" valknut={snapshot.val().valknut} runes={snapshot.val().runes} i18n={i18n}/>
                         <GameAction type="extra-points-mobile" valknut={snapshot.val().valknut} runes={snapshot.val().runes} i18n={i18n}/>
-                        <GameAction type="damage" valknut={snapshot.val().valknut} i18n={i18n}/>
-                        <GameAction type="damage-mobile" valknut={snapshot.val().valknut} i18n={i18n}/>
+                        <GameAction type="damage" valknut={snapshot.val().valknut} i18n={i18n} currentPlayer={snapshot.key} />
+                        <GameAction type="damage-mobile" valknut={snapshot.val().valknut} i18n={i18n} currentPlayer={snapshot.key}/>
+                        <GameAction type="ghost-dices" valknut={snapshot.val().valknut} i18n={i18n}/>
+                        <GameAction type="ghost-dices-mobile" valknut={snapshot.val().valknut} i18n={i18n}/>
                         <GameAction type="extra-turn" valknut={snapshot.val().valknut} turn={snap.val() === cookies.get('key')} i18n={i18n}/>
                         <GameAction type="extra-turn-mobile" valknut={snapshot.val().valknut} turn={snap.val() === cookies.get('key')} i18n={i18n}/>
                     </React.Fragment>, actionButtons)
@@ -552,8 +556,10 @@ export function initFirebase(i18n) {
                     ReactDOM.render(<React.Fragment>
                         <GameAction type="extra-points" valknut={snap.val().valknut} runes={snap.val().runes} i18n={i18n}/>
                         <GameAction type="extra-points-mobile" valknut={snap.val().valknut} runes={snap.val().runes} i18n={i18n}/>
-                        <GameAction type="damage" valknut={snap.val().valknut} i18n={i18n}/>
-                        <GameAction type="damage-mobile" valknut={snap.val().valknut} i18n={i18n}/>
+                        <GameAction type="damage" valknut={snap.val().valknut} i18n={i18n} currentPlayer={snap.key}/>
+                        <GameAction type="damage-mobile" valknut={snap.val().valknut} i18n={i18n} currentPlayer={snap.key}/>
+                        <GameAction type="ghost-dices" valknut={snap.val().valknut} i18n={i18n}/>
+                        <GameAction type="ghost-dices-mobile" valknut={snap.val().valknut} i18n={i18n}/>
                         <GameAction type="extra-turn" valknut={snap.val().valknut} turn={snapshot.val() === cookies.get('key')} i18n={i18n}/>
                         <GameAction type="extra-turn-mobile" valknut={snap.val().valknut} turn={snapshot.val() === cookies.get('key')} i18n={i18n}/>
                     </React.Fragment>, actionButtons)
@@ -640,8 +646,10 @@ export function initFirebase(i18n) {
                     ReactDOM.render(<React.Fragment>
                         <GameAction type="extra-points" valknut={snap.val().valknut} runes={snap.val().runes} i18n={i18n}/>
                         <GameAction type="extra-points-mobile" valknut={snap.val().valknut} runes={snap.val().runes} i18n={i18n}/>
-                        <GameAction type="damage" valknut={snap.val().valknut} i18n={i18n}/>
-                        <GameAction type="damage-mobile" valknut={snap.val().valknut} i18n={i18n}/>
+                        <GameAction type="damage" valknut={snap.val().valknut} i18n={i18n} currentPlayer={snap.key}/>
+                        <GameAction type="damage-mobile" valknut={snap.val().valknut} i18n={i18n} currentPlayer={snap.key}/>
+                        <GameAction type="ghost-dices" valknut={snap.val().valknut} i18n={i18n}/>
+                        <GameAction type="ghost-dices-mobile" valknut={snap.val().valknut} i18n={i18n}/>
                         <GameAction type="extra-turn" valknut={snap.val().valknut} turn={snapshot.val() === cookies.get('key')} i18n={i18n}/>
                         <GameAction type="extra-turn-mobile" valknut={snap.val().valknut} turn={snapshot.val() === cookies.get('key')} i18n={i18n}/>
                     </React.Fragment>, actionButtons)

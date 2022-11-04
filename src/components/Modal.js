@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next"
 import AwesomeSlider from 'react-awesome-slider';
 import 'react-awesome-slider/dist/styles.css';
 import 'react-awesome-slider/dist/custom-animations/cube-animation.css';
-import { Ship, Valknut, Rune, Heart, Damage, Helmet, Shield, Ham, Beer, Critical, Horn} from './icon/icon'
+import { Ship, Valknut, Rune, Heart, Damage, Helmet, Shield, Ham, Beer, Critical, Horn, Thunder} from './icon/icon'
 
 
 export default function Modal(props) {
@@ -265,6 +265,13 @@ export default function Modal(props) {
                                         </div>
                                         <p>{t('instructions-ok.colon')}
                                         {t('instructions-ok.p22')}</p>
+                                    </div>
+                                    <div className="c-slider__text--span">
+                                        <div className="c-modal__instructions--icon">
+                                            <Thunder />
+                                        </div>
+                                        <p>{t('instructions-ok.colon')}
+                                        *whatever</p>
                                     </div>
                                 </div>
                             </AwesomeSlider>

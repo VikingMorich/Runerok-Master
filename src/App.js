@@ -10,6 +10,7 @@ import Room from './components/Room'
 import Game from './components/Game'
 import Error404 from './components/404'
 import Contact from './components/Contact'
+import PayBeer from './components/PayBeer'
 import Arrow from './components/Arrow'
 import { useTranslation } from "react-i18next"
 import { useScrollPosition } from '@n8tb1t/use-scroll-position'
@@ -31,6 +32,7 @@ return (
     <Switch>
       <Route path="/" exact component={Home} />
       <Route path="/contact" component={Contact}/>
+      <Route path="/pay-beer" component={PayBeer}/>
       <Route path="/room" component={Room}/>
       <Route path="/game" component={Game}/>
       <Route render={() => <Error404/>} />
