@@ -30,6 +30,12 @@
             font-size: 18px;
         }
     }
+    .pay-button-wrapper{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 40px
+    }
 }
 
 @include medium {
