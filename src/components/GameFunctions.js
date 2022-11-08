@@ -5,22 +5,27 @@ import Cookies from 'universal-cookie';
 let cookies = new Cookies();
   
 const diceTypes = {
-    "green": ["rune", "rune", "rune", "ship", "valknut", "damage"],
+    "green": ["rune", "rune", "valknut", "valknut", "ship", "damage"],
     "yellow": ["rune", "rune", "ship", "valknut", "damage", "damage"],
     "red": ["rune", "valknut", "ship", "damage", "damage", "damage"],
     "blue": ['shield', 'helmet', 'damage', 'damage', 'valknut', 'ship'],
-    "purple": ['horn', 'ham', 'beer', 'damage', 'critical', 'critical'],
+    "purple": ['valknut', 'ham', 'beer', 'damage', 'critical', 'critical'],
     //"blue": ['beer', 'beer', 'beer', 'beer', 'beer', 'beer'],
 
     
-    /** Helmet = +1 armor helm
+    /**
+    * Helmet = +1 armor helm
     * Shield = +1 armor shield
-    * Horn = +1 punt directe pel final
-    * Beer= inmunity to take damage this turn
+    **** (Mes armor??)
+    **** Horn = inmunitat a les accions?
+    * Beer= inmunity to take damage on dices this turn
     * Ham= +1 live
     * Critical = -2 live
-    * Thunder = ships are valknuts
-    * Mushrooms = damage x2 & runes x2
+    **** Thunder = ships are valknuts + ship
+    **** Mushrooms = damage x2 & runes x2
+    **** Raven = roba 1 punt assegurat als rivals?
+    **** Book = accio addicional?
+    **** Dragon = lose all valknuts / instakill?
     */
 }
 const diceNumberStandart = {
@@ -30,9 +35,11 @@ const diceNumberStandart = {
 }
 
 const diceNumberHardcore = {
-    "green": 1,
-    "blue": 10,
-    "purple": 10,
+    "green": 11,
+    "yellow": 9,
+    "red": 6,
+    "blue": 4,
+    "purple": 6,
     // "green": 9,
     // "yellow": 7,
     // "red": 7,
@@ -279,7 +286,7 @@ const check = () => {
                         if (currentPlayerLives > 0) {
                             let totalRunes = currentPlayerRunes + snapshot.val().partialRunes
                             updatePlayerState['runes'] = totalRunes
-                            if (totalRunes >= 13 && !snapshot.val().winModeStartPlayer && !snapshot.val().extraTurn) {
+                            if (totalRunes >= 21 && !snapshot.val().winModeStartPlayer && !snapshot.val().extraTurn) {
                                 updateGameState['winModeStartPlayer'] = playerTurn
                             }
                         }

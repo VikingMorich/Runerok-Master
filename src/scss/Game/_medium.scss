@@ -2,7 +2,7 @@
     flex-direction: row;
     position: relative;
     &__players{
-        width: 400px;
+        width: 350px;
         overflow-y: auto;
         height: auto;
         position: relative;
@@ -24,7 +24,7 @@
         display: block;
     }
     &__actions{
-        width: 400px;
+        width: 350px;
         margin-top: 0px;
         z-index: 5;
         border-top: none;
@@ -57,7 +57,7 @@
         }
     }
     &__game{
-        width: 50%;
+        width: calc(100% - 700px);
         padding: 0 20px;
         margin-top: 0px;
         height: auto;
