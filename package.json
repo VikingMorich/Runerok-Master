@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@google-pay/button-react": "^3.0.0",
     "@n8tb1t/use-scroll-position": "^2.0.3",
     "emailjs-com": "^2.6.4",
     "firebase": "^8.2.6",
