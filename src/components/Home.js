@@ -1,29 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import GoogleBtn from '../GoogleBtn'
 import Cookies from 'universal-cookie';
 
 export default function Home() {
     let cookies = new Cookies();
     let isLogined = cookies.get('login') || false
-    const [showLogo, setShowLogo] = useState(false)
-    const [hideLogo, setHideLogo] = useState(false)
     useEffect(() => {
         if (isLogined) {
             window.location.href = '/room'
         }
         document.title = 'Runerok'
-        window.scrollTo(0, 0)
-        setTimeout(() => { 
-            setShowLogo(true)
-            setHideLogo(true)
-            setTimeout(() => { 
-                setShowLogo(false)
-                setTimeout(() => { 
-                    setHideLogo(false) 
-                }, 300);
-            }, 500);
-        }, 500);
-        
+        window.scrollTo(0, 0)        
     });
     
     return (
