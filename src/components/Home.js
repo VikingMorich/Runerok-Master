@@ -35,7 +35,7 @@ export default function Home() {
             </div>
             <img src="/runerok.png" alt="Runerok" className='fadeIn c-home--logo'/>
             <img src="/circular_runes.png" alt="Runerok" className='fadeIn c-home--runes rotate'/>
-            <div className={`c-home--presentation ${hideLogo + showLogo ? '' : 'fadeIn'}`}>
+            <div className={`c-home--presentation fadeIn`}>
                 <GoogleBtn />
             </div>
         </div>
