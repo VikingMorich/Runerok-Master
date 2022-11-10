@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next"
 import AwesomeSlider from 'react-awesome-slider';
 import 'react-awesome-slider/dist/styles.css';
 import 'react-awesome-slider/dist/custom-animations/cube-animation.css';
-import { Ship, Valknut, Rune, Heart, Damage, Helmet, Shield, Ham, Beer, Critical, Horn, Thunder} from './icon/icon'
+import { Ship, Valknut, Rune, Heart, Damage, Helmet, Shield, Ham, Beer, Critical, Horn, Thunder, Raven, Dragon, Book, Mushroom} from './icon/icon'
 
 
 export default function Modal(props) {
@@ -240,13 +240,6 @@ export default function Modal(props) {
                                     </div>
                                     <div className="c-slider__text--span">
                                         <div className="c-modal__instructions--icon">
-                                            <Horn />
-                                        </div>
-                                        <p>{t('instructions-ok.colon')}
-                                        {t('instructions-ok.p19')}</p>
-                                    </div>
-                                    <div className="c-slider__text--span">
-                                        <div className="c-modal__instructions--icon">
                                             <Beer />
                                         </div>
                                         <p>{t('instructions-ok.colon')}
@@ -272,6 +265,23 @@ export default function Modal(props) {
                                         </div>
                                         <p>{t('instructions-ok.colon')}
                                         *whatever</p>
+                                    </div>
+                                    <div className="c-slider__text--span">
+                                        <div className="c-modal__instructions--icon">
+                                            <Raven />
+                                        </div>
+                                        <div className="c-modal__instructions--icon">
+                                            <Book />
+                                        </div>
+                                        <div className="c-modal__instructions--icon">
+                                            <Dragon />
+                                        </div>
+                                        <div className="c-modal__instructions--icon">
+                                            <Mushroom />
+                                        </div>
+                                        <div className="c-modal__instructions--icon">
+                                            <Horn />
+                                        </div>
                                     </div>
                                 </div>
                             </AwesomeSlider>

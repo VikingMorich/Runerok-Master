@@ -105,10 +105,10 @@ export default function GameAction(props) {
             <div className={(props.valknut >= extraPointsCost)
                 ? "c-action" : "c-action--disabled"} onClick={(props.valknut >= extraPointsCost) ? useAction : () => {}}>
                 <div className="c-action__cost">
-                <span className="c-roomPlayer__name">{extraPointsCost}</span>
+                <span>{extraPointsCost}</span>
                 </div>
                 <div className="c-action__info">
-                    <span className="c-roomPlayer__name">{props.i18n('gameAction.extraPoints')}</span>
+                    <span>{props.i18n('gameAction.extraPoints')}</span>
                 </div>
             </div>
             }
@@ -116,10 +116,10 @@ export default function GameAction(props) {
             <div className={(props.valknut >= extraPointsCost)
                 ? "c-action-mobile" : "c-action-mobile--disabled"} onClick={(props.valknut >= extraPointsCost) ? useAction : () => {}}>
                 <div className="c-action__cost">
-                    <span className="c-roomPlayer__name">{extraPointsCost}</span>
+                    <span>{extraPointsCost}</span>
                 </div>
                 <div className="c-action__info">
-                    <span className="c-roomPlayer__name">🤫</span>
+                    <span>🤫</span>
                     <div className="c-action__info--icon">
                         <Rune />
                     </div>
@@ -130,10 +130,10 @@ export default function GameAction(props) {
                 <div className={(props.valknut >= damageCost) ? "c-action" : "c-action--disabled"} 
                 onClick={(props.valknut >= damageCost) ? useAction : () => {}}>
                     <div className="c-action__cost">
-                    <span className="c-roomPlayer__name">{damageCost}</span>
+                    <span>{damageCost}</span>
                     </div>
                     <div className="c-action__info">
-                        <span className="c-roomPlayer__name">{props.i18n('gameAction.damage')}</span>
+                        <span>{props.i18n('gameAction.damage')}</span>
                     </div>
                 </div>
             }
@@ -141,10 +141,10 @@ export default function GameAction(props) {
                 <div className={(props.valknut >= damageCost) ? "c-action-mobile" : "c-action-mobile--disabled"} 
                 onClick={(props.valknut >= damageCost) ? useAction : () => {}}>
                     <div className="c-action__cost">
-                    <span className="c-roomPlayer__name">{damageCost}</span>
+                    <span>{damageCost}</span>
                     </div>
                     <div className="c-action__info">
-                        <span className="c-roomPlayer__name">🥊</span>
+                        <span>🥊</span>
                         <div className="c-action__info--icon">
                             <Damage />
                         </div>
@@ -155,10 +155,10 @@ export default function GameAction(props) {
                 <div id="extra-turn" className={(props.valknut >= extraTurnCost && props.turn) ? "c-action" : "c-action--disabled"}
                 onClick={(props.valknut >= extraTurnCost && props.turn) ? useAction : () => {}}>
                     <div className="c-action__cost">
-                    <span className="c-roomPlayer__name">{extraTurnCost}</span>
+                    <span>{extraTurnCost}</span>
                     </div>
                     <div className="c-action__info">
-                        <span className="c-roomPlayer__name">{props.i18n('gameAction.extraTurn')}</span>
+                        <span>{props.i18n('gameAction.extraTurn')}</span>
                     </div>
                 </div>
             }
@@ -166,10 +166,10 @@ export default function GameAction(props) {
                 <div id="extra-turn-mobile" className={(props.valknut >= extraTurnCost && props.turn) ? "c-action-mobile" : "c-action-mobile--disabled"}
                 onClick={(props.valknut >= extraTurnCost && props.turn) ? useAction : () => {}}>
                     <div className="c-action__cost">
-                    <span className="c-roomPlayer__name">{extraTurnCost}</span>
+                    <span>{extraTurnCost}</span>
                     </div>
                     <div className="c-action__info">
-                        <span className="c-roomPlayer__name">🔄⏳</span>
+                        <span>🔄⏳</span>
                     </div>
                 </div>
             }
@@ -177,10 +177,10 @@ export default function GameAction(props) {
                 <div id="ghost-dices" className={(props.valknut >= ghostCost) ? "c-action" : "c-action--disabled"}
                 onClick={(props.valknut >= ghostCost) ? useAction : () => {}}>
                     <div className="c-action__cost">
-                    <span className="c-roomPlayer__name">{ghostCost}</span>
+                    <span>{ghostCost}</span>
                     </div>
                     <div className="c-action__info">
-                        <span className="c-roomPlayer__name">{props.i18n('gameAction.ghostDices')}</span>
+                        <span>{props.i18n('gameAction.ghostDices')}</span>
                     </div>
                 </div>
             }
@@ -188,10 +188,10 @@ export default function GameAction(props) {
                 <div id="ghost-dices-mobile" className={(props.valknut >= ghostCost) ? "c-action-mobile" : "c-action-mobile--disabled"}
                 onClick={(props.valknut >= ghostCost) ? useAction : () => {}}>
                     <div className="c-action__cost">
-                    <span className="c-roomPlayer__name">{ghostCost}</span>
+                    <span>{ghostCost}</span>
                     </div>
                     <div className="c-action__info">
-                        <span className="c-roomPlayer__name">👻⏹️</span>
+                        <span>👻⏹️</span>
                     </div>
                 </div>
             }

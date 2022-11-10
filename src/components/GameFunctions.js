@@ -16,15 +16,13 @@ const diceTypes = {
     /**
     * Helmet = +1 armor helm
     * Shield = +1 armor shield
-    **** (Mes armor??)
-    **** Horn = inmunitat a les accions?
-    * Beer= inmunity to take damage on dices this turn
+    **** Horn = [burst] inmunitat a les accions 1 time
     * Ham= +1 live
     * Critical = -2 live
-    **** Thunder = ships are valknuts + ship
-    **** Mushrooms = damage x2 & runes x2
+    **** Thunder = [state] ships are valknuts + ship
+    **** Mushrooms = [state] damage x2 & runes x2
     **** Raven = roba 1 punt assegurat als rivals?
-    **** Book = accio addicional?
+    **** Book = [burst] accio addicional (3lvls)
     **** Dragon = lose all valknuts / instakill?
     */
 }
@@ -255,22 +253,23 @@ const check = () => {
                 notPlayed = false
             }
         });
-        if (notPlayed) {
-            alert("No has jugat cap dau")
-        }
-        else {
-            let randomDicePosition = getRandomDicePosition()
-            let updates = {}
-            randomDicePosition.forEach((element, key) => {
-                updates[(key+1)] = {
-                    "color": element,
-                }
-            });
-            ref.update(updates)
-            let selectedDicesBox = document.getElementById('selected-dices')
-            selectedDicesBox.innerHTML = ''
-            let currentGameState = fire.database().ref("Room/Game/Stats")
-            currentGameState.once("value", function(gameStateSnap) {
+        let currentGameState = fire.database().ref("Room/Game/Stats")
+        currentGameState.once("value", function(gameStateSnap) {
+            if(gameStateSnap.val().dead) notPlayed = false
+            if (notPlayed) {
+                alert("No has jugat cap dau")
+            }
+            else {
+                let randomDicePosition = getRandomDicePosition()
+                let updates = {}
+                randomDicePosition.forEach((element, key) => {
+                    updates[(key+1)] = {
+                        "color": element,
+                    }
+                });
+                ref.update(updates)
+                let selectedDicesBox = document.getElementById('selected-dices')
+                selectedDicesBox.innerHTML = ''
                 let playerTurn = gameStateSnap.val().turn
                 let currentPlayerState = fire.database().ref("Room/Players/"+playerTurn)
                 currentPlayerState.once("value", function(snap) {
@@ -281,55 +280,57 @@ const check = () => {
                         "lives": 3,
                         "shieldUsed": false,
                         "helmetUsed": false,
+                        "state": "normal",
                     }
-                    currentGameState.once("value", function(snapshot) {
-                        if (currentPlayerLives > 0) {
-                            let totalRunes = currentPlayerRunes + snapshot.val().partialRunes
-                            updatePlayerState['runes'] = totalRunes
-                            if (totalRunes >= 21 && !snapshot.val().winModeStartPlayer && !snapshot.val().extraTurn) {
-                                updateGameState['winModeStartPlayer'] = playerTurn
+                        let currentGameMode = fire.database().ref("Room/RoomState")
+                        currentGameMode.once("value", function(gamemodeSnap) {
+                            if (currentPlayerLives > 0) {
+                                let totalRunes = currentPlayerRunes + gameStateSnap.val().partialRunes
+                                updatePlayerState['runes'] = totalRunes
+                                if (totalRunes >= (gamemodeSnap.val().gameMode === 'hardcore' ? 21 : 13) && !gameStateSnap.val().winModeStartPlayer && !gameStateSnap.val().extraTurn) {
+                                    updateGameState['winModeStartPlayer'] = playerTurn
+                                }
                             }
-                        }
-                        updateGameState['partialRunes'] = 0
-                        updateGameState['dead'] = false
-                        
-                        currentGameState.update(updateGameState)
-                        currentPlayerState.update(updatePlayerState)
-                    })
+                            updateGameState['partialRunes'] = 0
+                            updateGameState['dead'] = false
+                            
+                            currentGameState.update(updateGameState)
+                            currentPlayerState.update(updatePlayerState)
+                        })
                 })
-            })
-            let refTurn = fire.database().ref("Room/Game/Stats/")
-            let updatesTurn = {}
-            updatesTurn['giveup'] = true
-            updatesTurn['selectedDices'] = 0
-            refTurn.once("value", function(gameStateSnap) {
-                let arrayPlayers = gameStateSnap.val().orderPlayers
-                let currentPlayer = gameStateSnap.val().turn
-                let indexP = arrayPlayers.indexOf(currentPlayer)
-                let newArrayPlayers = []
-                for(let i = 0; i < arrayPlayers.length; i++) {
-                    let newIndx = indexP + i + 1
-                    if (newIndx >= arrayPlayers.length) {
-                        newIndx -= arrayPlayers.length
+                let refTurn = fire.database().ref("Room/Game/Stats/")
+                let updatesTurn = {}
+                updatesTurn['giveup'] = true
+                updatesTurn['selectedDices'] = 0
+                refTurn.once("value", function(gameStateSnap) {
+                    let arrayPlayers = gameStateSnap.val().orderPlayers
+                    let currentPlayer = gameStateSnap.val().turn
+                    let indexP = arrayPlayers.indexOf(currentPlayer)
+                    let newArrayPlayers = []
+                    for(let i = 0; i < arrayPlayers.length; i++) {
+                        let newIndx = indexP + i + 1
+                        if (newIndx >= arrayPlayers.length) {
+                            newIndx -= arrayPlayers.length
+                        }
+                        newArrayPlayers.push(arrayPlayers[newIndx])
                     }
-                    newArrayPlayers.push(arrayPlayers[newIndx])
-                }
-                //si no es extra-turn
-                if(!gameStateSnap.val().extraTurn) {
-                    updatesTurn['turn'] = newArrayPlayers[0]
-                    if (gameStateSnap.val().winModeStartPlayer === newArrayPlayers[0]) {
-                        //GAME OVER
-                        recursiveWinSearch(0, newArrayPlayers, -1, "")
-                        setTimeout(function(){ 
-                            exitGame()
-                        }, 6000)
-                        
+                    //si no es extra-turn
+                    if(!gameStateSnap.val().extraTurn) {
+                        updatesTurn['turn'] = newArrayPlayers[0]
+                        if (gameStateSnap.val().winModeStartPlayer === newArrayPlayers[0]) {
+                            //GAME OVER
+                            recursiveWinSearch(0, newArrayPlayers, -1, "")
+                            setTimeout(function(){ 
+                                exitGame()
+                            }, 6000)
+                            
+                        }
                     }
-                }
-                updatesTurn['extraTurn'] = false
-                refTurn.update(updatesTurn)
-            })
-        }
+                    updatesTurn['extraTurn'] = false
+                    refTurn.update(updatesTurn)
+                })
+            }
+        })
     })
 }
 
@@ -400,38 +401,42 @@ export const flipCard = (e, alert3, alertDead, alertTurn)  => {
     //comprovar si es el teu torn
     let refStats = fire.database().ref("Room/Game/Stats")
     refStats.once("value", function(gameStats) {
-        if (gameStats.val().turn === cookies.get('key')) {
-            //comprovar si estas viu
-            if (!gameStats.val().dead) {
-                //if not flipped -> flip
-                if (e.currentTarget.className === 'flip-card') {
-                    if (document.getElementById('selected-dices').childElementCount === 3){
-                        alert(alert3)
-                    } else{
-                        //+++++++++++++++++
-                        let updateStats = {}
-                        updateStats['giveup'] = false
-                        updateStats['selectedDices'] = gameStats.val().selectedDices + 1
-                        refStats.update(updateStats)
-                        //+++++++++++++++
-                        e.currentTarget.className += ' flip-card-flipped'
-                        let ref = fire.database().ref("Room/Game/Dices/"+e.currentTarget.parentElement.id)
-                        setTimeout(function(){ 
-                            let updates = {}
-                            updates['selected'] = true
-                            ref.update(updates) },
-                        300);
+        let refGameDices = fire.database().ref("Room/Game/Dices")
+        refGameDices.once("value", function (diceSnap) {
+            let numD = diceSnap.val().filter(el => el.selected && !el.used).length
+            if (gameStats.val().turn === cookies.get('key')) {
+                //comprovar si estas viu
+                if (!gameStats.val().dead) {
+                    //if not flipped -> flip
+                    if (e.currentTarget.className === 'flip-card') {
+                        if (numD === 3){
+                            alert(alert3)
+                        } else{
+                            //+++++++++++++++++
+                            let updateStats = {}
+                            updateStats['giveup'] = false
+                            updateStats['selectedDices'] = gameStats.val().selectedDices + 1
+                            refStats.update(updateStats)
+                            //+++++++++++++++
+                            e.currentTarget.className += ' flip-card-flipped'
+                            let ref = fire.database().ref("Room/Game/Dices/"+e.currentTarget.parentElement.id)
+                            setTimeout(function(){ 
+                                let updates = {}
+                                updates['selected'] = true
+                                ref.update(updates) },
+                            300);
+                        }
+                        
                     }
-                    
+                }
+                else {
+                    alert(alertDead)
                 }
             }
             else {
-                alert(alertDead)
+                alert(alertTurn)
             }
-        }
-        else {
-            alert(alertTurn)
-        }
+        })
     })
 }
 

@@ -123,7 +123,7 @@
         "diceAlert3": "Ya tienes 3 dados seleccionados",
         "diceAlertDead": "No puedes seleccionar más dados una vez has muerto",
         "diceAlertTurn": "No es tú turno",
-        "diceTitle": "🎲 panel de dados 🎲",
+        "diceTitle": "panel de dados",
         "armor": "Armadura: "
     },
     "gameAction": {

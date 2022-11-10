@@ -23,7 +23,7 @@ export default function Game() {
             <div className="c-game__game">
                 <h1 className="c-game--title c-game--turn">{t('game.title')}<span id="turn-title"></span></h1>
                 <div className="c-game__dices">
-                    <h3 className="c-game__dices--title">{t('game.diceTitle')}</h3>
+                    <h3 className="c-game__dices--title">🎲 {t('game.diceTitle')} - <span id="game-mode-title"></span> 🎲</h3>
                     <div className="c-game__dices--box" id="game-dices">
 
                     </div>

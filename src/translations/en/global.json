@@ -123,7 +123,7 @@
         "diceAlert3": "You already have 3 dices selected",
         "diceAlertDead": "You cannot select more dices once you are dead",
         "diceAlertTurn": "It's not your turn",
-        "diceTitle": "🎲 dices panel 🎲",
+        "diceTitle": "dices panel",
         "armor": "Armor: "
     },
     "gameAction": {

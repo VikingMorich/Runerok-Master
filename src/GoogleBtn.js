@@ -54,6 +54,10 @@ export default function GoogleBtn (props) {
       shieldUsed: false,
       helmet: false,
       helmetUsed: false,
+      bookLvl: 0,
+      state: 'normal',
+      magicResist: false,
+      //extraTurn: false,
       dateLogin: new Date(),
     }
     ref.update(updates)

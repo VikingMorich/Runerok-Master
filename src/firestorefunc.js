@@ -737,6 +737,9 @@ export function initFirebase(i18n) {
             let gameModeButton = document.getElementById('game-mode-button')
             gameModeButton.innerText = snap.val().toUpperCase()
         }
+        else if (window.location.pathname === '/game') {
+            document.getElementById('game-mode-title').innerText = snap.val()
+        }
     })
 
     dbRefGameMode.on('child_changed', snap => {

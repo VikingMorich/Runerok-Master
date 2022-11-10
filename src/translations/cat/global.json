@@ -83,7 +83,6 @@
         "p17": "Afegeix una peça de casc a la teva armadura",
         "p18": "Afegeix una peça d'escut a la teva armadura",
         "p18-2": "Quan sigui el torn d'un jugador que disposi d'una peça d'armadura i rebi un punt de mal, el protegirà de perdre una vida. Després d'utilitzar-se, les peces d'armadura queden inutilitzades fins que l'usuari acaba el seu torn. (Només es pot tenir una peça de cada tipus. Actuen com a vida extra)",
-        "p19": "Afegeix 1 runa a les totals guardades (no es perd al morir)",
         "p20": "Inmunitat a rebre mal durant aquella tirada de daus",
         "p21": "Recupera un punt de vida (màxim 3 vides permeses)",
         "p22": "Perd 2 punts de vida"
@@ -132,7 +131,7 @@
         "diceAlert3": "Ja tens 3 daus seleccionats",
         "diceAlertDead": "No pots seleccionar més daus un cop has mort",
         "diceAlertTurn": "No és el teu torn",
-        "diceTitle": "🎲 panell de daus 🎲",
+        "diceTitle": "panell de daus",
         "armor": "Armadura: "
     },
     "gameAction": {
