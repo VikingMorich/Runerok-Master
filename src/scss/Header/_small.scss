@@ -86,7 +86,7 @@
     padding: 0px 20px;
     height: 60px;
     color: c('white');
-    background-color: c('boom-blue');
+    background-color: c('other-blue');
     border-bottom: 1px solid c('white');
     font-weight: 800;
     display: flex;
@@ -98,7 +98,7 @@
   }
   &--option:hover{
     text-decoration: underline;
-    color: c('bestial-blue');
+    color: c('other-blue');
   }
 }
 .c-header-mobileWrapper{
@@ -126,7 +126,7 @@ a:hover {
 
 a:active {
   text-decoration: underline;
-  color: c('bestial-blue');
+  color: c('other-blue');
 }
 
 .centered{
