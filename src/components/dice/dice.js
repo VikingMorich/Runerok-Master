@@ -1,6 +1,6 @@
 import React from 'react';
 import '../../scss/main.scss';
-import { Viking, Ship, Damage, Rune, Valknut, Beer, Helmet, Shield, Horn, Critical, Ham } from '../icon/icon';
+import { Viking, Ship, Damage, Rune, Valknut, Beer, Helmet, Shield, Horn, Critical, Ham, Thunder, Mushroom, Dragon, Raven, Book } from '../icon/icon';
 import { flipCard } from "../GameFunctions"
 
 export default function Dice(props) {
@@ -65,6 +65,31 @@ export default function Dice(props) {
                             props.value === 'ham' ?
                             <div className="icon">
                                 <Ham/>
+                            </div>
+                            :
+                            props.value === 'mushroom' ?
+                            <div className="icon">
+                                <Mushroom/>
+                            </div>
+                            :
+                            props.value === 'thunder' ?
+                            <div className="icon">
+                                <Thunder/>
+                            </div>
+                            :
+                            props.value === 'dragon' ?
+                            <div className="icon">
+                                <Dragon/>
+                            </div>
+                            :
+                            props.value === 'raven' ?
+                            <div className="icon">
+                                <Raven/>
+                            </div>
+                            :
+                            props.value === 'book' ?
+                            <div className="icon">
+                                <Book/>
                             </div>
                             :
                             props.value === 'ghost' ?

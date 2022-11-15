@@ -10,9 +10,8 @@ const diceTypes = {
     "red": ["rune", "valknut", "ship", "damage", "damage", "damage"],
     "blue": ['shield', 'helmet', 'damage', 'damage', 'valknut', 'ship'],
     "purple": ['valknut', 'ham', 'beer', 'damage', 'critical', 'critical'],
-    //"blue": ['beer', 'beer', 'beer', 'beer', 'beer', 'beer'],
-
-    
+    "olive": ['thunder', 'thunder', 'thunder', 'mushroom', 'mushroom', 'mushroom'],
+    "black": ['dragon', 'critical', 'damage', 'ship', 'ship', 'ship'],
     /**
     * Helmet = +1 armor helm
     * Shield = +1 armor shield
@@ -34,10 +33,12 @@ const diceNumberStandart = {
 
 const diceNumberHardcore = {
     "green": 11,
-    "yellow": 9,
+    "yellow": 8,
     "red": 6,
     "blue": 4,
     "purple": 6,
+    "olive": 1,
+    "black": 1,
     // "green": 9,
     // "yellow": 7,
     // "red": 7,
@@ -119,17 +120,37 @@ export const rollDices = () => {
     currentGameState.once("value", function(gameStateSnap) {
         let playerTurn = gameStateSnap.val().turn
         let currentPlayerState = fire.database().ref("Room/Players/"+playerTurn)
+        let mushroomed = false
+        let thundered = false
         currentPlayerState.once("value", function(snap) {
+            if (snap.val().state === 'thunder' || arrayValues.indexOf('thunder') >= 0) {
+                mushroomed = false
+                thundered = true
+            }
+            else if (snap.val().state === 'mushroom' || arrayValues.indexOf('mushroom') >= 0) {
+                thundered = false
+                mushroomed = true
+            }
             let updatePlayerState = {}
             let countDamage = 0
             let countValknut = 0
             let countHam = 0
             arrayValues.forEach(element => {
+                //DAMAGE
                 if (element === 'damage') {
-                    countDamage += 1
+                    if (mushroomed) countDamage += 2
+                    else countDamage += 1
                 }
+                //CRITICAL
                 if (element === 'critical') {
-                    countDamage += 2
+                    if (mushroomed) countDamage += 3
+                    else countDamage += 2
+                }
+                if (element === 'mushroom') {
+                    updatePlayerState['state'] = 'mushroom'
+                }
+                if (element === 'thunder') {
+                    updatePlayerState['state'] = 'thunder'
                 }
                 if (element === 'valknut') {
                     countValknut += 1
@@ -139,10 +160,9 @@ export const rollDices = () => {
                     let countRunes = 0
                     let updateGameState = {}
                     if(snap.val().lives > 0) {
-                        currentGameState.once("value", function(snap) {
-                            countRunes += 1
-                            updateGameState['partialRunes'] = snap.val().partialRunes + countRunes
-                        })
+                        if (mushroomed) countRunes += 2
+                        else countRunes += 1
+                        updateGameState['partialRunes'] = gameStateSnap.val().partialRunes + countRunes
                         currentGameState.update(updateGameState)
                     }
                 }
@@ -151,6 +171,10 @@ export const rollDices = () => {
                 }
                 if (element === 'ship') {
                     //fet a dalt, nomes mante el dau i fica l'icona
+                    if (thundered) {
+                        countValknut += 1
+                        updatePlayerState['valknut'] = snap.val().valknut + countValknut
+                    }
                 }
                 if (element === 'helmet') {
                     updatePlayerState['helmet'] = true
@@ -159,6 +183,11 @@ export const rollDices = () => {
                     updatePlayerState['shield'] = true
                 }
             })
+            //DRAGON CASE
+            if(arrayValues.indexOf('dragon') >= 0) {
+                countDamage = 99
+                updatePlayerState['valknut'] = 0
+            }
             //BEER CASE
             if(arrayValues.indexOf('beer') >= 0) {
                 countDamage = 0

@@ -64,7 +64,7 @@
         background-color: c('yellow'); 
     }
     &--red{
-        background-color: red; 
+        background-color: c('red'); 
     }
     &--blue{
       background-color: c('blue'); 
@@ -72,7 +72,12 @@
     &--purple{
       background-color: c('purple'); 
     }
-    
+    &--olive{
+      background-color: c('olive'); 
+    }
+    &--black{
+      background-color: c('black'); 
+    }
   }
   
 .flipped-card-content{

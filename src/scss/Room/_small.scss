@@ -19,17 +19,15 @@
         justify-content: right;
         flex-direction: column;
         //height: 84%;
-        height: calc(100vh - 104px);
+        //height: calc(100vh - 104px);
         width: 100%;
     }
     &--game{
         width: 100%;
-        height: 59%;
     }
     &--players{
         background-color: c('medium-blue');
         width: calc(100% - 30px);
-        height: calc(100% - 80px - 30px);
         min-height: 220px;
         padding: 10px 15px;
         margin-bottom: 15px;

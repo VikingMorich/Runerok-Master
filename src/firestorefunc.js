@@ -11,7 +11,7 @@ import { toast } from 'react-toastify'
 import Button from './components/Button'
 import RollingDice from './components/RollingDice'
 import { rollDices, giveUp, toggleReady } from './components/GameFunctions'
-import { Ship, Damage, Rune, Valknut, Skull, Beer, Shield, Helmet, Horn, Critical, Ham } from './components/icon/icon';
+import { Ship, Damage, Rune, Valknut, Skull, Beer, Shield, Helmet, Horn, Critical, Ham, Thunder, Mushroom, Book, Raven, Dragon } from './components/icon/icon';
 
 
 export function initFirebase(i18n) {
@@ -39,12 +39,8 @@ export function initFirebase(i18n) {
                     objPlayers.appendChild(user)
                     let currentPlayerStats = firebase.database().ref("Room/Players/"+arrayPlayers[element] )
                     currentPlayerStats.once("value", function(snapshot) {
-                        if(snapshot.val()){
-                            // let currentGameMode = firebase.database().ref("Room/Game/Stats")
-                            // currentGameMode.once("value", function(gameModeSnap) {
-                            //     ReactDOM.render(<GamePlayer i18n={i18n} userName={snapshot.val().username} userTurn={arrayPlayers[0] === snapshot.key} imageUrl={snapshot.val().imageUrl} runes={snapshot.val().runes} lives={snapshot.val().lives} valknut={snapshot.val().valknut} gameMode={gameModeSnap.val().gameMode}/>, user) 
-                            // })
-
+                        let dbGameStats = firebase.database().ref("Room/Game/Stats")
+                        dbGameStats.once("value", function(gameStatsSnap) {
                             let currentGameMode = firebase.database().ref("Room/RoomState")
                             currentGameMode.once("value", function(gameModeSnap) {
                                 let gamePlayerData = {
@@ -58,14 +54,16 @@ export function initFirebase(i18n) {
                                     helmetUsed: snapshot.val().helmetUsed,
                                     shield: snapshot.val().shield,
                                     shieldUsed: snapshot.val().shieldUsed,
-                                    gameMode: gameModeSnap.val().gameMode
+                                    gameMode: gameModeSnap.val().gameMode,
+                                    extraTurn: gameStatsSnap.val().extraTurn,
+                                    state: snapshot.val().state
                                 }
                                 ReactDOM.render(<GamePlayer i18n={i18n} gamePlayerData={gamePlayerData}/>, user) 
                             })
                             if (playerChanged){
                                 objPlayers.replaceChild(user, playerChanged)
                             }
-                        }
+                        })
                     })
                 })
             }
@@ -108,7 +106,9 @@ export function initFirebase(i18n) {
                                                 helmetUsed: snapshot.val().helmetUsed,
                                                 shield: snapshot.val().shield,
                                                 shieldUsed: snapshot.val().shieldUsed,
-                                                gameMode: gameModeSnap.val().gameMode
+                                                gameMode: gameModeSnap.val().gameMode,
+                                                extraTurn: gameSnap.val().extraTurn,
+                                                state: snapshot.val().state
                                             }
                                             ReactDOM.render(<GamePlayer i18n={i18n} gamePlayerData={gamePlayerData}/>, user)
                                         })
@@ -224,20 +224,25 @@ export function initFirebase(i18n) {
                     currentPlayerStats.once("value", function(snapshot) {
                         let currentGameMode = firebase.database().ref("Room/RoomState")
                         currentGameMode.once("value", function(gameModeSnap) {
-                            let gamePlayerData = {
-                                userName: snapshot.val().username,
-                                userTurn: arrayPlayers[0] === snapshot.key,
-                                imageUrl: snapshot.val().imageUrl,
-                                runes: snapshot.val().runes,
-                                lives: snapshot.val().lives,
-                                valknut: snapshot.val().valknut,
-                                helmet: snapshot.val().helmet,
-                                helmetUsed: snapshot.val().helmetUsed,
-                                shield: snapshot.val().shield,
-                                shieldUsed: snapshot.val().shieldUsed,
-                                gameMode: gameModeSnap.val().gameMode
-                            }
-                            ReactDOM.render(<GamePlayer i18n={i18n} gamePlayerData={gamePlayerData}/>, user)
+                            let dbGameStats = firebase.database().ref("Room/Game/Stats")
+                            dbGameStats.once("value", function(gameStatsSnap) {
+                                let gamePlayerData = {
+                                    userName: snapshot.val().username,
+                                    userTurn: arrayPlayers[0] === snapshot.key,
+                                    imageUrl: snapshot.val().imageUrl,
+                                    runes: snapshot.val().runes,
+                                    lives: snapshot.val().lives,
+                                    valknut: snapshot.val().valknut,
+                                    helmet: snapshot.val().helmet,
+                                    helmetUsed: snapshot.val().helmetUsed,
+                                    shield: snapshot.val().shield,
+                                    shieldUsed: snapshot.val().shieldUsed,
+                                    gameMode: gameModeSnap.val().gameMode,
+                                    extraTurn: gameStatsSnap.val().extraTurn,
+                                    state: snapshot.val().state
+                                }
+                                ReactDOM.render(<GamePlayer i18n={i18n} gamePlayerData={gamePlayerData}/>, user)
+                            })
                         })
                     if (playerChanged){
                         playerChanged.remove()
@@ -248,6 +253,45 @@ export function initFirebase(i18n) {
             }
             if (snap.key === 'partialRunes') {
                 document.getElementById('partial-runes').innerText = snap.val()
+            }
+            if(snap.key === 'extraTurn') {
+                let currentGStats = firebase.database().ref("Room/Game/Stats" )
+                currentGStats.once("value", function(gameSnap) {
+                    let objPlayers = document.getElementById('players')
+                    let arrayPlayers = gameSnap.val().orderPlayers
+                    Object.keys(arrayPlayers).forEach(element => {
+                        let playerChanged = document.getElementById(arrayPlayers[element])
+                        const user = document.createElement('div')
+                        user.id=arrayPlayers[element]
+                        user.className="c-roomPlayer__container"
+                        objPlayers.appendChild(user)
+                        let currentPlayerStats = firebase.database().ref("Room/Players/"+arrayPlayers[element] )
+                        currentPlayerStats.once("value", function(snapshot) {
+                            let currentGameMode = firebase.database().ref("Room/RoomState")
+                                currentGameMode.once("value", function(gameModeSnap) {
+                                    let gamePlayerData = {
+                                        userName: snapshot.val().username,
+                                        userTurn: gameSnap.val().turn === snapshot.key,
+                                        imageUrl: snapshot.val().imageUrl,
+                                        runes: snapshot.val().runes,
+                                        lives: snapshot.val().lives,
+                                        valknut: snapshot.val().valknut,
+                                        helmet: snapshot.val().helmet,
+                                        helmetUsed: snapshot.val().helmetUsed,
+                                        shield: snapshot.val().shield,
+                                        shieldUsed: snapshot.val().shieldUsed,
+                                        gameMode: gameModeSnap.val().gameMode,
+                                        extraTurn: gameSnap.val().extraTurn,
+                                        state: snapshot.val().state
+                                    }
+                                    ReactDOM.render(<GamePlayer i18n={i18n} gamePlayerData={gamePlayerData}/>, user)
+                                })
+                                if (playerChanged){
+                                    objPlayers.replaceChild(user, playerChanged)
+                                }
+                        })
+                    })
+                })
             }
             if (snap.key === 'turn') {
                 let objSelectedDices = document.getElementById('selected-dices')
@@ -281,7 +325,9 @@ export function initFirebase(i18n) {
                                         helmetUsed: snapshot.val().helmetUsed,
                                         shield: snapshot.val().shield,
                                         shieldUsed: snapshot.val().shieldUsed,
-                                        gameMode: gameModeSnap.val().gameMode
+                                        gameMode: gameModeSnap.val().gameMode,
+                                        extraTurn: gameSnap.val().extraTurn,
+                                        state: snapshot.val().state
                                     }
                                     ReactDOM.render(<GamePlayer i18n={i18n} gamePlayerData={gamePlayerData}/>, user)
                                 })
@@ -485,6 +531,21 @@ export function initFirebase(i18n) {
                     else if(snap.val().value === 'ham') {
                         ReactDOM.render(<Ham/>, diceValue)
                     }
+                    else if(snap.val().value === 'thunder') {
+                        ReactDOM.render(<Thunder/>, diceValue)
+                    }
+                    else if(snap.val().value === 'mushroom') {
+                        ReactDOM.render(<Mushroom/>, diceValue)
+                    }
+                    else if(snap.val().value === 'book') {
+                        ReactDOM.render(<Book/>, diceValue)
+                    }
+                    else if(snap.val().value === 'raven') {
+                        ReactDOM.render(<Raven/>, diceValue)
+                    }
+                    else if(snap.val().value === 'dragon') {
+                        ReactDOM.render(<Dragon/>, diceValue)
+                    }
                     else if(snap.val().value === 'critical') {
                         ReactDOM.render(<Critical/>, diceValue)
                     }
@@ -571,13 +632,13 @@ export function initFirebase(i18n) {
             const user = document.createElement('div')
             user.id=snap.key
             user.className="c-roomPlayer__container"
-            let currentGameTurn = firebase.database().ref("Room/Game/Stats/turn")
+            let currentGameTurn = firebase.database().ref("Room/Game/Stats")
             currentGameTurn.once("value", function(snapshot) {
                 let currentGameMode = firebase.database().ref("Room/RoomState")
                 currentGameMode.once("value", function(gameModeSnap) {
                     let gamePlayerData = {
                         userName: snap.val().username,
-                        userTurn: snapshot.val() === snap.key,
+                        userTurn: snapshot.val().turn === snap.key,
                         imageUrl: snap.val().imageUrl,
                         runes: snap.val().runes,
                         lives: snap.val().lives,
@@ -586,7 +647,9 @@ export function initFirebase(i18n) {
                         helmetUsed: snap.val().helmetUsed,
                         shield: snap.val().shield,
                         shieldUsed: snap.val().shieldUsed,
-                        gameMode: gameModeSnap.val().gameMode
+                        gameMode: gameModeSnap.val().gameMode,
+                        extraTurn: snapshot.val().extraTurn,
+                        state: snap.val().state
                     }
                     ReactDOM.render(<GamePlayer i18n={i18n} gamePlayerData={gamePlayerData}/>, user)
                 })
@@ -661,13 +724,13 @@ export function initFirebase(i18n) {
             const user = document.createElement('div')
             user.id=snap.key
             user.className="c-roomPlayer__container"
-            let currentGameTurn = firebase.database().ref("Room/Game/Stats/turn")
+            let currentGameTurn = firebase.database().ref("Room/Game/Stats")
             currentGameTurn.once("value", function(snapshot) {
                 let currentGameMode = firebase.database().ref("Room/RoomState")
                 currentGameMode.once("value", function(gameModeSnap) {
                     let gamePlayerData = {
                         userName: snap.val().username,
-                        userTurn: snapshot.val() === snap.key,
+                        userTurn: snapshot.val().turn === snap.key,
                         imageUrl: snap.val().imageUrl,
                         runes: snap.val().runes,
                         lives: snap.val().lives,
@@ -676,7 +739,9 @@ export function initFirebase(i18n) {
                         helmetUsed: snap.val().helmetUsed,
                         shield: snap.val().shield,
                         shieldUsed: snap.val().shieldUsed,
-                        gameMode: gameModeSnap.val().gameMode
+                        gameMode: gameModeSnap.val().gameMode,
+                        extraTurn: snapshot.val().extraTurn,
+                        state: snap.val().state
                     }
                     ReactDOM.render(<GamePlayer i18n={i18n} gamePlayerData={gamePlayerData}/>, user)
                 })

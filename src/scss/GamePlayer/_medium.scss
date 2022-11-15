@@ -10,9 +10,12 @@
             background-color: transparent;
         }
     }
-    &__img{
-        margin: 0 20px;
-        height: 60px;
+    &__img-wrapper{
+        .c-gamePlayer__img{
+            margin: 0 20px;
+            height: 60px;
+            width: 60px;
+        }
     }
     &__name{
         font-size: 28px;
