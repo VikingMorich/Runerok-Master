@@ -36,7 +36,7 @@ const diceNumberHardcore = {
     "yellow": 8,
     "red": 6,
     "blue": 4,
-    "purple": 6,
+    "purple": 5,
     "olive": 1,
     "black": 1,
     // "green": 9,
