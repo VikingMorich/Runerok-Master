@@ -151,16 +151,20 @@ export function initFirebase(i18n) {
                                 <GameAction type="damage" valknut={snapshot.val().valknut} i18n={i18n} currentPlayer={snapshot.key}/>
                                 <GameAction type="damage-mobile" valknut={snapshot.val().valknut} i18n={i18n} currentPlayer={snapshot.key}/>
                                 {snapshot.val().bookLvl >= 1 && <React.Fragment>
-                                    <GameAction type="ghost-dices" valknut={snapshot.val().valknut} i18n={i18n} book={1} />
-                                    <GameAction type="ghost-dices-mobile" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
                                     <GameAction type="green-dices" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
                                     <GameAction type="green-dices-mobile" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="clean-state" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="clean-state-mobile" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
+                                </React.Fragment>}
+                                {snapshot.val().bookLvl >= 2 && <React.Fragment>
                                     <GameAction type="red-dices" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
                                     <GameAction type="red-dices-mobile" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
                                     <GameAction type="malediction" valknut={snapshot.val().valknut} i18n={i18n} currentPlayer={snapshot.key} book={1}/>
                                     <GameAction type="malediction-mobile" valknut={snapshot.val().valknut} i18n={i18n} currentPlayer={snapshot.key} book={1}/>
-                                    <GameAction type="clean-state" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
-                                    <GameAction type="clean-state-mobile" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
+                                </React.Fragment>}
+                                {snapshot.val().bookLvl >= 3 && <React.Fragment>
+                                    <GameAction type="ghost-dices" valknut={snapshot.val().valknut} i18n={i18n} book={1} />
+                                    <GameAction type="ghost-dices-mobile" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
                                     <GameAction type="see-dices" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
                                     <GameAction type="see-dices-mobile" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
                                 </React.Fragment>}
@@ -413,16 +417,20 @@ export function initFirebase(i18n) {
                                 <GameAction type="damage" valknut={snapshot.val().valknut} i18n={i18n} currentPlayer={snapshot.key} />
                                 <GameAction type="damage-mobile" valknut={snapshot.val().valknut} i18n={i18n} currentPlayer={snapshot.key}/>
                                 {snapshot.val().bookLvl >= 1 && <React.Fragment>
-                                    <GameAction type="ghost-dices" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
-                                    <GameAction type="ghost-dices-mobile" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
                                     <GameAction type="green-dices" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
                                     <GameAction type="green-dices-mobile" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="clean-state" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="clean-state-mobile" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
+                                </React.Fragment>}
+                                {snapshot.val().bookLvl >= 2 && <React.Fragment>
                                     <GameAction type="red-dices" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
                                     <GameAction type="red-dices-mobile" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
                                     <GameAction type="malediction" valknut={snapshot.val().valknut} i18n={i18n} currentPlayer={snapshot.key} book={1}/>
                                     <GameAction type="malediction-mobile" valknut={snapshot.val().valknut} i18n={i18n} currentPlayer={snapshot.key} book={1}/>
-                                    <GameAction type="clean-state" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
-                                    <GameAction type="clean-state-mobile" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
+                                </React.Fragment>}
+                                {snapshot.val().bookLvl >= 3 && <React.Fragment>
+                                    <GameAction type="ghost-dices" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="ghost-dices-mobile" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
                                     <GameAction type="see-dices" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
                                     <GameAction type="see-dices-mobile" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
                                 </React.Fragment>}
@@ -700,16 +708,20 @@ export function initFirebase(i18n) {
                                 <GameAction type="damage" valknut={snap.val().valknut} i18n={i18n} currentPlayer={snap.key}/>
                                 <GameAction type="damage-mobile" valknut={snap.val().valknut} i18n={i18n} currentPlayer={snap.key}/>
                                 {snap.val().bookLvl >= 1 && <React.Fragment>
-                                    <GameAction type="ghost-dices" valknut={snap.val().valknut} i18n={i18n} book={1}/>
-                                    <GameAction type="ghost-dices-mobile" valknut={snap.val().valknut} i18n={i18n} book={1}/>
                                     <GameAction type="green-dices" valknut={snap.val().valknut} i18n={i18n} book={1}/>
                                     <GameAction type="green-dices-mobile" valknut={snap.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="clean-state" valknut={snap.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="clean-state-mobile" valknut={snap.val().valknut} i18n={i18n} book={1}/>
+                                </React.Fragment>}
+                                {snap.val().bookLvl >= 2 && <React.Fragment>
                                     <GameAction type="red-dices" valknut={snap.val().valknut} i18n={i18n} book={1}/>
                                     <GameAction type="red-dices-mobile" valknut={snap.val().valknut} i18n={i18n} book={1}/>
                                     <GameAction type="malediction" valknut={snap.val().valknut} i18n={i18n} currentPlayer={snap.key} book={1}/>
                                     <GameAction type="malediction-mobile" valknut={snap.val().valknut} i18n={i18n} currentPlayer={snap.key} book={1}/>
-                                    <GameAction type="clean-state" valknut={snap.val().valknut} i18n={i18n} book={1}/>
-                                    <GameAction type="clean-state-mobile" valknut={snap.val().valknut} i18n={i18n} book={1}/>
+                                </React.Fragment>}
+                                {snap.val().bookLvl >= 3 && <React.Fragment>
+                                    <GameAction type="ghost-dices" valknut={snap.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="ghost-dices-mobile" valknut={snap.val().valknut} i18n={i18n} book={1}/>
                                     <GameAction type="see-dices" valknut={snap.val().valknut} i18n={i18n} book={1}/>
                                     <GameAction type="see-dices-mobile" valknut={snap.val().valknut} i18n={i18n} book={1}/>
                                 </React.Fragment>}
@@ -821,16 +833,20 @@ export function initFirebase(i18n) {
                                 <GameAction type="damage" valknut={snap.val().valknut} i18n={i18n} currentPlayer={snap.key}/>
                                 <GameAction type="damage-mobile" valknut={snap.val().valknut} i18n={i18n} currentPlayer={snap.key}/>
                                 {snap.val().bookLvl >= 1 && <React.Fragment>
-                                    <GameAction type="ghost-dices" valknut={snap.val().valknut} i18n={i18n} book={1}/>
-                                    <GameAction type="ghost-dices-mobile" valknut={snap.val().valknut} i18n={i18n} book={1}/>
                                     <GameAction type="green-dices" valknut={snap.val().valknut} i18n={i18n} book={1}/>
                                     <GameAction type="green-dices-mobile" valknut={snap.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="clean-state" valknut={snap.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="clean-state-mobile" valknut={snap.val().valknut} i18n={i18n} book={1}/>
+                                </React.Fragment>}
+                                {snap.val().bookLvl >= 2 && <React.Fragment>
                                     <GameAction type="red-dices" valknut={snap.val().valknut} i18n={i18n} book={1}/>
                                     <GameAction type="red-dices-mobile" valknut={snap.val().valknut} i18n={i18n} book={1}/>
                                     <GameAction type="malediction" valknut={snap.val().valknut} i18n={i18n} currentPlayer={snap.key} book={1}/>
                                     <GameAction type="malediction-mobile" valknut={snap.val().valknut} i18n={i18n} currentPlayer={snap.key} book={1}/>
-                                    <GameAction type="clean-state" valknut={snap.val().valknut} i18n={i18n} book={1}/>
-                                    <GameAction type="clean-state-mobile" valknut={snap.val().valknut} i18n={i18n} book={1}/>
+                                </React.Fragment>}
+                                {snap.val().bookLvl >= 3 && <React.Fragment>
+                                    <GameAction type="ghost-dices" valknut={snap.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="ghost-dices-mobile" valknut={snap.val().valknut} i18n={i18n} book={1}/>
                                     <GameAction type="see-dices" valknut={snap.val().valknut} i18n={i18n} book={1}/>
                                     <GameAction type="see-dices-mobile" valknut={snap.val().valknut} i18n={i18n} book={1}/>
                                 </React.Fragment>}
