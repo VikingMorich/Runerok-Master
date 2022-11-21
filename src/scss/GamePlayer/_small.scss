@@ -63,6 +63,20 @@
         right: 5%;
         padding-right: 5px;
     }
+    &__ext{
+        display: flex;
+        width: calc(100% - 25px);
+        margin-top: 5px;
+        justify-content: space-between;
+    }
+    &__book-wrap{
+        display: flex;
+        gap: 5px;
+        .book-icon{
+            width: 20px;
+            height: 20px;
+        }
+    }
     &__armor{
         display: flex;
         align-items: center;
@@ -70,6 +84,7 @@
             margin-right: 5px
         }
     }
+
     &__icon{
         display: flex;
         align-items: center;
@@ -87,6 +102,14 @@
         position: absolute;
         top: 0;
         right: 0;
+        padding: 5px;
+    }
+    &__malediction{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 25px;
+        height: 25px;
         padding: 5px;
     }
 }

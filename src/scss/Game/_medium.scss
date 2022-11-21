@@ -27,6 +27,7 @@
         width: 350px;
         margin-top: 0px;
         z-index: 5;
+        overflow-y: scroll;
         border-top: none;
         &--container{
             display: flex;
@@ -48,6 +49,9 @@
             width: 40%;
             right: 30%;
             height: 65px;
+            position: sticky;
+            left: 30%;
+            right: 0;
             span{
                 font-size: 36px;
             }

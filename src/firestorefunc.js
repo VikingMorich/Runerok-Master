@@ -56,7 +56,9 @@ export function initFirebase(i18n) {
                                     shieldUsed: snapshot.val().shieldUsed,
                                     gameMode: gameModeSnap.val().gameMode,
                                     extraTurn: gameStatsSnap.val().extraTurn,
-                                    state: snapshot.val().state
+                                    state: snapshot.val().state,
+                                    bookLvl: snapshot.val().bookLvl,
+                                    malediction: snapshot.val().malediction,
                                 }
                                 ReactDOM.render(<GamePlayer i18n={i18n} gamePlayerData={gamePlayerData}/>, user) 
                             })
@@ -108,7 +110,9 @@ export function initFirebase(i18n) {
                                                 shieldUsed: snapshot.val().shieldUsed,
                                                 gameMode: gameModeSnap.val().gameMode,
                                                 extraTurn: gameSnap.val().extraTurn,
-                                                state: snapshot.val().state
+                                                state: snapshot.val().state,
+                                                bookLvl: snapshot.val().bookLvl,
+                                                malediction: snapshot.val().malediction,
                                             }
                                             ReactDOM.render(<GamePlayer i18n={i18n} gamePlayerData={gamePlayerData}/>, user)
                                         })
@@ -122,25 +126,52 @@ export function initFirebase(i18n) {
                     }
                 })
                 let objActions = document.getElementById('actions-container')
-                objActions.innerHTML = ''
                 const actionButtons = document.createElement('div')
                 actionButtons.id = 'action-buttons'
                 actionButtons.className = "c-game__actions--container"
                 let currentPlayerStats = firebase.database().ref("Room/Players/"+cookies.get('key'))
-                currentPlayerStats.once("value", function(snapshot) {
-                    ReactDOM.render(<React.Fragment>
-                        <GameAction type="extra-points" valknut={snapshot.val().valknut} runes={snapshot.val().runes} i18n={i18n}/>
-                        <GameAction type="extra-points-mobile" valknut={snapshot.val().valknut} runes={snapshot.val().runes} i18n={i18n}/>
-                        <GameAction type="damage" valknut={snapshot.val().valknut} i18n={i18n} currentPlayer={snapshot.key}/>
-                        <GameAction type="damage-mobile" valknut={snapshot.val().valknut} i18n={i18n} currentPlayer={snapshot.key}/>
-                        <GameAction type="ghost-dices" valknut={snapshot.val().valknut} i18n={i18n}/>
-                        <GameAction type="ghost-dices-mobile" valknut={snapshot.val().valknut} i18n={i18n}/>
-                        <GameAction type="extra-turn" valknut={snapshot.val().valknut} turn={snap.val() === cookies.get('key')} i18n={i18n}/>
-                        <GameAction type="extra-turn-mobile" valknut={snapshot.val().valknut} turn={snap.val() === cookies.get('key')} i18n={i18n}/>
-                    </React.Fragment>, actionButtons)
-                    objActions.appendChild(actionButtons)
-                }) 
-                // NEW GAME ACTION GHOST DICES (UNSELECT UNROLLED DICES)
+                let defgameMode = firebase.database().ref("Room/RoomState")
+                defgameMode.once("value", function(roomStateSnap) {
+                    currentPlayerStats.once("value", function(snapshot) {
+                        objActions.innerHTML = ''
+                        if(roomStateSnap.val().gameMode === 'standart') {
+                            ReactDOM.render(<React.Fragment>
+                                <GameAction type="extra-points" valknut={snapshot.val().valknut} runes={snapshot.val().runes} i18n={i18n}/>
+                                <GameAction type="extra-points-mobile" valknut={snapshot.val().valknut} runes={snapshot.val().runes} i18n={i18n}/>
+                                <GameAction type="damage" valknut={snapshot.val().valknut} i18n={i18n} currentPlayer={snapshot.key}/>
+                                <GameAction type="damage-mobile" valknut={snapshot.val().valknut} i18n={i18n} currentPlayer={snapshot.key}/>
+                                <GameAction type="extra-turn" valknut={snapshot.val().valknut} turn={snap.val() === cookies.get('key')} i18n={i18n}/>
+                                <GameAction type="extra-turn-mobile" valknut={snapshot.val().valknut} turn={snap.val() === cookies.get('key')} i18n={i18n}/>
+                            </React.Fragment>, actionButtons)
+                        }
+                        else {
+                            ReactDOM.render(<React.Fragment>
+                                <GameAction type="extra-points" valknut={snapshot.val().valknut} runes={snapshot.val().runes} i18n={i18n}/>
+                                <GameAction type="extra-points-mobile" valknut={snapshot.val().valknut} runes={snapshot.val().runes} i18n={i18n}/>
+                                <GameAction type="damage" valknut={snapshot.val().valknut} i18n={i18n} currentPlayer={snapshot.key}/>
+                                <GameAction type="damage-mobile" valknut={snapshot.val().valknut} i18n={i18n} currentPlayer={snapshot.key}/>
+                                {snapshot.val().bookLvl >= 1 && <React.Fragment>
+                                    <GameAction type="ghost-dices" valknut={snapshot.val().valknut} i18n={i18n} book={1} />
+                                    <GameAction type="ghost-dices-mobile" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="green-dices" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="green-dices-mobile" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="red-dices" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="red-dices-mobile" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="malediction" valknut={snapshot.val().valknut} i18n={i18n} currentPlayer={snapshot.key} book={1}/>
+                                    <GameAction type="malediction-mobile" valknut={snapshot.val().valknut} i18n={i18n} currentPlayer={snapshot.key} book={1}/>
+                                    <GameAction type="clean-state" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="clean-state-mobile" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="see-dices" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="see-dices-mobile" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
+                                </React.Fragment>}
+                                <GameAction type="extra-turn" valknut={snapshot.val().valknut} turn={snap.val() === cookies.get('key')} i18n={i18n}/>
+                                <GameAction type="extra-turn-mobile" valknut={snapshot.val().valknut} turn={snap.val() === cookies.get('key')} i18n={i18n}/>
+                            </React.Fragment>, actionButtons)
+                        }
+                        objActions.appendChild(actionButtons)
+                    })
+                })
+                 
                 // EVITAR MAL A UN MATEIX AMB DAMAGE
             }
             if (snap.key === 'selectedDices') {
@@ -239,7 +270,9 @@ export function initFirebase(i18n) {
                                     shieldUsed: snapshot.val().shieldUsed,
                                     gameMode: gameModeSnap.val().gameMode,
                                     extraTurn: gameStatsSnap.val().extraTurn,
-                                    state: snapshot.val().state
+                                    state: snapshot.val().state,
+                                    bookLvl: snapshot.val().bookLvl,
+                                    malediction: snapshot.val().malediction,
                                 }
                                 ReactDOM.render(<GamePlayer i18n={i18n} gamePlayerData={gamePlayerData}/>, user)
                             })
@@ -282,7 +315,9 @@ export function initFirebase(i18n) {
                                         shieldUsed: snapshot.val().shieldUsed,
                                         gameMode: gameModeSnap.val().gameMode,
                                         extraTurn: gameSnap.val().extraTurn,
-                                        state: snapshot.val().state
+                                        state: snapshot.val().state,
+                                        bookLvl: snapshot.val().bookLvl,
+                                        malediction: snapshot.val().malediction,
                                     }
                                     ReactDOM.render(<GamePlayer i18n={i18n} gamePlayerData={gamePlayerData}/>, user)
                                 })
@@ -327,7 +362,9 @@ export function initFirebase(i18n) {
                                         shieldUsed: snapshot.val().shieldUsed,
                                         gameMode: gameModeSnap.val().gameMode,
                                         extraTurn: gameSnap.val().extraTurn,
-                                        state: snapshot.val().state
+                                        state: snapshot.val().state,
+                                        bookLvl: snapshot.val().bookLvl,
+                                        malediction: snapshot.val().malediction,
                                     }
                                     ReactDOM.render(<GamePlayer i18n={i18n} gamePlayerData={gamePlayerData}/>, user)
                                 })
@@ -352,23 +389,49 @@ export function initFirebase(i18n) {
                     buttonContainer.appendChild(button)
                 }
                 let objActions = document.getElementById('actions-container')
-                objActions.innerHTML = ''
                 const actionButtons = document.createElement('div')
                 actionButtons.id = 'action-buttons'
                 actionButtons.className = "c-game__actions--container"
                 let currentPlayerStats = firebase.database().ref("Room/Players/"+cookies.get('key'))
-                currentPlayerStats.once("value", function(snapshot) {
-                    ReactDOM.render(<React.Fragment>
-                        <GameAction type="extra-points" valknut={snapshot.val().valknut} runes={snapshot.val().runes} i18n={i18n}/>
-                        <GameAction type="extra-points-mobile" valknut={snapshot.val().valknut} runes={snapshot.val().runes} i18n={i18n}/>
-                        <GameAction type="damage" valknut={snapshot.val().valknut} i18n={i18n} currentPlayer={snapshot.key} />
-                        <GameAction type="damage-mobile" valknut={snapshot.val().valknut} i18n={i18n} currentPlayer={snapshot.key}/>
-                        <GameAction type="ghost-dices" valknut={snapshot.val().valknut} i18n={i18n}/>
-                        <GameAction type="ghost-dices-mobile" valknut={snapshot.val().valknut} i18n={i18n}/>
-                        <GameAction type="extra-turn" valknut={snapshot.val().valknut} turn={snap.val() === cookies.get('key')} i18n={i18n}/>
-                        <GameAction type="extra-turn-mobile" valknut={snapshot.val().valknut} turn={snap.val() === cookies.get('key')} i18n={i18n}/>
-                    </React.Fragment>, actionButtons)
-                    objActions.appendChild(actionButtons)
+                let defgameMode = firebase.database().ref("Room/RoomState")
+                defgameMode.once("value", function(roomStateSnap) {
+                    currentPlayerStats.once("value", function(snapshot) {
+                        objActions.innerHTML = ''
+                        if(roomStateSnap.val().gameMode === 'standart') {
+                            ReactDOM.render(<React.Fragment>
+                                <GameAction type="extra-points" valknut={snapshot.val().valknut} runes={snapshot.val().runes} i18n={i18n}/>
+                                <GameAction type="extra-points-mobile" valknut={snapshot.val().valknut} runes={snapshot.val().runes} i18n={i18n}/>
+                                <GameAction type="damage" valknut={snapshot.val().valknut} i18n={i18n} currentPlayer={snapshot.key} />
+                                <GameAction type="damage-mobile" valknut={snapshot.val().valknut} i18n={i18n} currentPlayer={snapshot.key}/>
+                                <GameAction type="extra-turn" valknut={snapshot.val().valknut} turn={snap.val() === cookies.get('key')} i18n={i18n}/>
+                                <GameAction type="extra-turn-mobile" valknut={snapshot.val().valknut} turn={snap.val() === cookies.get('key')} i18n={i18n}/>
+                            </React.Fragment>, actionButtons)
+                        } else {
+                            ReactDOM.render(<React.Fragment>
+                                <GameAction type="extra-points" valknut={snapshot.val().valknut} runes={snapshot.val().runes} i18n={i18n}/>
+                                <GameAction type="extra-points-mobile" valknut={snapshot.val().valknut} runes={snapshot.val().runes} i18n={i18n}/>
+                                <GameAction type="damage" valknut={snapshot.val().valknut} i18n={i18n} currentPlayer={snapshot.key} />
+                                <GameAction type="damage-mobile" valknut={snapshot.val().valknut} i18n={i18n} currentPlayer={snapshot.key}/>
+                                {snapshot.val().bookLvl >= 1 && <React.Fragment>
+                                    <GameAction type="ghost-dices" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="ghost-dices-mobile" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="green-dices" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="green-dices-mobile" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="red-dices" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="red-dices-mobile" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="malediction" valknut={snapshot.val().valknut} i18n={i18n} currentPlayer={snapshot.key} book={1}/>
+                                    <GameAction type="malediction-mobile" valknut={snapshot.val().valknut} i18n={i18n} currentPlayer={snapshot.key} book={1}/>
+                                    <GameAction type="clean-state" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="clean-state-mobile" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="see-dices" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="see-dices-mobile" valknut={snapshot.val().valknut} i18n={i18n} book={1}/>
+                                </React.Fragment>}
+                                <GameAction type="extra-turn" valknut={snapshot.val().valknut} turn={snap.val() === cookies.get('key')} i18n={i18n}/>
+                                <GameAction type="extra-turn-mobile" valknut={snapshot.val().valknut} turn={snap.val() === cookies.get('key')} i18n={i18n}/>
+                            </React.Fragment>, actionButtons)
+                        }
+                        objActions.appendChild(actionButtons)
+                    })
                 })
             }
             if (snap.key === 'selectedDices') {
@@ -501,6 +564,10 @@ export function initFirebase(i18n) {
                     ReactDOM.render(<RollingDice color={snap.val().color} even={even}/>, diceSelected)
                     objSelectedDices.appendChild(diceSelected)
                 }
+                else {
+                    wrapperChanged.className = snap.val().color
+                    ReactDOM.render(<RollingDice color={snap.val().color} even={even}/>, wrapperChanged)
+                }
                 if(snap.val().value && wrapperChanged && snap.val().rolling){
                     
                     let frontDiceFace = wrapperChanged.getElementsByClassName('data-side-1')
@@ -613,19 +680,46 @@ export function initFirebase(i18n) {
                 actionButtons.id = 'action-buttons'
                 actionButtons.className = "c-game__actions--container"
                 let currentPlayerTurn = firebase.database().ref("Room/Game/Stats/turn")
-                currentPlayerTurn.once("value", function(snapshot) {
-                    ReactDOM.render(<React.Fragment>
-                        <GameAction type="extra-points" valknut={snap.val().valknut} runes={snap.val().runes} i18n={i18n}/>
-                        <GameAction type="extra-points-mobile" valknut={snap.val().valknut} runes={snap.val().runes} i18n={i18n}/>
-                        <GameAction type="damage" valknut={snap.val().valknut} i18n={i18n} currentPlayer={snap.key}/>
-                        <GameAction type="damage-mobile" valknut={snap.val().valknut} i18n={i18n} currentPlayer={snap.key}/>
-                        <GameAction type="ghost-dices" valknut={snap.val().valknut} i18n={i18n}/>
-                        <GameAction type="ghost-dices-mobile" valknut={snap.val().valknut} i18n={i18n}/>
-                        <GameAction type="extra-turn" valknut={snap.val().valknut} turn={snapshot.val() === cookies.get('key')} i18n={i18n}/>
-                        <GameAction type="extra-turn-mobile" valknut={snap.val().valknut} turn={snapshot.val() === cookies.get('key')} i18n={i18n}/>
-                    </React.Fragment>, actionButtons)
-                    objActions.appendChild(actionButtons)
-                }) 
+                let defgameMode = firebase.database().ref("Room/RoomState")
+                defgameMode.once("value", function(roomStateSnap) {
+                    currentPlayerTurn.once("value", function(snapshot) {
+                        objActions.innerHTML = ''
+                        if(roomStateSnap.val().gameMode === 'standart') {
+                            ReactDOM.render(<React.Fragment>
+                                <GameAction type="extra-points" valknut={snap.val().valknut} runes={snap.val().runes} i18n={i18n}/>
+                                <GameAction type="extra-points-mobile" valknut={snap.val().valknut} runes={snap.val().runes} i18n={i18n}/>
+                                <GameAction type="damage" valknut={snap.val().valknut} i18n={i18n} currentPlayer={snap.key}/>
+                                <GameAction type="damage-mobile" valknut={snap.val().valknut} i18n={i18n} currentPlayer={snap.key}/>
+                                <GameAction type="extra-turn" valknut={snap.val().valknut} turn={snapshot.val() === cookies.get('key')} i18n={i18n}/>
+                                <GameAction type="extra-turn-mobile" valknut={snap.val().valknut} turn={snapshot.val() === cookies.get('key')} i18n={i18n}/>
+                            </React.Fragment>, actionButtons)
+                        } else {
+                            ReactDOM.render(<React.Fragment>
+                                <GameAction type="extra-points" valknut={snap.val().valknut} runes={snap.val().runes} i18n={i18n}/>
+                                <GameAction type="extra-points-mobile" valknut={snap.val().valknut} runes={snap.val().runes} i18n={i18n}/>
+                                <GameAction type="damage" valknut={snap.val().valknut} i18n={i18n} currentPlayer={snap.key}/>
+                                <GameAction type="damage-mobile" valknut={snap.val().valknut} i18n={i18n} currentPlayer={snap.key}/>
+                                {snap.val().bookLvl >= 1 && <React.Fragment>
+                                    <GameAction type="ghost-dices" valknut={snap.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="ghost-dices-mobile" valknut={snap.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="green-dices" valknut={snap.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="green-dices-mobile" valknut={snap.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="red-dices" valknut={snap.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="red-dices-mobile" valknut={snap.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="malediction" valknut={snap.val().valknut} i18n={i18n} currentPlayer={snap.key} book={1}/>
+                                    <GameAction type="malediction-mobile" valknut={snap.val().valknut} i18n={i18n} currentPlayer={snap.key} book={1}/>
+                                    <GameAction type="clean-state" valknut={snap.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="clean-state-mobile" valknut={snap.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="see-dices" valknut={snap.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="see-dices-mobile" valknut={snap.val().valknut} i18n={i18n} book={1}/>
+                                </React.Fragment>}
+                                <GameAction type="extra-turn" valknut={snap.val().valknut} turn={snapshot.val() === cookies.get('key')} i18n={i18n}/>
+                                <GameAction type="extra-turn-mobile" valknut={snap.val().valknut} turn={snapshot.val() === cookies.get('key')} i18n={i18n}/>
+                            </React.Fragment>, actionButtons)
+                        }
+                        objActions.appendChild(actionButtons)
+                    })
+                })
             }
             let objPlayers = document.getElementById('players')
             let playerChanged = document.getElementById(snap.key)
@@ -649,7 +743,9 @@ export function initFirebase(i18n) {
                         shieldUsed: snap.val().shieldUsed,
                         gameMode: gameModeSnap.val().gameMode,
                         extraTurn: snapshot.val().extraTurn,
-                        state: snap.val().state
+                        state: snap.val().state,
+                        bookLvl: snap.val().bookLvl,
+                        malediction: snap.val().malediction,
                     }
                     ReactDOM.render(<GamePlayer i18n={i18n} gamePlayerData={gamePlayerData}/>, user)
                 })
@@ -705,18 +801,45 @@ export function initFirebase(i18n) {
                 actionButtons.id = 'action-buttons'
                 actionButtons.className = "c-game__actions--container"
                 let currentPlayerTurn = firebase.database().ref("Room/Game/Stats/turn")
-                currentPlayerTurn.once("value", function(snapshot) {
-                    ReactDOM.render(<React.Fragment>
-                        <GameAction type="extra-points" valknut={snap.val().valknut} runes={snap.val().runes} i18n={i18n}/>
-                        <GameAction type="extra-points-mobile" valknut={snap.val().valknut} runes={snap.val().runes} i18n={i18n}/>
-                        <GameAction type="damage" valknut={snap.val().valknut} i18n={i18n} currentPlayer={snap.key}/>
-                        <GameAction type="damage-mobile" valknut={snap.val().valknut} i18n={i18n} currentPlayer={snap.key}/>
-                        <GameAction type="ghost-dices" valknut={snap.val().valknut} i18n={i18n}/>
-                        <GameAction type="ghost-dices-mobile" valknut={snap.val().valknut} i18n={i18n}/>
-                        <GameAction type="extra-turn" valknut={snap.val().valknut} turn={snapshot.val() === cookies.get('key')} i18n={i18n}/>
-                        <GameAction type="extra-turn-mobile" valknut={snap.val().valknut} turn={snapshot.val() === cookies.get('key')} i18n={i18n}/>
-                    </React.Fragment>, actionButtons)
-                    objActions.appendChild(actionButtons)
+                let defgameMode = firebase.database().ref("Room/RoomState")
+                defgameMode.once("value", function(roomStateSnap) {
+                    currentPlayerTurn.once("value", function(snapshot) {
+                        objActions.innerHTML = ''
+                        if(roomStateSnap.val().gameMode === 'standart') {
+                            ReactDOM.render(<React.Fragment>
+                                <GameAction type="extra-points" valknut={snap.val().valknut} runes={snap.val().runes} i18n={i18n}/>
+                                <GameAction type="extra-points-mobile" valknut={snap.val().valknut} runes={snap.val().runes} i18n={i18n}/>
+                                <GameAction type="damage" valknut={snap.val().valknut} i18n={i18n} currentPlayer={snap.key}/>
+                                <GameAction type="damage-mobile" valknut={snap.val().valknut} i18n={i18n} currentPlayer={snap.key}/>
+                                <GameAction type="extra-turn" valknut={snap.val().valknut} turn={snapshot.val() === cookies.get('key')} i18n={i18n}/>
+                                <GameAction type="extra-turn-mobile" valknut={snap.val().valknut} turn={snapshot.val() === cookies.get('key')} i18n={i18n}/>
+                            </React.Fragment>, actionButtons)
+                        } else {
+                            ReactDOM.render(<React.Fragment>
+                                <GameAction type="extra-points" valknut={snap.val().valknut} runes={snap.val().runes} i18n={i18n}/>
+                                <GameAction type="extra-points-mobile" valknut={snap.val().valknut} runes={snap.val().runes} i18n={i18n}/>
+                                <GameAction type="damage" valknut={snap.val().valknut} i18n={i18n} currentPlayer={snap.key}/>
+                                <GameAction type="damage-mobile" valknut={snap.val().valknut} i18n={i18n} currentPlayer={snap.key}/>
+                                {snap.val().bookLvl >= 1 && <React.Fragment>
+                                    <GameAction type="ghost-dices" valknut={snap.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="ghost-dices-mobile" valknut={snap.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="green-dices" valknut={snap.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="green-dices-mobile" valknut={snap.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="red-dices" valknut={snap.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="red-dices-mobile" valknut={snap.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="malediction" valknut={snap.val().valknut} i18n={i18n} currentPlayer={snap.key} book={1}/>
+                                    <GameAction type="malediction-mobile" valknut={snap.val().valknut} i18n={i18n} currentPlayer={snap.key} book={1}/>
+                                    <GameAction type="clean-state" valknut={snap.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="clean-state-mobile" valknut={snap.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="see-dices" valknut={snap.val().valknut} i18n={i18n} book={1}/>
+                                    <GameAction type="see-dices-mobile" valknut={snap.val().valknut} i18n={i18n} book={1}/>
+                                </React.Fragment>}
+                                <GameAction type="extra-turn" valknut={snap.val().valknut} turn={snapshot.val() === cookies.get('key')} i18n={i18n}/>
+                                <GameAction type="extra-turn-mobile" valknut={snap.val().valknut} turn={snapshot.val() === cookies.get('key')} i18n={i18n}/>
+                            </React.Fragment>, actionButtons)
+                        }
+                        objActions.appendChild(actionButtons)
+                    })
                 })
             }
             let objPlayers = document.getElementById('players')
@@ -741,7 +864,9 @@ export function initFirebase(i18n) {
                         shieldUsed: snap.val().shieldUsed,
                         gameMode: gameModeSnap.val().gameMode,
                         extraTurn: snapshot.val().extraTurn,
-                        state: snap.val().state
+                        state: snap.val().state,
+                        bookLvl: snap.val().bookLvl,
+                        malediction: snap.val().malediction,
                     }
                     ReactDOM.render(<GamePlayer i18n={i18n} gamePlayerData={gamePlayerData}/>, user)
                 })

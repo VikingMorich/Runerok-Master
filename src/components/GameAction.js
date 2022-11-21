@@ -1,7 +1,7 @@
 import React from 'react';
 import fire from '../fire'
 import Cookies from 'universal-cookie';
-import { Damage, Rune } from './icon/icon';
+import { Damage, Rune, Malediction } from './icon/icon';
 
 
 export default function GameAction(props) {
@@ -9,13 +9,18 @@ export default function GameAction(props) {
     const extraPointsCost = 2
     const damageCost = 3
     const ghostCost = 5
+    const greenCost = 3
+    const redCost = 3
+    const maledictionCost = 3
+    const cleanCost = 3
+    const seeCost = 3
     const extraTurnCost = 10
 
     function useAction() {
         let ref = fire.database().ref().child('Room').child('Players').child(cookies.get('key'))
         let updates = {}
-        let actionType = props.type === 'ghost-dices' || props.type === 'ghost-dices-mobile' ? 'ghost-dices' : props.type === 'extra-points' || props.type === 'extra-points-mobile' ? 'extra-points' : props.type === 'damage' || props.type === 'damage-mobile' ? 'damage' : props.type === 'extra-turn' || props.type === 'extra-turn-mobile' ? 'extra-turn' : ''
-        let actionCost = actionType === 'ghost-dices' ? ghostCost : actionType === 'extra-points' ? extraPointsCost : actionType === 'damage' ? damageCost : actionType === 'extra-turn' ? extraTurnCost : 0
+        let actionType = props.type === 'see-dices' || props.type === 'see-dices-mobile' ? 'see-dices' : props.type === 'clean-state' || props.type === 'clean-state-mobile' ? 'clean-state' : props.type === 'red-dices' || props.type === 'red-dices-mobile' ? 'red-dices' : props.type === 'green-dices' || props.type === 'green-dices-mobile' ? 'green-dices' : props.type === 'ghost-dices' || props.type === 'ghost-dices-mobile' ? 'ghost-dices' : props.type === 'extra-points' || props.type === 'extra-points-mobile' ? 'extra-points' : props.type === 'damage' || props.type === 'damage-mobile' ? 'damage' : props.type === 'extra-turn' || props.type === 'extra-turn-mobile' ? 'extra-turn' : props.type === 'malediction' || props.type === 'malediction-mobile' ? 'malediction' : ''
+        let actionCost = actionType === 'see-dices' ? seeCost : actionType === 'clean-state' ? cleanCost : actionType === 'red-dices' ? redCost : actionType === 'green-dices' ? greenCost : actionType === 'ghost-dices' ? ghostCost : actionType === 'extra-points' ? extraPointsCost : actionType === 'damage' ? damageCost : actionType === 'extra-turn' ? extraTurnCost : actionType === 'malediction' ? maledictionCost : 0
         updates['valknut'] = props.valknut - actionCost
         let stoppedAction = false
         if (actionType === 'extra-points'){
@@ -27,7 +32,6 @@ export default function GameAction(props) {
             const numberDices = dices.length
             let defGame = fire.database().ref("Room/Game/Stats")
             defGame.once("value", function(nap) {
-                //REVISAR PQ ES PODEN FER COSES RARES SI QUEDA ALGUN DAU SELECCIONAT AMB VAIXELL
                 if (nap.val().selectedDices === 0) {
                     alert('No hi ha daus seleccionats... 😅 Intenta ser més ràpid el proxim cop')
                 } else {
@@ -42,10 +46,76 @@ export default function GameAction(props) {
                         updates['used'] = true
                         ref.update(updates)
                     }
-                    
                     let updateGame = {}
                     updateGame['selectedDices'] = 0
                     defGame.update(updateGame)
+                }
+            })
+        }
+        if (actionType === 'see-dices') {
+            let defDices = fire.database().ref("Room/Game/Dices")
+            defDices.once("value", function(diceSnap) {
+                let currentState = diceSnap.val()
+                diceSnap.val().forEach((element, key) => {
+                    let diceRef = fire.database().ref("Room/Game/Dices/" + key)
+                    let updates = {}
+                    updates['selected'] = true
+                    updates['used'] = true
+                    diceRef.update(updates)
+                });
+                setTimeout(() => { 
+                    currentState.forEach((element, key) => {
+                        let diceRef = fire.database().ref("Room/Game/Dices/" + key)
+                        let updates = {}
+                        updates['selected'] = element.selected ? element.selected : false
+                        updates['used'] = element.used ? element.used : false
+                        diceRef.update(updates)
+                    });
+                }, 800);
+                
+            })
+        }
+        if (actionType === 'clean-state') {
+            updates['state'] = 'normal'
+        }
+        if (actionType === 'green-dices') {
+            let dices = document.getElementById('selected-dices').childNodes
+            const numberDices = dices.length
+            let instanceDices =  { ...dices }
+            for (let i = 0; i < numberDices; i++) {
+                let str = instanceDices[i].id
+                let res = str.replace("-selected", "");
+                let ref = fire.database().ref("Room/Game/Dices/" + res)
+                let updates = {}
+                updates['color'] = 'green'
+                ref.update(updates)
+            }
+        }
+        if (actionType === 'red-dices') {
+            let dices = document.getElementById('selected-dices').childNodes
+            const numberDices = dices.length
+            let instanceDices =  { ...dices }
+            for (let i = 0; i < numberDices; i++) {
+                let str = instanceDices[i].id
+                let res = str.replace("-selected", "");
+                let ref = fire.database().ref("Room/Game/Dices/" + res)
+                let updates = {}
+                updates['color'] = 'red'
+                ref.update(updates)
+            }
+        }
+        if (actionType === 'malediction'){
+            let currentTurn = fire.database().ref("Room/Game/Stats/turn")
+            currentTurn.once("value", function(data) {
+                if(data.val() === props.currentPlayer) {
+                    delete updates.valknut
+                    alert('Es el teu torn... 🧨🥴💣')
+                    stoppedAction = true
+                }
+                else {
+                    let userVal = fire.database().ref("Room/Players/"+data.val())
+                    let updatesAction = { malediction: true}
+                    userVal.update(updatesAction)
                 }
             })
         }
@@ -195,7 +265,120 @@ export default function GameAction(props) {
                     </div>
                 </div>
             }
-            {/* ⏳🔄    🎖️🏅➕🤫🎣🧎🏻‍♂️    🥊🧨🪤🏴‍☠️  👻🔲*/}
+            {props.type === 'green-dices' && 
+                <div id="green-dices" className={(props.valknut >= greenCost) ? "c-action" : "c-action--disabled"}
+                onClick={(props.valknut >= greenCost) ? useAction : () => {}}>
+                    <div className="c-action__cost">
+                    <span>{greenCost}</span>
+                    </div>
+                    <div className="c-action__info">
+                        <span>{props.i18n('gameAction.greenDices')}</span>
+                    </div>
+                </div>
+            }
+            {props.type === 'green-dices-mobile' && 
+                <div id="green-dices-mobile" className={(props.valknut >= greenCost) ? "c-action-mobile" : "c-action-mobile--disabled"}
+                onClick={(props.valknut >= greenCost) ? useAction : () => {}}>
+                    <div className="c-action__cost">
+                    <span>{greenCost}</span>
+                    </div>
+                    <div className="c-action__info">
+                        <span>🟩⏹️</span>
+                    </div>
+                </div>
+            }
+            {props.type === 'red-dices' && 
+                <div id="red-dices" className={(props.valknut >= redCost) ? "c-action" : "c-action--disabled"}
+                onClick={(props.valknut >= redCost) ? useAction : () => {}}>
+                    <div className="c-action__cost">
+                    <span>{redCost}</span>
+                    </div>
+                    <div className="c-action__info">
+                        <span>{props.i18n('gameAction.redDices')}</span>
+                    </div>
+                </div>
+            }
+            {props.type === 'red-dices-mobile' && 
+                <div id="red-dices-mobile" className={(props.valknut >= redCost) ? "c-action-mobile" : "c-action-mobile--disabled"}
+                onClick={(props.valknut >= redCost) ? useAction : () => {}}>
+                    <div className="c-action__cost">
+                    <span>{redCost}</span>
+                    </div>
+                    <div className="c-action__info">
+                        <span>🟥⏹️</span>
+                    </div>
+                </div>
+            }
+            {props.type === 'malediction' && 
+                <div id="malediction" className={(props.valknut >= maledictionCost) ? "c-action" : "c-action--disabled"}
+                onClick={(props.valknut >= maledictionCost) ? useAction : () => {}}>
+                    <div className="c-action__cost">
+                    <span>{maledictionCost}</span>
+                    </div>
+                    <div className="c-action__info">
+                        <span>{props.i18n('gameAction.malediction')}</span>
+                    </div>
+                </div>
+            }
+            {props.type === 'malediction-mobile' && 
+                <div id="malediction-mobile" className={(props.valknut >= maledictionCost) ? "c-action-mobile" : "c-action-mobile--disabled"}
+                onClick={(props.valknut >= maledictionCost) ? useAction : () => {}}>
+                    <div className="c-action__cost">
+                    <span>{maledictionCost}</span>
+                    </div>
+                    <div className="c-action__info">
+                        <span>🥊</span>
+                        <div className="c-action__info--icon">
+                            <Malediction />
+                        </div>
+                    </div>
+                </div>
+            }
+            {props.type === 'clean-state' && 
+                <div id="clean-state" className={(props.valknut >= cleanCost) ? "c-action" : "c-action--disabled"}
+                onClick={(props.valknut >= cleanCost) ? useAction : () => {}}>
+                    <div className="c-action__cost">
+                    <span>{cleanCost}</span>
+                    </div>
+                    <div className="c-action__info">
+                        <span>{props.i18n('gameAction.cleanState')}</span>
+                    </div>
+                </div>
+            }
+            {props.type === 'clean-state-mobile' && 
+                <div id="clean-state-mobile" className={(props.valknut >= cleanCost) ? "c-action-mobile" : "c-action-mobile--disabled"}
+                onClick={(props.valknut >= cleanCost) ? useAction : () => {}}>
+                    <div className="c-action__cost">
+                    <span>{cleanCost}</span>
+                    </div>
+                    <div className="c-action__info">
+                        <span>🧽✨</span>
+                    </div>
+                </div>
+            }
+            {props.type === 'see-dices' && 
+                <div id="see-dices" className={(props.valknut >= seeCost) ? "c-action" : "c-action--disabled"}
+                onClick={(props.valknut >= seeCost) ? useAction : () => {}}>
+                    <div className="c-action__cost">
+                    <span>{seeCost}</span>
+                    </div>
+                    <div className="c-action__info">
+                        <span>{props.i18n('gameAction.seeDices')}</span>
+                    </div>
+                </div>
+            }
+            {props.type === 'see-dices-mobile' && 
+                <div id="see-dices-mobile" className={(props.valknut >= seeCost) ? "c-action-mobile" : "c-action-mobile--disabled"}
+                onClick={(props.valknut >= seeCost) ? useAction : () => {}}>
+                    <div className="c-action__cost">
+                    <span>{seeCost}</span>
+                    </div>
+                    <div className="c-action__info">
+                        <span>👁️⏹️</span>
+                    </div>
+                </div>
+            }
+            {/* ⏳🔄    🎖️🏅➕🤫🎣🧎🏻‍♂️    🥊🧨🪤🏴‍☠️  👻🟥🔲*/}
         </React.Fragment>
     );
 }

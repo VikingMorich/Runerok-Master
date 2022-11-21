@@ -138,7 +138,12 @@
         "extraPoints": "Afegeix una runa al total de runes segures",
         "damage": "Fes un punt de mal a la persona que tingui el torn",
         "extraTurn": "Guanya un torn extra (només en el teu torn)",
-        "ghostDices": "Desmarca els daus seleccionats"
+        "ghostDices": "Desmarca els daus seleccionats",
+        "greenDices": "Converteix els daus seleccionats en verds",
+        "redDices": "Converteix els daus seleccionats en vermells",
+        "malediction": "Maleeix al jugador que tingui el torn (si mort perd armadura)",
+        "cleanState": "Neteja el teu modificador d'estat (torna a normal)",
+        "seeDices": "Mira tots els colors dels daus durant 1s"
     },
     "error404": {
         "title": "404: PÀGINA NO TROBADA",

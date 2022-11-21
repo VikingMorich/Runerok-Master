@@ -1040,3 +1040,9 @@ export const Mushroom = () => {
         <img src="/icons/mushroom.png" alt='mushroom' width='100%' height='100%'></img>
     );
 };
+
+export const Malediction = () => {
+    return (
+        <img src="/icons/doll.png" alt='voodoo' width='100%' height='100%'></img>
+    );
+};

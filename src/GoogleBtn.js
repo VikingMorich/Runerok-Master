@@ -55,6 +55,7 @@ export default function GoogleBtn (props) {
       helmet: false,
       helmetUsed: false,
       bookLvl: 0,
+      malediction: false,
       state: 'normal',
       magicResist: false,
       //extraTurn: false,

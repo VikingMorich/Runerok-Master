@@ -8,8 +8,8 @@ const diceTypes = {
     "green": ["rune", "rune", "valknut", "valknut", "ship", "damage"],
     "yellow": ["rune", "rune", "ship", "valknut", "damage", "damage"],
     "red": ["rune", "valknut", "ship", "damage", "damage", "damage"],
-    "blue": ['shield', 'helmet', 'damage', 'damage', 'valknut', 'ship'],
-    "purple": ['valknut', 'ham', 'beer', 'damage', 'critical', 'critical'],
+    "blue": ['shield', 'helmet', 'damage', 'ship', 'valknut', 'ship'],
+    "purple": ['valknut', 'ham', 'beer', 'damage', 'ham', 'critical'],
     "olive": ['thunder', 'thunder', 'thunder', 'mushroom', 'mushroom', 'mushroom'],
     "black": ['dragon', 'critical', 'damage', 'ship', 'ship', 'ship'],
     /**
@@ -32,12 +32,12 @@ const diceNumberStandart = {
 }
 
 const diceNumberHardcore = {
-    "green": 11,
-    "yellow": 8,
+    "green": 16,
+    "yellow": 9,
     "red": 6,
-    "blue": 4,
+    "blue": 5,
     "purple": 5,
-    "olive": 1,
+    "olive": 3,
     "black": 1,
     // "green": 9,
     // "yellow": 7,
@@ -133,7 +133,9 @@ export const rollDices = () => {
             }
             let updatePlayerState = {}
             let countDamage = 0
+            let countRunes = 0
             let countValknut = 0
+            let countBooks = 0
             let countHam = 0
             arrayValues.forEach(element => {
                 //DAMAGE
@@ -156,8 +158,11 @@ export const rollDices = () => {
                     countValknut += 1
                     updatePlayerState['valknut'] = snap.val().valknut + countValknut
                 }
+                if (element === 'book') {
+                    countBooks += 1
+                    updatePlayerState['bookLvl'] = snap.val().bookLvl + countBooks
+                }
                 if (element === 'rune') {
-                    let countRunes = 0
                     let updateGameState = {}
                     if(snap.val().lives > 0) {
                         if (mushroomed) countRunes += 2
@@ -210,6 +215,11 @@ export const rollDices = () => {
             if (snap.val().lives - countDamage <= 0){
                 let updateGameState = {}
                 updateGameState['dead'] = true
+                //MALEDICTION
+                if(snap.val().malediction) {
+                    if(snap.val().helmet) updatePlayerState['helmet'] = false
+                    else if(snap.val().shield) updatePlayerState['shield'] = false
+                }
                 currentGameState.update(updateGameState)
             }
             currentPlayerState.update(updatePlayerState)
@@ -310,13 +320,14 @@ const check = () => {
                         "shieldUsed": false,
                         "helmetUsed": false,
                         "state": "normal",
+                        "malediction": false,
                     }
                         let currentGameMode = fire.database().ref("Room/RoomState")
                         currentGameMode.once("value", function(gamemodeSnap) {
                             if (currentPlayerLives > 0) {
                                 let totalRunes = currentPlayerRunes + gameStateSnap.val().partialRunes
                                 updatePlayerState['runes'] = totalRunes
-                                if (totalRunes >= (gamemodeSnap.val().gameMode === 'hardcore' ? 21 : 13) && !gameStateSnap.val().winModeStartPlayer && !gameStateSnap.val().extraTurn) {
+                                if (totalRunes >= (gamemodeSnap.val().gameMode === 'hardcore' ? 17 : 13) && !gameStateSnap.val().winModeStartPlayer && !gameStateSnap.val().extraTurn) {
                                     updateGameState['winModeStartPlayer'] = playerTurn
                                 }
                             }
@@ -405,6 +416,9 @@ const createNewGame = () => {
             updatePlayerStats['lives'] = 3
             updatePlayerStats['valknut'] = 0
             updatePlayerStats['runes'] = 0
+            updatePlayerStats['state'] = 'normal'
+            updatePlayerStats['bookLvl'] = 0
+            updatePlayerStats['malediction'] = false
             updatePlayerStats['helmet'] = false
             updatePlayerStats['helmetUsed'] = false
             updatePlayerStats['shield'] = false
