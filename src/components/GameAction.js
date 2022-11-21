@@ -1,30 +1,55 @@
 import React from 'react';
 import fire from '../fire'
 import Cookies from 'universal-cookie';
-import { Damage, Rune, Malediction } from './icon/icon';
+import { Damage, Rune, Malediction, Book } from './icon/icon';
 
 
-export default function GameAction(props) {
-    let cookies = new Cookies();
-    const extraPointsCost = 3
-    const damageCost = 4
-    const ghostCost = 5
-    const greenCost = 4
-    const redCost = 4
-    const maledictionCost = 3
-    const cleanCost = 2
-    const seeCost = 2
-    const extraTurnCost = 10
+//export default function GameAction(props) {
+export default class GameAction extends React.Component {
+    constructor (props) {
+        super(props);
+        this.state = {
+            count: 1,
+            cookies: new Cookies(),
+            extraPointsCost: 3,
+            damageCost: 4,
+            ghostCost: 5,
+            greenCost: 4,
+            redCost: 4,
+            maledictionCost: 3,
+            cleanCost: 2,
+            seeCost: 2,
+            extraTurnCost: 10
+        }
+        this.increment = this.increment.bind(this);
+        this.decrement = this.decrement.bind(this);
+    }
+    increment () {
+        this.setState((state) => {
+            return {
+                count: state.count + 1
+            };
+        });
+    }
 
-    function useAction() {
-        let ref = fire.database().ref().child('Room').child('Players').child(cookies.get('key'))
+    decrement () {
+        this.setState((state) => {
+            return {
+                count: state.count - 1 <= 0 ? 1 : state.count - 1
+            }
+        })
+    }
+
+    useAction(context) {
+        let ref = fire.database().ref().child('Room').child('Players').child(context.state.cookies.get('key'))
         let updates = {}
-        let actionType = props.type === 'see-dices' || props.type === 'see-dices-mobile' ? 'see-dices' : props.type === 'clean-state' || props.type === 'clean-state-mobile' ? 'clean-state' : props.type === 'red-dices' || props.type === 'red-dices-mobile' ? 'red-dices' : props.type === 'green-dices' || props.type === 'green-dices-mobile' ? 'green-dices' : props.type === 'ghost-dices' || props.type === 'ghost-dices-mobile' ? 'ghost-dices' : props.type === 'extra-points' || props.type === 'extra-points-mobile' ? 'extra-points' : props.type === 'damage' || props.type === 'damage-mobile' ? 'damage' : props.type === 'extra-turn' || props.type === 'extra-turn-mobile' ? 'extra-turn' : props.type === 'malediction' || props.type === 'malediction-mobile' ? 'malediction' : ''
-        let actionCost = actionType === 'see-dices' ? seeCost : actionType === 'clean-state' ? cleanCost : actionType === 'red-dices' ? redCost : actionType === 'green-dices' ? greenCost : actionType === 'ghost-dices' ? ghostCost : actionType === 'extra-points' ? extraPointsCost : actionType === 'damage' ? damageCost : actionType === 'extra-turn' ? extraTurnCost : actionType === 'malediction' ? maledictionCost : 0
-        updates['valknut'] = props.valknut - actionCost
+        let actionType = context.props.type === 'see-dices' || context.props.type === 'see-dices-mobile' ? 'see-dices' : context.props.type === 'clean-state' || context.props.type === 'clean-state-mobile' ? 'clean-state' : context.props.type === 'red-dices' || context.props.type === 'red-dices-mobile' ? 'red-dices' : context.props.type === 'green-dices' || context.props.type === 'green-dices-mobile' ? 'green-dices' : context.props.type === 'ghost-dices' || context.props.type === 'ghost-dices-mobile' ? 'ghost-dices' : context.props.type === 'extra-points' || context.props.type === 'extra-points-mobile' ? 'extra-points' : context.props.type === 'damage' || context.props.type === 'damage-mobile' ? 'damage' : context.props.type === 'extra-turn' || context.props.type === 'extra-turn-mobile' ? 'extra-turn' : context.props.type === 'malediction' || context.props.type === 'malediction-mobile' ? 'malediction' : ''
+        let actionCost = actionType === 'see-dices' ? context.state.seeCost : actionType === 'clean-state' ? context.state.cleanCost : actionType === 'red-dices' ? context.state.redCost : actionType === 'green-dices' ? context.state.greenCost : actionType === 'ghost-dices' ? context.state.ghostCost : actionType === 'extra-points' ? context.state.extraPointsCost : actionType === 'damage' ? context.state.damageCost : actionType === 'extra-turn' ? context.state.extraTurnCost : actionType === 'malediction' ? context.state.maledictionCost : 0
+        actionCost = actionCost * context.state.count
+        updates['valknut'] = context.props.valknut - actionCost
         let stoppedAction = false
         if (actionType === 'extra-points'){
-            let totalRunes = props.runes + 1
+            let totalRunes = context.props.runes + context.state.count
             updates['runes'] = totalRunes
         }
         if (actionType === 'ghost-dices') {
@@ -107,7 +132,7 @@ export default function GameAction(props) {
         if (actionType === 'malediction'){
             let currentTurn = fire.database().ref("Room/Game/Stats/turn")
             currentTurn.once("value", function(data) {
-                if(data.val() === props.currentPlayer) {
+                if(data.val() === context.props.currentPlayer) {
                     delete updates.valknut
                     alert('Es el teu torn... 🧨🥴💣')
                     stoppedAction = true
@@ -123,7 +148,7 @@ export default function GameAction(props) {
             let livesVal
             let currentTurn = fire.database().ref("Room/Game/Stats/turn")
             currentTurn.once("value", function(data) {
-                if(data.val() === props.currentPlayer) {
+                if(data.val() === context.props.currentPlayer) {
                     delete updates.valknut
                     alert('Es el teu torn... 🧨🥴💣')
                     stoppedAction = true
@@ -134,7 +159,7 @@ export default function GameAction(props) {
                     currentLives.once("value", function(snap) {
                         livesVal = snap.val();
                         let updatesAction = {}
-                        let presentLives = livesVal - 1
+                        let presentLives = livesVal - context.state.count
                         updatesAction['lives'] = presentLives
                         userVal.update(updatesAction)
                         if (presentLives <= 0) {
@@ -158,8 +183,8 @@ export default function GameAction(props) {
             let key = refAction.push().key
             let updatesActions = {}
             updatesActions[key] = {
-                message: actionType,
-                user: cookies.get('userName')
+                message: actionType + (context.state.count > 1 ? ' x' + context.state.count : ''),
+                user: context.state.cookies.get('userName')
             }
             refAction.update(updatesActions)
             setTimeout(function(){  
@@ -167,218 +192,282 @@ export default function GameAction(props) {
             }, 3000);
             ref.update(updates)
         }
+        //SET STATE COUNT TO 1
+        context.setState((state) => {
+            return {
+                count: 1
+            }
+        })
     }
-
-    return (
-        <React.Fragment>
-            {props.type === 'extra-points' && 
-            <div className={(props.valknut >= extraPointsCost)
-                ? "c-action" : "c-action--disabled"} onClick={(props.valknut >= extraPointsCost) ? useAction : () => {}}>
-                <div className="c-action__cost">
-                <span>{extraPointsCost}</span>
-                </div>
-                <div className="c-action__info">
-                    <span>{props.i18n('gameAction.extraPoints')}</span>
-                </div>
-            </div>
-            }
-            {props.type === 'extra-points-mobile' && 
-            <div className={(props.valknut >= extraPointsCost)
-                ? "c-action-mobile" : "c-action-mobile--disabled"} onClick={(props.valknut >= extraPointsCost) ? useAction : () => {}}>
-                <div className="c-action__cost">
-                    <span>{extraPointsCost}</span>
-                </div>
-                <div className="c-action__info">
-                    <span>🤫</span>
-                    <div className="c-action__info--icon">
-                        <Rune />
-                    </div>
-                </div>
-            </div>
-            }
-            {props.type === 'damage' && 
-                <div className={(props.valknut >= damageCost) ? "c-action" : "c-action--disabled"} 
-                onClick={(props.valknut >= damageCost) ? useAction : () => {}}>
+    render () {
+        return (
+            <React.Fragment>
+                {this.props.type === 'extra-points' && 
+                <div className={(this.props.valknut >= this.state.extraPointsCost * this.state.count)
+                    ? "c-action" : "c-action--disabled"}>
                     <div className="c-action__cost">
-                    <span>{damageCost}</span>
+                    <span>{this.state.extraPointsCost * this.state.count}</span>
                     </div>
-                    <div className="c-action__info">
-                        <span>{props.i18n('gameAction.damage')}</span>
+                    <div className="c-action__info" onClick={(this.props.valknut >= this.state.extraPointsCost * this.state.count) ? () => this.useAction(this) : () => {}}>
+                        <span>{this.props.i18n('gameAction.extraPoints')}</span>
                     </div>
-                </div>
-            }
-            {props.type === 'damage-mobile' && 
-                <div className={(props.valknut >= damageCost) ? "c-action-mobile" : "c-action-mobile--disabled"} 
-                onClick={(props.valknut >= damageCost) ? useAction : () => {}}>
-                    <div className="c-action__cost">
-                    <span>{damageCost}</span>
-                    </div>
-                    <div className="c-action__info">
-                        <span>🥊</span>
-                        <div className="c-action__info--icon">
-                            <Damage />
+                    <div className='counter__container'>
+                        <div className='counter__button' onClick={this.decrement}>
+                            <p className="counter__button--value">-</p>
+                        </div>
+                        <div className="counter__screen">
+                            <p className="counter__value">{this.state.count}</p>
+                        </div>
+                        <div className='counter__button' onClick={this.increment}>
+                            <p className="counter__button--value">+</p>
                         </div>
                     </div>
                 </div>
-            }
-            {props.type === 'extra-turn' && 
-                <div id="extra-turn" className={(props.valknut >= extraTurnCost && props.turn) ? "c-action" : "c-action--disabled"}
-                onClick={(props.valknut >= extraTurnCost && props.turn) ? useAction : () => {}}>
+                }
+                {this.props.type === 'extra-points-mobile' && 
+                <div className={(this.props.valknut >= this.state.extraPointsCost)
+                    ? "c-action-mobile" : "c-action-mobile--disabled"} onClick={(this.props.valknut >= this.state.extraPointsCost) ? () => this.useAction(this) : () => {}}>
                     <div className="c-action__cost">
-                    <span>{extraTurnCost}</span>
+                        <span>{this.state.extraPointsCost}</span>
                     </div>
                     <div className="c-action__info">
-                        <span>{props.i18n('gameAction.extraTurn')}</span>
-                    </div>
-                </div>
-            }
-            {props.type === 'extra-turn-mobile' && 
-                <div id="extra-turn-mobile" className={(props.valknut >= extraTurnCost && props.turn) ? "c-action-mobile" : "c-action-mobile--disabled"}
-                onClick={(props.valknut >= extraTurnCost && props.turn) ? useAction : () => {}}>
-                    <div className="c-action__cost">
-                    <span>{extraTurnCost}</span>
-                    </div>
-                    <div className="c-action__info">
-                        <span>🔄⏳</span>
-                    </div>
-                </div>
-            }
-            {props.type === 'ghost-dices' && 
-                <div id="ghost-dices" className={(props.valknut >= ghostCost) ? "c-action" : "c-action--disabled"}
-                onClick={(props.valknut >= ghostCost) ? useAction : () => {}}>
-                    <div className="c-action__cost">
-                    <span>{ghostCost}</span>
-                    </div>
-                    <div className="c-action__info">
-                        <span>{props.i18n('gameAction.ghostDices')}</span>
-                    </div>
-                </div>
-            }
-            {props.type === 'ghost-dices-mobile' && 
-                <div id="ghost-dices-mobile" className={(props.valknut >= ghostCost) ? "c-action-mobile" : "c-action-mobile--disabled"}
-                onClick={(props.valknut >= ghostCost) ? useAction : () => {}}>
-                    <div className="c-action__cost">
-                    <span>{ghostCost}</span>
-                    </div>
-                    <div className="c-action__info">
-                        <span>👻⏹️</span>
-                    </div>
-                </div>
-            }
-            {props.type === 'green-dices' && 
-                <div id="green-dices" className={(props.valknut >= greenCost) ? "c-action" : "c-action--disabled"}
-                onClick={(props.valknut >= greenCost) ? useAction : () => {}}>
-                    <div className="c-action__cost">
-                    <span>{greenCost}</span>
-                    </div>
-                    <div className="c-action__info">
-                        <span>{props.i18n('gameAction.greenDices')}</span>
-                    </div>
-                </div>
-            }
-            {props.type === 'green-dices-mobile' && 
-                <div id="green-dices-mobile" className={(props.valknut >= greenCost) ? "c-action-mobile" : "c-action-mobile--disabled"}
-                onClick={(props.valknut >= greenCost) ? useAction : () => {}}>
-                    <div className="c-action__cost">
-                    <span>{greenCost}</span>
-                    </div>
-                    <div className="c-action__info">
-                        <span>🟩⏹️</span>
-                    </div>
-                </div>
-            }
-            {props.type === 'red-dices' && 
-                <div id="red-dices" className={(props.valknut >= redCost) ? "c-action" : "c-action--disabled"}
-                onClick={(props.valknut >= redCost) ? useAction : () => {}}>
-                    <div className="c-action__cost">
-                    <span>{redCost}</span>
-                    </div>
-                    <div className="c-action__info">
-                        <span>{props.i18n('gameAction.redDices')}</span>
-                    </div>
-                </div>
-            }
-            {props.type === 'red-dices-mobile' && 
-                <div id="red-dices-mobile" className={(props.valknut >= redCost) ? "c-action-mobile" : "c-action-mobile--disabled"}
-                onClick={(props.valknut >= redCost) ? useAction : () => {}}>
-                    <div className="c-action__cost">
-                    <span>{redCost}</span>
-                    </div>
-                    <div className="c-action__info">
-                        <span>🟥⏹️</span>
-                    </div>
-                </div>
-            }
-            {props.type === 'malediction' && 
-                <div id="malediction" className={(props.valknut >= maledictionCost) ? "c-action" : "c-action--disabled"}
-                onClick={(props.valknut >= maledictionCost) ? useAction : () => {}}>
-                    <div className="c-action__cost">
-                    <span>{maledictionCost}</span>
-                    </div>
-                    <div className="c-action__info">
-                        <span>{props.i18n('gameAction.malediction')}</span>
-                    </div>
-                </div>
-            }
-            {props.type === 'malediction-mobile' && 
-                <div id="malediction-mobile" className={(props.valknut >= maledictionCost) ? "c-action-mobile" : "c-action-mobile--disabled"}
-                onClick={(props.valknut >= maledictionCost) ? useAction : () => {}}>
-                    <div className="c-action__cost">
-                    <span>{maledictionCost}</span>
-                    </div>
-                    <div className="c-action__info">
-                        <span>🥊</span>
+                        <span>🤫</span>
                         <div className="c-action__info--icon">
-                            <Malediction />
+                            <Rune />
                         </div>
                     </div>
                 </div>
-            }
-            {props.type === 'clean-state' && 
-                <div id="clean-state" className={(props.valknut >= cleanCost) ? "c-action" : "c-action--disabled"}
-                onClick={(props.valknut >= cleanCost) ? useAction : () => {}}>
-                    <div className="c-action__cost">
-                    <span>{cleanCost}</span>
+                }
+                {this.props.type === 'damage' && 
+                    <div className={(this.props.valknut >= this.state.damageCost * this.state.count) ? "c-action" : "c-action--disabled"}>
+                        <div className="c-action__cost">
+                        <span>{this.state.damageCost * this.state.count}</span>
+                        </div>
+                        <div className="c-action__info" onClick={(this.props.valknut >= this.state.damageCost * this.state.count) ? () => this.useAction(this) : () => {}}>
+                            <span>{this.props.i18n('gameAction.damage')}</span>
+                        </div>
+                        <div className='counter__container'>
+                            <div className='counter__button' onClick={this.decrement}>
+                                <p className="counter__button--value">-</p>
+                            </div>
+                            <div className="counter__screen">
+                                <p className="counter__value">{this.state.count}</p>
+                            </div>
+                            <div className='counter__button' onClick={this.increment}>
+                                <p className="counter__button--value">+</p>
+                            </div>
+                        </div>
                     </div>
-                    <div className="c-action__info">
-                        <span>{props.i18n('gameAction.cleanState')}</span>
+                }
+                {this.props.type === 'damage-mobile' && 
+                    <div className={(this.props.valknut >= this.state.damageCost) ? "c-action-mobile" : "c-action-mobile--disabled"} 
+                    onClick={(this.props.valknut >= this.state.damageCost) ? () => this.useAction(this) : () => {}}>
+                        <div className="c-action__cost">
+                        <span>{this.state.damageCost}</span>
+                        </div>
+                        <div className="c-action__info">
+                            <span>🥊</span>
+                            <div className="c-action__info--icon">
+                                <Damage />
+                            </div>
+                        </div>
                     </div>
-                </div>
-            }
-            {props.type === 'clean-state-mobile' && 
-                <div id="clean-state-mobile" className={(props.valknut >= cleanCost) ? "c-action-mobile" : "c-action-mobile--disabled"}
-                onClick={(props.valknut >= cleanCost) ? useAction : () => {}}>
-                    <div className="c-action__cost">
-                    <span>{cleanCost}</span>
+                }
+                {this.props.type === 'extra-turn' && 
+                    <div id="extra-turn" className={(this.props.valknut >= this.state.extraTurnCost && this.props.turn) ? "c-action" : "c-action--disabled"}
+                    onClick={(this.props.valknut >= this.state.extraTurnCost && this.props.turn) ? () => this.useAction(this) : () => {}}>
+                        <div className="c-action__cost">
+                        <span>{this.state.extraTurnCost}</span>
+                        </div>
+                        <div className="c-action__info">
+                            <span>{this.props.i18n('gameAction.extraTurn')}</span>
+                        </div>
                     </div>
-                    <div className="c-action__info">
-                        <span>🧽✨</span>
+                }
+                {this.props.type === 'extra-turn-mobile' && 
+                    <div id="extra-turn-mobile" className={(this.props.valknut >= this.state.extraTurnCost && this.props.turn) ? "c-action-mobile" : "c-action-mobile--disabled"}
+                    onClick={(this.props.valknut >= this.state.extraTurnCost && this.props.turn) ? () => this.useAction(this) : () => {}}>
+                        <div className="c-action__cost">
+                        <span>{this.state.extraTurnCost}</span>
+                        </div>
+                        <div className="c-action__info">
+                            <span>🔄⏳</span>
+                        </div>
                     </div>
-                </div>
-            }
-            {props.type === 'see-dices' && 
-                <div id="see-dices" className={(props.valknut >= seeCost) ? "c-action" : "c-action--disabled"}
-                onClick={(props.valknut >= seeCost) ? useAction : () => {}}>
-                    <div className="c-action__cost">
-                    <span>{seeCost}</span>
+                }
+                {this.props.type === 'ghost-dices' && 
+                    <div id="ghost-dices" className={(this.props.valknut >= this.state.ghostCost) ? "c-action" : "c-action--disabled"}
+                    onClick={(this.props.valknut >= this.state.ghostCost) ? () => this.useAction(this) : () => {}}>
+                        <div className="c-action__cost">
+                        <span>{this.state.ghostCost}</span>
+                        </div>
+                        <div className="c-action__info">
+                            <span>{this.props.i18n('gameAction.ghostDices')}</span>
+                        </div>
+                        <div className="c-action__book-wrap">
+                            <div className="c-action__book-icon">
+                                <Book />
+                            </div>
+                            <span>3</span>
+                        </div>
                     </div>
-                    <div className="c-action__info">
-                        <span>{props.i18n('gameAction.seeDices')}</span>
+                }
+                {this.props.type === 'ghost-dices-mobile' && 
+                    <div id="ghost-dices-mobile" className={(this.props.valknut >= this.state.ghostCost) ? "c-action-mobile" : "c-action-mobile--disabled"}
+                    onClick={(this.props.valknut >= this.state.ghostCost) ? () => this.useAction(this) : () => {}}>
+                        <div className="c-action__cost">
+                        <span>{this.state.ghostCost}</span>
+                        </div>
+                        <div className="c-action__info">
+                            <span>👻⏹️</span>
+                        </div>
                     </div>
-                </div>
-            }
-            {props.type === 'see-dices-mobile' && 
-                <div id="see-dices-mobile" className={(props.valknut >= seeCost) ? "c-action-mobile" : "c-action-mobile--disabled"}
-                onClick={(props.valknut >= seeCost) ? useAction : () => {}}>
-                    <div className="c-action__cost">
-                    <span>{seeCost}</span>
+                }
+                {this.props.type === 'green-dices' && 
+                    <div id="green-dices" className={(this.props.valknut >= this.state.greenCost) ? "c-action" : "c-action--disabled"}
+                    onClick={(this.props.valknut >= this.state.greenCost) ? () => this.useAction(this) : () => {}}>
+                        <div className="c-action__cost">
+                        <span>{this.state.greenCost}</span>
+                        </div>
+                        <div className="c-action__info">
+                            <span>{this.props.i18n('gameAction.greenDices')}</span>
+                        </div>
+                        <div className="c-action__book-wrap">
+                            <div className="c-action__book-icon">
+                                <Book />
+                            </div>
+                            <span>1</span>
+                        </div>
                     </div>
-                    <div className="c-action__info">
-                        <span>👁️⏹️</span>
+                }
+                {this.props.type === 'green-dices-mobile' && 
+                    <div id="green-dices-mobile" className={(this.props.valknut >= this.state.greenCost) ? "c-action-mobile" : "c-action-mobile--disabled"}
+                    onClick={(this.props.valknut >= this.state.greenCost) ? () => this.useAction(this) : () => {}}>
+                        <div className="c-action__cost">
+                        <span>{this.state.greenCost}</span>
+                        </div>
+                        <div className="c-action__info">
+                            <span>🟩⏹️</span>
+                        </div>
                     </div>
-                </div>
-            }
-            {/* ⏳🔄    🎖️🏅➕🤫🎣🧎🏻‍♂️    🥊🧨🪤🏴‍☠️  👻🟥🔲*/}
-        </React.Fragment>
-    );
+                }
+                {this.props.type === 'red-dices' && 
+                    <div id="red-dices" className={(this.props.valknut >= this.state.redCost) ? "c-action" : "c-action--disabled"}
+                    onClick={(this.props.valknut >= this.state.redCost) ? () => this.useAction(this) : () => {}}>
+                        <div className="c-action__cost">
+                        <span>{this.state.redCost}</span>
+                        </div>
+                        <div className="c-action__info">
+                            <span>{this.props.i18n('gameAction.redDices')}</span>
+                        </div>
+                        <div className="c-action__book-wrap">
+                            <div className="c-action__book-icon">
+                                <Book />
+                            </div>
+                            <span>2</span>
+                        </div>
+                    </div>
+                }
+                {this.props.type === 'red-dices-mobile' && 
+                    <div id="red-dices-mobile" className={(this.props.valknut >= this.state.redCost) ? "c-action-mobile" : "c-action-mobile--disabled"}
+                    onClick={(this.props.valknut >= this.state.redCost) ? () => this.useAction(this) : () => {}}>
+                        <div className="c-action__cost">
+                        <span>{this.state.redCost}</span>
+                        </div>
+                        <div className="c-action__info">
+                            <span>🟥⏹️</span>
+                        </div>
+                    </div>
+                }
+                {this.props.type === 'malediction' && 
+                    <div id="malediction" className={(this.props.valknut >= this.state.maledictionCost) ? "c-action" : "c-action--disabled"}
+                    onClick={(this.props.valknut >= this.state.maledictionCost) ? () => this.useAction(this) : () => {}}>
+                        <div className="c-action__cost">
+                        <span>{this.state.maledictionCost}</span>
+                        </div>
+                        <div className="c-action__info">
+                            <span>{this.props.i18n('gameAction.malediction')}</span>
+                        </div>
+                        <div className="c-action__book-wrap">
+                            <div className="c-action__book-icon">
+                                <Book />
+                            </div>
+                            <span>2</span>
+                        </div>
+                    </div>
+                }
+                {this.props.type === 'malediction-mobile' && 
+                    <div id="malediction-mobile" className={(this.props.valknut >= this.state.maledictionCost) ? "c-action-mobile" : "c-action-mobile--disabled"}
+                    onClick={(this.props.valknut >= this.state.maledictionCost) ? () => this.useAction(this) : () => {}}>
+                        <div className="c-action__cost">
+                        <span>{this.state.maledictionCost}</span>
+                        </div>
+                        <div className="c-action__info">
+                            <span>🥊</span>
+                            <div className="c-action__info--icon">
+                                <Malediction />
+                            </div>
+                        </div>
+                    </div>
+                }
+                {this.props.type === 'clean-state' && 
+                    <div id="clean-state" className={(this.props.valknut >= this.state.cleanCost) ? "c-action" : "c-action--disabled"}
+                    onClick={(this.props.valknut >= this.state.cleanCost) ? () => this.useAction(this) : () => {}}>
+                        <div className="c-action__cost">
+                        <span>{this.state.cleanCost}</span>
+                        </div>
+                        <div className="c-action__info">
+                            <span>{this.props.i18n('gameAction.cleanState')}</span>
+                        </div>
+                        <div className="c-action__book-wrap">
+                            <div className="c-action__book-icon">
+                                <Book />
+                            </div>
+                            <span>1</span>
+                        </div>
+                    </div>
+                }
+                {this.props.type === 'clean-state-mobile' && 
+                    <div id="clean-state-mobile" className={(this.props.valknut >= this.state.cleanCost) ? "c-action-mobile" : "c-action-mobile--disabled"}
+                    onClick={(this.props.valknut >= this.state.cleanCost) ? () => this.useAction(this) : () => {}}>
+                        <div className="c-action__cost">
+                        <span>{this.state.cleanCost}</span>
+                        </div>
+                        <div className="c-action__info">
+                            <span>🧽✨</span>
+                        </div>
+                    </div>
+                }
+                {this.props.type === 'see-dices' && 
+                    <div id="see-dices" className={(this.props.valknut >= this.state.seeCost) ? "c-action" : "c-action--disabled"}
+                    onClick={(this.props.valknut >= this.state.seeCost) ? () => this.useAction(this) : () => {}}>
+                        <div className="c-action__cost">
+                        <span>{this.state.seeCost}</span>
+                        </div>
+                        <div className="c-action__info">
+                            <span>{this.props.i18n('gameAction.seeDices')}</span>
+                        </div>
+                        <div className="c-action__book-wrap">
+                            <div className="c-action__book-icon">
+                                <Book />
+                            </div>
+                            <span>3</span>
+                        </div>
+                    </div>
+                }
+                {this.props.type === 'see-dices-mobile' && 
+                    <div id="see-dices-mobile" className={(this.props.valknut >= this.state.seeCost) ? "c-action-mobile" : "c-action-mobile--disabled"}
+                    onClick={(this.props.valknut >= this.state.seeCost) ? () => this.useAction(this) : () => {}}>
+                        <div className="c-action__cost">
+                        <span>{this.state.seeCost}</span>
+                        </div>
+                        <div className="c-action__info">
+                            <span>👁️⏹️</span>
+                        </div>
+                    </div>
+                }
+                {/* ⏳🔄    🎖️🏅➕🤫🎣🧎🏻‍♂️    🥊🧨🪤🏴‍☠️  👻🟥🔲*/}
+            </React.Fragment>
+        );
+    }
 }

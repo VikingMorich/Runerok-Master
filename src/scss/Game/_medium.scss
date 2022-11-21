@@ -27,7 +27,7 @@
         width: 350px;
         margin-top: 0px;
         z-index: 5;
-        overflow-y: scroll;
+        overflow-y: auto;
         border-top: none;
         &--container{
             display: flex;
@@ -35,7 +35,6 @@
             align-items: center;
             margin-top: 15px;
             margin-bottom: 0px;
-            height: auto;
             padding-bottom: 0;
         }
         &--title {
@@ -47,12 +46,12 @@
             border: none;
         }
         &--value{
-            width: 40%;
+            width: 124px;
             right: 30%;
             height: 65px;
-            position: sticky;
-            left: 30%;
-            right: 0;
+            position: fixed;
+            right: 113px;
+            bottom: 0;
             span{
                 font-size: 36px;
             }
