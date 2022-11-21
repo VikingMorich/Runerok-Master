@@ -136,7 +136,7 @@
     },
     "gameAction": {
         "extraPoints": "Afegeix una runa al total de runes segures",
-        "damage": "Fes un punt de mal a la persona que tingui el torn",
+        "damage": "Baixa 1 vida a la persona que tingui el torn",
         "extraTurn": "Guanya un torn extra (només en el teu torn)",
         "ghostDices": "Desmarca els daus seleccionats",
         "greenDices": "Converteix els daus seleccionats en verds",

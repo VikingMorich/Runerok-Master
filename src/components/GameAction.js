@@ -6,14 +6,14 @@ import { Damage, Rune, Malediction } from './icon/icon';
 
 export default function GameAction(props) {
     let cookies = new Cookies();
-    const extraPointsCost = 2
-    const damageCost = 3
+    const extraPointsCost = 3
+    const damageCost = 4
     const ghostCost = 5
-    const greenCost = 3
-    const redCost = 3
+    const greenCost = 4
+    const redCost = 4
     const maledictionCost = 3
-    const cleanCost = 3
-    const seeCost = 3
+    const cleanCost = 2
+    const seeCost = 2
     const extraTurnCost = 10
 
     function useAction() {

@@ -81,7 +81,8 @@
             justify-content: space-evenly;
             margin-top: 13px;
             width: 100%;
-            height: calc(20vh - 19px);
+            padding-bottom: 30px;
+            flex-wrap: wrap;
         }
         &--value{
             background-color: c('dark-medium-blue');

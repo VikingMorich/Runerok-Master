@@ -1,3 +1,8 @@
+.info-wrapper{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
 .c-gamePlayer{
     background-color: c('gold');
     position: relative;
@@ -37,6 +42,7 @@
             display: flex;
             justify-content: center;
             bottom: -10px;
+            left: 5px;
             .state-icon{
                 width: 30px;
                 height: 30px;
@@ -46,7 +52,7 @@
     &__name{
         font-size: 22px;
         position: absolute;
-        left: 85px;
+        left: 69px;
     }
     &__info{
         display: flex;
@@ -54,6 +60,8 @@
         width: 100%;
         justify-content: space-around;
         align-items: center;
+        height: 30px;
+        margin-top: 5px;
     }
     &__stats{
         display: flex;

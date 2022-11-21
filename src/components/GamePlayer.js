@@ -21,26 +21,28 @@ export default function GamePlayer(props) {
                     </div>}
                 </div>
             </div>
-            <div className="c-gamePlayer__info">
-                <span className="c-gamePlayer__name">{props.gamePlayerData.userName}</span>
-                <div className="c-gamePlayer__stats">
-                    <div className="c-gamePlayer__icon">
-                        <div className="c-gamePlayer__icon--img">
-                            <Rune />
+            <div className="info-wrapper">
+                <div className="c-gamePlayer__info">
+                    <span className="c-gamePlayer__name">{props.gamePlayerData.userName}</span>
+                    <div className="c-gamePlayer__stats">
+                        <div className="c-gamePlayer__icon">
+                            <div className="c-gamePlayer__icon--img">
+                                <Rune />
+                            </div>
+                            <span>{props.gamePlayerData.runes}</span>
                         </div>
-                        <span>{props.gamePlayerData.runes}</span>
-                    </div>
-                    <div className="c-gamePlayer__icon">
-                        <div className="c-gamePlayer__icon--img">
-                            <Heart></Heart>
+                        <div className="c-gamePlayer__icon">
+                            <div className="c-gamePlayer__icon--img">
+                                <Heart></Heart>
+                            </div>
+                            <span>{props.gamePlayerData.lives}</span>
                         </div>
-                        <span>{props.gamePlayerData.lives}</span>
-                    </div>
-                    <div className="c-gamePlayer__icon">
-                        <div className="c-gamePlayer__icon--img">
-                            <Valknut></Valknut>
+                        <div className="c-gamePlayer__icon">
+                            <div className="c-gamePlayer__icon--img">
+                                <Valknut></Valknut>
+                            </div>
+                            <span>{props.gamePlayerData.valknut}</span>
                         </div>
-                        <span>{props.gamePlayerData.valknut}</span>
                     </div>
                 </div>
                 {props.gamePlayerData.gameMode === 'hardcore' && <div className='c-gamePlayer__ext'>

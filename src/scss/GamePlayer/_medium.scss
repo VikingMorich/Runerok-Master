@@ -1,6 +1,6 @@
 .c-gamePlayer{
     margin-bottom: 20px;
-    padding: 15px 0;
+    padding: 4px 0;
     .c-gamePlayer__stats{
         background-color: transparent;
     }
@@ -15,6 +15,9 @@
             margin: 0 20px;
             height: 60px;
             width: 60px;
+        }
+        .c-gamePlayer__state-wrapper{
+            left: 0px;
         }
     }
     &__name{
@@ -38,6 +41,7 @@
         display: flex;
         flex-direction: column;
         width: 100%;
+        height: auto;
         justify-content: space-around;
         align-items: flex-start;
     }

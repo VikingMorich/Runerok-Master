@@ -5,13 +5,13 @@ import Cookies from 'universal-cookie';
 let cookies = new Cookies();
   
 const diceTypes = {
-    "green": ["rune", "rune", "valknut", "valknut", "ship", "damage"],
+    "green": ["rune", "rune", "rune", "valknut", "valknut", "damage"],
     "yellow": ["rune", "rune", "ship", "valknut", "damage", "damage"],
     "red": ["rune", "valknut", "ship", "damage", "damage", "damage"],
     "blue": ['shield', 'helmet', 'damage', 'ship', 'valknut', 'ship'],
     "purple": ['valknut', 'ham', 'beer', 'damage', 'ham', 'critical'],
-    "olive": ['thunder', 'thunder', 'thunder', 'mushroom', 'mushroom', 'mushroom'],
-    "black": ['dragon', 'critical', 'damage', 'ship', 'ship', 'ship'],
+    "olive": ['thunder', 'thunder', 'book', 'rune', 'mushroom', 'mushroom'],
+    "black": ['dragon', 'critical', 'critical', 'damage', 'ship', 'ship'],
     /**
     * Helmet = +1 armor helm
     * Shield = +1 armor shield
