@@ -10,7 +10,7 @@ const diceTypes = {
     "red": ["rune", "valknut", "ship", "damage", "damage", "damage"],
     "blue": ['shield', 'helmet', 'damage', 'ship', 'valknut', 'ship'],
     "purple": ['valknut', 'ham', 'beer', 'damage', 'ham', 'critical'],
-    "olive": ['thunder', 'thunder', 'book', 'rune', 'mushroom', 'mushroom'],
+    "olive": ['thunder', 'thunder', 'book', 'book', 'mushroom', 'mushroom'],
     "black": ['dragon', 'critical', 'critical', 'damage', 'ship', 'ship'],
     /**
     * Helmet = +1 armor helm
@@ -32,12 +32,12 @@ const diceNumberStandart = {
 }
 
 const diceNumberHardcore = {
-    "green": 16,
+    "green": 15,
     "yellow": 9,
     "red": 6,
     "blue": 5,
     "purple": 5,
-    "olive": 3,
+    "olive": 4,
     "black": 1,
     // "green": 9,
     // "yellow": 7,

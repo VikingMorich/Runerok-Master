@@ -10,6 +10,9 @@
         border-bottom: none;
         &--players{
             margin-top: 10px;
+            .c-roomPlayer__container:last-child {
+                padding-bottom: 70px;
+            }
         }
     }
     &__other-mobile-buttons{
@@ -73,6 +76,8 @@
     }
     &__exit{
         display: block;
+        position: fixed;
+        z-index: 10;
     }
     &__selectedDices{
         width: 280px;

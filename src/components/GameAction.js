@@ -319,7 +319,7 @@ export default class GameAction extends React.Component {
                         <span>{this.state.ghostCost}</span>
                         </div>
                         <div className="c-action__info">
-                            <span>👻⏹️</span>
+                            <span>👻🎲</span>
                         </div>
                     </div>
                 }
@@ -347,7 +347,7 @@ export default class GameAction extends React.Component {
                         <span>{this.state.greenCost}</span>
                         </div>
                         <div className="c-action__info">
-                            <span>🟩⏹️</span>
+                            <span>🟩🎲</span>
                         </div>
                     </div>
                 }
@@ -375,7 +375,7 @@ export default class GameAction extends React.Component {
                         <span>{this.state.redCost}</span>
                         </div>
                         <div className="c-action__info">
-                            <span>🟥⏹️</span>
+                            <span>🟥🎲</span>
                         </div>
                     </div>
                 }
@@ -462,7 +462,7 @@ export default class GameAction extends React.Component {
                         <span>{this.state.seeCost}</span>
                         </div>
                         <div className="c-action__info">
-                            <span>👁️⏹️</span>
+                            <span>👁️🎲</span>
                         </div>
                     </div>
                 }

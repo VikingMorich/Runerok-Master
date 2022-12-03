@@ -216,28 +216,6 @@ export default function Modal(props) {
                                     </div>
                                 </div>
                                 <div className="c-slider__text">
-                                    <div className="wrap wrap-extra-bottom">
-                                        <div className="cube">
-                                            <div className="front background-purple">
-                                                <Horn />
-                                            </div>
-                                            <div className="back background-purple">
-                                                <Ham />
-                                            </div>
-                                            <div className="top background-purple">
-                                                <Beer />
-                                            </div>
-                                            <div className="bottom background-purple">
-                                                <Damage />
-                                            </div>
-                                            <div className="left background-purple">
-                                                <Critical />
-                                            </div>
-                                            <div className="right background-purple">
-                                                <Critical />
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div className="c-slider__text--span">
                                         <div className="c-modal__instructions--icon">
                                             <Beer />
@@ -264,20 +242,32 @@ export default function Modal(props) {
                                             <Thunder />
                                         </div>
                                         <p>{t('instructions-ok.colon')}
-                                        *whatever</p>
+                                        {t('instructions-ok.p23')}</p>
+                                    </div>
+                                    <div className="c-slider__text--span">
+                                        <div className="c-modal__instructions--icon">
+                                            <Mushroom />
+                                        </div>
+                                        <p>{t('instructions-ok.colon')}
+                                        {t('instructions-ok.p24')}</p>
+                                    </div>
+                                    <div className="c-slider__text--span">
+                                        <div className="c-modal__instructions--icon">
+                                            <Book />
+                                        </div>
+                                        <p>{t('instructions-ok.colon')}
+                                        {t('instructions-ok.p25')}</p>
+                                    </div>
+                                    <div className="c-slider__text--span">
+                                        <div className="c-modal__instructions--icon">
+                                            <Dragon />
+                                        </div>
+                                        <p>{t('instructions-ok.colon')}
+                                        {t('instructions-ok.p26')}</p>
                                     </div>
                                     <div className="c-slider__text--span">
                                         <div className="c-modal__instructions--icon">
                                             <Raven />
-                                        </div>
-                                        <div className="c-modal__instructions--icon">
-                                            <Book />
-                                        </div>
-                                        <div className="c-modal__instructions--icon">
-                                            <Dragon />
-                                        </div>
-                                        <div className="c-modal__instructions--icon">
-                                            <Mushroom />
                                         </div>
                                         <div className="c-modal__instructions--icon">
                                             <Horn />

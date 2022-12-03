@@ -1,17 +1,14 @@
 .c-room{
     padding: 0 40px;
     &--top{
-        height: 100%;
         margin-top: 10px;
     }
     &--game{
-        height: 55%;
         min-height: 290px;
     }
     &--players{
         margin-bottom: 20px;
-        height: 60%;
-        min-height: 180px;
+        min-height: 250px;
         flex-direction: row;
         justify-content: space-between;
         flex-wrap: wrap;

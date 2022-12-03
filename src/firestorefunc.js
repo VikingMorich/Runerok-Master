@@ -69,10 +69,10 @@ export function initFirebase(i18n) {
                     })
                 })
             }
-            if (snap.key === 'partialRunes') {
+            if (snap.key === 'partialRunes' && document.getElementById('partial-runes')) {
                 document.getElementById('partial-runes').innerText = snap.val()
             }
-            if (snap.key === 'turn') {
+            if (snap.key === 'turn' && document.getElementById('selected-dices')) {
                 let objSelectedDices = document.getElementById('selected-dices')
                 let diceChilds = [...objSelectedDices.childNodes]
                 diceChilds.forEach(element => {
@@ -178,7 +178,7 @@ export function initFirebase(i18n) {
                  
                 // EVITAR MAL A UN MATEIX AMB DAMAGE
             }
-            if (snap.key === 'selectedDices') {
+            if (snap.key === 'selectedDices' && document.getElementById('in-game-buttons')) {
                 let buttonContainer = document.getElementById('in-game-buttons')
                 buttonContainer.innerHTML=''
                 let gameStatsRef = firebase.database().ref("Room/Game/Stats")
@@ -288,7 +288,7 @@ export function initFirebase(i18n) {
                     })
                 });
             }
-            if (snap.key === 'partialRunes') {
+            if (snap.key === 'partialRunes' && document.getElementById('partial-runes')) {
                 document.getElementById('partial-runes').innerText = snap.val()
             }
             if(snap.key === 'extraTurn') {
@@ -332,7 +332,7 @@ export function initFirebase(i18n) {
                     })
                 })
             }
-            if (snap.key === 'turn') {
+            if (snap.key === 'turn' && document.getElementById('selected-dices')) {
                 let objSelectedDices = document.getElementById('selected-dices')
                 let diceChilds = [...objSelectedDices.children]
                 diceChilds.forEach(element => {
@@ -442,7 +442,7 @@ export function initFirebase(i18n) {
                     })
                 })
             }
-            if (snap.key === 'selectedDices') {
+            if (snap.key === 'selectedDices' && document.getElementById('in-game-buttons')) {
                 let buttonContainer = document.getElementById('in-game-buttons')
                 buttonContainer.innerHTML=''
                 let gameStatsRef = firebase.database().ref("Room/Game/Stats")
