@@ -9,14 +9,15 @@ export default function GoogleBtn (props) {
   const CLIENT_ID = '111265817797-1pv99pti5lt8nps2o51v28ph05ei0od8.apps.googleusercontent.com';
   const [isLogined, setLogined] = useState(cookies.get('login') || false)
   const [t] = useTranslation("global")
+  let timeExpiration = new Date(Date.now() + (1000 * 3600 * 8))
 
   const responseGoogle = (response) => {
     var profile = response.getBasicProfile()
     if (profile) {
-      cookies.set('login', true, { path: '/' });
+      cookies.set('login', true, { path: '/', expires: timeExpiration });
       setLogined(true)
-      window.location.href = '/room'
       addPlayerDB(profile.getName(), profile.getImageUrl())
+      window.location.href = '/room'
     }
     else {
       cookies.remove('login', { path: '/' });
@@ -38,9 +39,9 @@ export default function GoogleBtn (props) {
   function addPlayerDB(name, imageUrl) {
     let ref = fire.database().ref().child('Room').child('Players')
     let key = ref.push().key
-    cookies.set('key', key, { path: '/' });
-    cookies.set('img', imageUrl, { path: '/' });
-    cookies.set('userName', name, { path: '/' });
+    cookies.set('key', key, { path: '/', expires: timeExpiration });
+    cookies.set('img', imageUrl, { path: '/', expires: timeExpiration });
+    cookies.set('userName', name, { path: '/', expires: timeExpiration });
     let updates = {}
     updates[key] = {
       username: name,
@@ -65,11 +66,10 @@ export default function GoogleBtn (props) {
   }
 
   function removePlayerDB(userKey) {
-    
     let ref = fire.database().ref().child('Room').child('Players')
-        let updates = {}
-        updates[userKey] = null
-        ref.update(updates)
+    let updates = {}
+    updates[userKey] = null
+    ref.update(updates)
   }
     return (
     <div>

@@ -1,12 +1,24 @@
-import React from 'react';
+import React, {useState}  from 'react';
 import { useTranslation } from "react-i18next";
 import Chat from './Chat'
 import { Valknut, Rune } from './icon/icon'
 import Button from './Button'
 import { confirmExitGame } from './GameFunctions'
+import Modal from './Modal'
 
 export default function Game() {
     const [t] = useTranslation("global")
+    const [open, setOpen] = useState(false)
+    const [type, setType] = useState('')
+    const toggleModal = () => {
+        setOpen(!open)
+        document.body.style.overflow === "hidden" ? document.body.style.overflow = "auto" : document.body.style.overflow = "hidden"
+    }
+
+    const closeModal = () => {
+        setOpen(false)
+        document.body.style.overflow = "auto"
+    }
 
     return (
         <div className="c-game">
@@ -60,10 +72,14 @@ export default function Game() {
                         <Valknut />
                     </div>
                 </div>
+                <div className='c-game__help' onClick={() => { toggleModal(); setType('help')}}>
+                    <span>?</span>
+                </div>
             </div>
             <div className="c-game__other-mobile-buttons">
                 <Button text={t('game.exit').toUpperCase()} func={() => confirmExitGame(t('game.exitConfirmation'))}/>
             </div>
+            <Modal open={open} toggleModal={() => closeModal()} type={type}/>
         </div>
     );
 }

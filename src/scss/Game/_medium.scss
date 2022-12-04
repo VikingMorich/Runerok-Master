@@ -15,6 +15,9 @@
             }
         }
     }
+    &__help{
+        display: none;
+    }
     &__other-mobile-buttons{
         display: none;
     }
@@ -38,7 +41,7 @@
             align-items: center;
             margin-top: 15px;
             margin-bottom: 0px;
-            padding-bottom: 0;
+            padding-bottom: 30px;
         }
         &--title {
             margin-top: 55px;
@@ -67,6 +70,7 @@
         width: calc(100% - 700px);
         padding: 0 20px;
         margin-top: 0px;
+        padding-bottom: 10px;
         height: auto;
         overflow-y: auto;
         position: relative;
@@ -98,6 +102,12 @@
     &__interface{
         width: 100%;
         margin-bottom: 0px;
+    }
+    &__skull{
+        width: 125px;
+        &--text{
+            font-size: 25px;
+        }
     }
 }
 

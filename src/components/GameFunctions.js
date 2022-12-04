@@ -191,7 +191,8 @@ export const rollDices = () => {
             //DRAGON CASE
             if(arrayValues.indexOf('dragon') >= 0) {
                 countDamage = 99
-                updatePlayerState['valknut'] = 0
+                if(arrayValues.indexOf('beer') >= 0) updatePlayerState['valknut'] = snap.val().valknut + 10
+                else updatePlayerState['valknut'] = 0
             }
             //BEER CASE
             if(arrayValues.indexOf('beer') >= 0) {

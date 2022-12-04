@@ -24,6 +24,12 @@
     &__dices{
         display: flex;
     }
+    &__content-help{
+        .c-modal__help-wrapper{
+            width: auto;
+            justify-content: center;
+        }
+    }
 }
 
 .modal-background-video{
@@ -41,8 +47,12 @@
             margin-block-start: 0.75em !important; 
         }
         &--span{
+            flex-wrap: wrap;
             margin-block-start: 0.5em;
             margin-block-end: 0.5em;
+            p{
+                text-align: center;
+            }
         }
     }
 }

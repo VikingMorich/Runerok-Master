@@ -63,11 +63,9 @@
         "easy": "Fàcil",
         "medium": "Intermitja",
         "hard": "Difícil",
-        "p5": " Guanya 1 runa parcial ",
-        "p5-2": "fins que et plantis",
+        "p5": " Guanya 1 runa parcial fins que et plantis",
         "p6": "Perd 1 vida",
-        "p7": "Manté el dau seleccionat,",
-        "p7-2": "si segueixes jugant has de continuar llençant aquest dau",
+        "p7": "Manté el dau seleccionat, si segueixes jugant has de continuar llençant aquest dau",
         "p8": "Guanya 1 punt Valknut",
         "p9": "Després d'una tirada, si seguim vius haurem d'escollir entre plantar-nos o seguir jugant",
         "p10": "Quan perdem les 3 vides morim i perdem les runes parcials acumulades. Si ens plantem abans, les runes parcials passen a ser segures i s'acumulen pel final del joc.",
@@ -80,18 +78,21 @@
         "p16": "En cas d'empat guanya el primer en haver-los aconseguit",
         "t1": "MODE DE JOC - HARDCORE",
 
+        "p16-2": "Les partides en aquest mode de joc són fins a 17 runes i s'afegeixen els següents simbols a les cares del dau:",
+        
         "p17": "Afegeix una peça de casc a la teva armadura",
         "p18": "Afegeix una peça d'escut a la teva armadura",
         "p18-2": "Quan sigui el torn d'un jugador que disposi d'una peça d'armadura i rebi un punt de mal, el protegirà de perdre una vida. Després d'utilitzar-se, les peces d'armadura queden inutilitzades fins que l'usuari acaba el seu torn. (Només es pot tenir una peça de cada tipus. Actuen com a vida extra)",
         "p20": "Inmunitat a rebre mal durant aquella tirada de daus",
         "p21": "Recupera un punt de vida (màxim 3 vides permeses)",
         "p22": "Perd 2 punts de vida",
+        "p22-2": "Els modificadors d'estat ens afecten fins que acaba el nostre torn i varien els resultats obtinguts a les cares dels daus.",
         "p23": "(Estat) Cada cop que treguis un vaixell guanya tambe un punt valknut",
-        "p24": "(Estat) Runes x2 & mal rebut més 1",
-        "p25": "Puja el teu intelecte i desbloqueja noves accions",
-        "p26": "Et mata i et roba tots els punts valknut",
+        "p24": "(Estat) Guanyes més 1 runa i més 1 mal per cada cara de dau corresponent",
+        "p24-2": "Amb llibres, augmentarem el nostre instelecte i desbloquejarem noves accions (existeixen 3 nivells de llibre)",
+        "p25": "Puja el teu nivell de llibre",
+        "p26": "Et mata i et roba tots els punts valknut. Si treus una cervesa al mateix temps, enlloc de robar-te et dona 10 valknuts",
         "p27": "Roba una runa de les assegurades a cada rival"
-
     },
     "contact-op": {
         "name": "Nom",
@@ -157,5 +158,8 @@
     "payBeer": {
         "title": "Invitam a una deliciosa i refrescant cervesa",
         "headerButton": "Invitam a una birra"
+    },
+    "help": {
+        "title": "Accions mobile"
     }
 }
