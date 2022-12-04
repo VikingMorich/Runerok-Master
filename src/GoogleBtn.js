@@ -3,6 +3,7 @@ import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import { useTranslation } from "react-i18next"
 import Cookies from 'universal-cookie';
 import fire from './fire'
+import firebase from 'firebase'
 
 export default function GoogleBtn (props) {
   let cookies = new Cookies();
@@ -16,10 +17,12 @@ export default function GoogleBtn (props) {
     if (profile) {
       cookies.set('login', true, { path: '/', expires: timeExpiration });
       setLogined(true)
+      removeOldPlayers()
       addPlayerDB(profile.getName(), profile.getImageUrl())
       window.location.href = '/room'
     }
     else {
+      setLogined(false)
       cookies.remove('login', { path: '/' });
     }
   }
@@ -34,6 +37,23 @@ export default function GoogleBtn (props) {
     removePlayerDB(cookies.get('key'))
     cookies.remove('key', { path: '/' });
     window.location.href = '/'
+  }
+
+  function removeOldPlayers() {
+    let timeExp = 1000 * 3600 * 8
+    let ref = firebase.database().ref('Room/Players')
+    ref.once('value', function(snap){
+      Object.keys(snap.val()).forEach(key => {
+        let loginDate = new Date (snap.val()[key].dateLogin).getTime()
+        let now = new Date().getTime()
+        if (loginDate < (now - timeExp)) {
+          let updates = {}
+          updates[key] = null
+          ref.update(updates)
+        }
+      })
+    })
+    
   }
 
   function addPlayerDB(name, imageUrl) {
