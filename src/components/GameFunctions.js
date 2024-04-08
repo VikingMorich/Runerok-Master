@@ -8,7 +8,7 @@ const diceTypes = {
     "green": ["rune", "rune", "rune", "valknut", "valknut", "damage"],
     "yellow": ["rune", "rune", "ship", "valknut", "damage", "damage"],
     "red": ["rune", "valknut", "ship", "damage", "damage", "damage"],
-    "blue": ['shield', 'helmet', 'damage', 'ship', 'valknut', 'ship'],
+    "blue": ['shield', 'helmet', 'damage', 'ship', 'valknut', 'raven'],
     "purple": ['valknut', 'ham', 'beer', 'damage', 'ham', 'critical'],
     "olive": ['thunder', 'thunder', 'book', 'book', 'mushroom', 'mushroom'],
     "black": ['dragon', 'critical', 'critical', 'damage', 'ship', 'ship'],
@@ -170,6 +170,25 @@ export const rollDices = () => {
                         updateGameState['partialRunes'] = gameStateSnap.val().partialRunes + countRunes
                         currentGameState.update(updateGameState)
                     }
+                }
+                if (element === 'raven') {
+                    let refPlayers = fire.database().ref("Room/Players")
+                    refPlayers.once("value", function(playersSnap) {
+                        let arrayPlayers = playersSnap.val()
+                        let stealedRunes = 1
+                        let updateRunes = {}
+                        Object.keys(arrayPlayers).forEach(element => {
+                            let playerState = fire.database().ref("Room/Players/"+element)
+                            if (element !== playerTurn && arrayPlayers[element].runes > 0) {
+                                updateRunes['runes'] = arrayPlayers[element].runes - 1
+                                stealedRunes += 1
+                                playerState.update(updateRunes)
+                            }
+                        })
+                        updateRunes['runes'] = arrayPlayers[playerTurn].runes + stealedRunes
+                        currentPlayerState.update(updateRunes)
+                    })
+                    debugger
                 }
                 if (element === 'ham') {
                     countHam += 1

@@ -36,16 +36,16 @@ export default function Modal(props) {
                                     <h3><u>{t('header.instructions').toUpperCase() + ' - STANDART'}</u></h3>
                                     <p>
                                         {t('instructions-ok.p1')}
-                                        <div className="c-modal__instructions--icon">
+                                        <span className="c-modal__instructions--icon">
                                             <Rune></Rune>
-                                        </div>
+                                        </span>
                                         {t('instructions-ok.p1-2')}
                                     </p>
                                     <p>
                                         {t('instructions-ok.p2')}
-                                        <div className="c-modal__instructions--icon">
+                                        <span className="c-modal__instructions--icon">
                                             <Heart></Heart>
-                                        </div>
+                                        </span>
                                     </p>
                                     <p>{t('instructions-ok.p3')}</p>
                                     <p>{t('instructions-ok.p4')}</p>
@@ -238,7 +238,7 @@ export default function Modal(props) {
                                                 <Helmet />
                                             </div>
                                             <div className="top background-blue">
-                                                <Damage />
+                                                <Raven />
                                             </div>
                                             <div className="bottom background-blue">
                                                 <Damage />
@@ -272,9 +272,13 @@ export default function Modal(props) {
                                         <div className="c-modal__instructions--icon">
                                             <Raven />
                                         </div>
+                                        <p>{t('instructions-ok.colon')} {t('instructions-ok.p19')}</p>
+                                    </div>
+                                    <div className="c-slider__text--span">
                                         <div className="c-modal__instructions--icon">
                                             <Horn />
                                         </div>
+                                        <p>{t('instructions-ok.colon')} {t('instructions-ok.p19_2')}</p>
                                     </div>
                                 </div>
                             </AwesomeSlider>

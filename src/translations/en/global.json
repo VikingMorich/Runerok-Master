@@ -78,7 +78,9 @@
         "p14": "The rest of the players have one last chance to impress the gods by beating the opponent",
         "p15": "At the end of the last round, the winner is the player with most points",
         "p16": "In case of a tie, the winner is who gets all runes first",
-        "t1": "GAME MODE - HARDCORE"
+        "t1": "GAME MODE - HARDCORE",
+        "p19": "Steal one saved rune from your rivals and one more",
+        "p19-2": "-"
     },
     "contact-op": {
         "name": "Name",

@@ -83,6 +83,8 @@
         "p17": "Afegeix una peça de casc a la teva armadura",
         "p18": "Afegeix una peça d'escut a la teva armadura",
         "p18-2": "Quan sigui el torn d'un jugador que disposi d'una peça d'armadura i rebi un punt de mal, el protegirà de perdre una vida. Després d'utilitzar-se, les peces d'armadura queden inutilitzades fins que l'usuari acaba el seu torn. (Només es pot tenir una peça de cada tipus. Actuen com a vida extra)",
+        "p19": "Roba una runa de les assegurades dels teus rivals i una extra",
+        "p19-2": "-",
         "p20": "Inmunitat a rebre mal durant aquella tirada de daus",
         "p21": "Recupera un punt de vida (màxim 3 vides permeses)",
         "p22": "Perd 2 punts de vida",

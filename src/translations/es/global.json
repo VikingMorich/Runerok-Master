@@ -78,7 +78,9 @@
         "p14": "El resto de jugadores tienen una última oportunidad para impresionar a los dioses superando al rival",
         "p15": "Finalitzada la última ronda. Gana quien tiene más puntos",
         "p16": "En caso de empate, gana el primero en haberlos conseguido",
-        "t1": "MODO DE JUEGO - HARDCORE"
+        "t1": "MODO DE JUEGO - HARDCORE",
+        "p19": "Roba una runa de las aseguradas por tus rivales y una extra",
+        "p19-2": "-"
     },
     "contact-op": {
         "name": "Nombre",
